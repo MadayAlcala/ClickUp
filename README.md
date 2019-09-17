@@ -1,0 +1,2 @@
+# ClickUp
+GUI Automation Project
