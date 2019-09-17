@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'AT-10 GUI Automation'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+}
+
+checkstyle {
+    toolVersion = '8.1'
+}
