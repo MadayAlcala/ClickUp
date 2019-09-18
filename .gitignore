@@ -8,6 +8,8 @@
 .idea/
 .gradle/
 build/
+target/
+log/
 
 # BlueJ files
 *.ctxt

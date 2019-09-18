@@ -10,8 +10,16 @@
 
 package core.selenium.webdrivers;
 
+import org.openqa.selenium.WebDriver;
+
 /**
- * WebDriverConfig class.
+ * IBrowser class.
  */
-public class WebDriverConfig {
+public interface IBrowser {
+    /**
+     * Defines a method for retrieving a WebDriver object.
+     *
+     * @return a WebDriver object according to the browser to be used during tests.
+     */
+    WebDriver init();
 }
