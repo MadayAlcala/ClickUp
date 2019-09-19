@@ -12,6 +12,9 @@ package clickup.ui.entities;
 
 /**
  * Context class.
+ *
+ * @author Jesus Menacho
+ * @version 1.0
  */
 public class Context {
 }

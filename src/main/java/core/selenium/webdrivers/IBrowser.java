@@ -14,6 +14,9 @@ import org.openqa.selenium.WebDriver;
 
 /**
  * IBrowser class.
+ *
+ * @author Jesus Menacho
+ * @version 1.0
  */
 public interface IBrowser {
     /**

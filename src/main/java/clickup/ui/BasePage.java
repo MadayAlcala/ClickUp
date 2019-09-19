@@ -11,30 +11,43 @@
 package clickup.ui;
 
 import core.selenium.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * BasePage class, this class is the intermediary between the 'WebDriverManager' class and the pages.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 public abstract class BasePage {
-    protected WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private JavascriptExecutor js;
 
     /**
-     * This method initializes the base class.
+     * Initializes the base class.
      */
     public BasePage() {
         this.driver = WebDriverManager.getInstance().getWebDriver();
-        PageFactory.initElements(driver, this);
+        this.wait = WebDriverManager.getInstance().getWebDriverWait();
+        this.js = (JavascriptExecutor) driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     /**
-     * This method closes the driver.
+     * @return a single WebDriver instance.
      */
-    public void quitWindow() {
-        driver.quit();
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    /**
+     * @return a single WebDriverWait instance.
+     */
+    public WebDriverWait getWait() {
+        return wait;
     }
 }

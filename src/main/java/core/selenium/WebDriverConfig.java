@@ -37,7 +37,7 @@ public final class WebDriverConfig {
      *
      * @return the same instance for this class.
      */
-    public static WebDriverConfig getInstance() {
+    static WebDriverConfig getInstance() {
         if (instance == null) {
             instance = new WebDriverConfig();
         }

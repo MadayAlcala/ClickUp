@@ -20,6 +20,9 @@ import java.util.Map;
 
 /**
  * WebDriverFactory class.
+ *
+ * @author Jesus Menacho
+ * @version 1.0
  */
 public final class WebDriverFactory {
     private static final Map<String, IBrowser> DRIVER_MAP = new HashMap<>();

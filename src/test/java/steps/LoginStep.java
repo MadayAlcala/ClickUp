@@ -19,6 +19,9 @@ import org.testng.Assert;
 
 /**
  * LoginStep class.
+ *
+ * @author Jesus Menacho
+ * @version 1.0
  */
 public class LoginStep {
     private LoginPage loginPage;

@@ -43,3 +43,7 @@ task cucumber() {
 checkstyle {
     toolVersion = '8.1'
 }
+
+test {
+    useTestNG()
+}
