@@ -23,22 +23,36 @@ import org.testng.Assert;
 public class LoginStep {
     private LoginPage loginPage;
 
+    /**
+     * Navigates through pages.
+     *
+     * @param login represents the specific page.
+     */
     @Given("The user goes to {string} page")
-    public void goingPage(String login) {
+    public void navigatePage(final String login) {
         PageTransporter.goToUrl("https://app.clickup.com/".concat(login));
     }
 
+    /**
+     * Fills email and password in the login page.
+     *
+     * @param email    represents an email.
+     * @param password represents a password.
+     */
     @When("The user fills the form with {string} and {string}")
-    public void fillingForm(String string, String string2) {
+    public void fillingForm(final String email, final String password) {
         loginPage = new LoginPage();
         loginPage.getEmailField("madayalcala@gmail.com");
         loginPage.getPasswordField("tresconejos");
         loginPage.getLoginField();
     }
 
+    /**
+     * Verifies login information.
+     */
     @Then("Username should appear in the panel")
-    public void username_should_appear_in_the_left_panel() {
+    public void usernameShouldAppear() {
         loginPage.getAvatar();
-        Assert.assertEquals(loginPage.getTitleName(), "M");
+        Assert.assertEquals(loginPage.getTitleName(), "Maday Alcala");
     }
 }

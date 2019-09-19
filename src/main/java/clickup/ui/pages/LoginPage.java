@@ -11,12 +11,13 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends BasePage {
+/**
+ * LoginPage class.
+ */
+public final class LoginPage extends BasePage {
     @FindBy(id = "email-input")
     private WebElement emailField;
 
@@ -32,23 +33,44 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title > .cu-user-settings-menu__title-name")
     private WebElement titleName;
 
-    public void getEmailField(String email) {
+    /**
+     * Fills email in the 'email' field.
+     *
+     * @param email that is a valid email.
+     */
+    public void getEmailField(final String email) {
         emailField.sendKeys(email);
     }
 
-    public void getPasswordField(String password) {
+    /**
+     * Fills password in the 'password' field.
+     *
+     * @param password that is a valid password.
+     */
+    public void getPasswordField(final String password) {
         passwordField.sendKeys(password);
     }
 
+    /**
+     * Clicks in the login button.
+     */
     public void getLoginField() {
         logInBtn.click();
     }
 
+    /**
+     * Clicks on the account avatar.
+     */
     public void getAvatar() {
         avatar.click();
     }
 
+    /**
+     * Gets the account title name.
+     *
+     * @return a String with the title name.
+     */
     public String getTitleName() {
-        return avatar.getText();
+        return titleName.getText();
     }
 }
