@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'AT-10 GUI Automation'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    compile("io.github.bonigarcia:webdrivermanager:3.6.2")
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '4.2.0'
+    compile group: 'io.cucumber', name: 'cucumber-testng', version: '4.2.0'
+    compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.2.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '4.6.0'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.26'
+}
+
+// Cucumber Configuration Task.
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources']
+        }
+    }
+}
+
+checkstyle {
+    toolVersion = '8.1'
+}
+
+test {
+    useTestNG()
+}
