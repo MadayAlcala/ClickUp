@@ -38,7 +38,7 @@ public final class LoginPage extends BasePage {
      *
      * @param email that is a valid email.
      */
-    public void getEmailField(final String email) {
+    private void getEmailField(final String email) {
         emailField.sendKeys(email);
     }
 
@@ -47,14 +47,14 @@ public final class LoginPage extends BasePage {
      *
      * @param password that is a valid password.
      */
-    public void getPasswordField(final String password) {
+    private void getPasswordField(final String password) {
         passwordField.sendKeys(password);
     }
 
     /**
      * Clicks in the login button.
      */
-    public void getLoginField() {
+    private void getLoginField() {
         logInBtn.click();
     }
 
@@ -72,5 +72,17 @@ public final class LoginPage extends BasePage {
      */
     public String getTitleName() {
         return titleName.getText();
+    }
+
+    /**
+     * Fills in and send the user's credentials.
+     *
+     * @param email a String containing the email associated to a given user.
+     * @param password a String containing the password associated to a given user.
+     */
+    public void authenticate(final String email, final String password) {
+        getEmailField(email);
+        getPasswordField(password);
+        getLoginField();
     }
 }

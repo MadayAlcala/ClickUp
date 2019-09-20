@@ -10,8 +10,10 @@
 
 package steps;
 
+import clickup.ui.entities.User;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.PageTransporter;
+import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,6 +27,7 @@ import org.testng.Assert;
  */
 public class LoginStep {
     private LoginPage loginPage;
+    private User user;
 
     /**
      * Navigates through pages.
@@ -39,15 +42,13 @@ public class LoginStep {
     /**
      * Fills email and password in the login page.
      *
-     * @param email    represents an email.
-     * @param password represents a password.
+     * @param userType    represents the type of user, i.e. user or admin.
      */
-    @When("The user fills the form with {string} and {string}")
-    public void fillingForm(final String email, final String password) {
+    @When("The {string} fills the form with email and password")
+    public void fillingForm(final String userType) {
         loginPage = new LoginPage();
-        loginPage.getEmailField("madayalcala@gmail.com");
-        loginPage.getPasswordField("tresconejos");
-        loginPage.getLoginField();
+        user = CredentialDeserializer.getInstance().getUser(userType);
+        loginPage.authenticate(user.getEmail(), user.getPassword());
     }
 
     /**
@@ -56,6 +57,6 @@ public class LoginStep {
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
         loginPage.getAvatar();
-        Assert.assertEquals(loginPage.getTitleName(), "Maday Alcala");
+        Assert.assertEquals(loginPage.getTitleName(), user.getFullName());
     }
 }
