@@ -23,6 +23,7 @@ public final class CredentialDeserializer {
     private static JsonObject credentials;
     private static final String USER_RSRC_CONFIG_FILE = "user.properties";
     private static final Logger LOGGER = LoggerFactory.getLogger(CredentialDeserializer.class);
+    private final String LOGGER_MESSAGE = "Specified resource file not found!";
 
     /**
      * Utility class private constructor.
@@ -70,8 +71,8 @@ public final class CredentialDeserializer {
             jsonElement = parser.parse(new FileReader(jsonDirectory.concat(System.getProperty("file.separator"))
                     .concat("credentials.json")));
         } catch (FileNotFoundException fnfex) {
-            LOGGER.error("Specified resource file not found!", fnfex, ErrorCode.FILE_OPEN_FAILURE);
-            throw new RuntimeException("Specified resource file not found!");
+            LOGGER.error(LOGGER_MESSAGE, fnfex, ErrorCode.FILE_OPEN_FAILURE);
+            throw new RuntimeException(LOGGER_MESSAGE);
         }
         credentials = jsonElement.getAsJsonObject();
     }
