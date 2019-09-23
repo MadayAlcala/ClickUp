@@ -49,11 +49,7 @@ public final class WebDriverConfig {
      */
     public void initialize() {
         PropertyReader.loadFile(defaultBrowserConfigFile);
-        if (System.getProperty("BROWSER") != null) {
-            browser = System.getProperty("BROWSER");
-        } else {
-            browser = PropertyReader.retrieveField("BROWSER");
-        }
+        browser = System.getProperty("BROWSER", PropertyReader.retrieveField("BROWSER"));
         implicitWaitTime = Integer.parseInt(PropertyReader.retrieveField("implicitWaitTime"));
         explicitWaitTime = Integer.parseInt(PropertyReader.retrieveField("explicitWaitTime"));
     }
