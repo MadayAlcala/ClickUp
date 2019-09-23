@@ -47,4 +47,5 @@ checkstyle {
 
 test {
     useTestNG()
+    systemProperties = System.getProperties()
 }
