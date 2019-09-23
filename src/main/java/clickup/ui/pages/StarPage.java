@@ -12,7 +12,6 @@ package clickup.ui.pages;
 
 import clickup.ui.BasePage;
 import core.selenium.WebDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -30,7 +29,7 @@ public class StarPage extends BasePage {
     private WebElement inputNameSpaceTextBox;
 
     @FindBy(css = ".cu-btn")
-    private WebElement NextButton;
+    private WebElement nextButton;
 
     /**
      * This Method create a new space.
@@ -40,8 +39,8 @@ public class StarPage extends BasePage {
     public void addNewSpace(String nameSpace) {
         addNewButton.click();
         inputNameSpaceTextBox.sendKeys(nameSpace);
-        for (int index = 0; index < 7; index++) {
-            NextButton.click();
+        for (int buttonPresses = 0; buttonPresses < 7; buttonPresses++) {
+            nextButton.click();
         }
     }
 
@@ -52,6 +51,6 @@ public class StarPage extends BasePage {
      * @return boolean result.
      */
     public boolean isFoundNameSpace(String nameSpace) {
-        return WebDriverManager.getInstance().getWebDriver().getPageSource().contains(nameSpace);
+        return getDriver().getPageSource().contains(nameSpace);
     }
 }
