@@ -10,29 +10,23 @@
 
 package steps;
 
-import clickup.ui.pages.StarPage;
+import clickup.ui.pages.ListPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
-/**
- * Class contain the method to drive space .
- *
- * @author Jesus Menacho
- * @version 1.0
- */
-public class StarStep {
-    private StarPage starPage;
+public class ListStep {
+    private ListPage listPage;
 
     /**
-     * This method let create in the web page new name space.
+     * This method let create in the web page new list.
      *
-     * @param nameSpace parameter type string.
+     * @param nameList parameter type string.
      */
-    @When("The user create a new space with the following name (.*)")
-    public void createNewSpace(String nameSpace) {
-        starPage = new StarPage();
-        starPage.addNewSpace(nameSpace);
+    @When("The user create a new list with the following name (.*)")
+    public void createNewSpace(String nameList) {
+        listPage = new ListPage();
+        listPage.createList(nameList);
     }
 
     /**
@@ -40,8 +34,8 @@ public class StarStep {
      *
      * @param nameSpace type string.
      */
-    @Then("The space name with the name (.*) appear in the panel successfully")
+    @Then("The list name with the name (.*) appear in the panel successfully")
     public void IfExistName(String nameSpace) {
-        Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
+        Assert.assertTrue(listPage.isFoundListName(nameSpace));
     }
 }
