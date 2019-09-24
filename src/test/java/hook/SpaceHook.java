@@ -15,7 +15,7 @@ import clickup.ui.pages.SpacePage;
 import cucumber.api.java.After;
 
 /**
- * Hook class.
+ * Contains after actions for do in a account.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -24,7 +24,8 @@ public class SpaceHook {
     private Context context;
 
     /**
-     * Constructor initializes the class setting the context.
+     * Initializes the class setting the context.
+     *
      * @param context - set the class context.
      */
     public SpaceHook(Context context){
@@ -32,7 +33,7 @@ public class SpaceHook {
     }
 
     /**
-     * Method to let logout.
+     * Let logout.
      */
     @After("@logout")
     public void logout() {
