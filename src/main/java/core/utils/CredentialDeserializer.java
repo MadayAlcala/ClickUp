@@ -23,7 +23,7 @@ public final class CredentialDeserializer {
     private static JsonObject credentials;
     private static final String USER_RSRC_CONFIG_FILE = "user.properties";
     private static final Logger LOGGER = LoggerFactory.getLogger(CredentialDeserializer.class);
-    private final String LOGGER_MESSAGE = "Specified resource file not found!";
+    private static final String LOGGER_MESSAGE = "Specified resource file not found!";
 
     /**
      * Utility class private constructor.

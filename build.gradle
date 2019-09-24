@@ -36,7 +36,7 @@ task cucumber() {
         javaexec {
             main = "cucumber.api.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources']
+            args = ['--plugin', 'pretty', '--glue', 'steps', 'src/test/resources']
         }
     }
 }
@@ -47,5 +47,5 @@ checkstyle {
 
 test {
     useTestNG()
-    systemProperties = System.getProperties()
+    systemProperty "BROWSER", BROWSER
 }
