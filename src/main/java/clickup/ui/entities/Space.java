@@ -31,7 +31,7 @@ public class Space {
      * Method to let set the title.
      * @param title type string.
      */
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 }
