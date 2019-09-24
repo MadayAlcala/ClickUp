@@ -11,13 +11,12 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * StarPage Class.
+ * Allows representatives some element to the page clickUp.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -43,7 +42,7 @@ public class SpacePage extends BasePage {
     private WebElement bodyPage;
 
     /**
-     * Create a new space.
+     * Allows create a new space.
      *
      * @param nameSpace String parameter.
      */
@@ -56,7 +55,7 @@ public class SpacePage extends BasePage {
     }
 
     /**
-     * Find name space.
+     * Finds name space in the page.
      *
      * @param nameSpace parameter string.
      * @return boolean result.
@@ -66,7 +65,7 @@ public class SpacePage extends BasePage {
     }
 
     /**
-     * Let log out of the page.
+     * Lets log out from the main page.
      */
     public void logOut() {
         bodyPage.sendKeys(Keys.ESCAPE);

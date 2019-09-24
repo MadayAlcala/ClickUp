@@ -24,7 +24,7 @@ public class SpaceHook {
     private Context context;
 
     /**
-     * Allow to receive the variable context.
+     * Allows to receive the variable context.
      *
      * @param context - set the class context.
      */
@@ -33,7 +33,7 @@ public class SpaceHook {
     }
 
     /**
-     * Let logout from to web page.
+     * Lets logout from to web page.
      */
     @After("@logout")
     public void logout() {

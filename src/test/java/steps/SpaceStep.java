@@ -16,7 +16,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 /**
- * Let to model page object model.
+ * Allows to execute some steps for create a space.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -35,7 +35,7 @@ public class SpaceStep {
     }
 
     /**
-     * Let create in the web page new name space.
+     * Lets create a new name space.
      *
      * @param nameSpace parameter type string.
      */
@@ -47,7 +47,7 @@ public class SpaceStep {
     }
 
     /**
-     * Let compare if name space was create.
+     * Lets compare if name space was create.
      *
      * @param nameSpace type string.
      */

@@ -11,7 +11,7 @@
 package clickup.ui.entities;
 
 /**
- * Context class.
+ * Contains all objects or variables that wee need save.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -20,23 +20,23 @@ public class Context {
    private Space space;
 
     /**
-     * Creation of the constructor to init the class Space.
+     * Initializes the class Space.
      */
     public Context() {
         this.space = new Space();
     }
 
     /**
-     * Let the get the space class.
+     * Allows get the space class.
      *
-     * @return space variable.
+     * @return space class.
      */
     public Space getSpace() {
         return space;
     }
 
     /**
-     * Let set a space class.
+     * Lets set a space class.
      *
      * @param space variable.
      */
