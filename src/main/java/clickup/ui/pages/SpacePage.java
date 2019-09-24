@@ -39,8 +39,11 @@ public class SpacePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'cu-user-settings-menu__link cu-user-settings-menu__link_logout')]")
     private WebElement logOutButton;
 
+    @FindBy(xpath = "By.xpath(\"//body\")")
+    private WebElement bodyPage;
+
     /**
-     * This Method create a new space.
+     * Create a new space.
      *
      * @param nameSpace String parameter.
      */
@@ -53,7 +56,7 @@ public class SpacePage extends BasePage {
     }
 
     /**
-     * This method find name space.
+     * Find name space.
      *
      * @param nameSpace parameter string.
      * @return boolean result.
@@ -63,10 +66,10 @@ public class SpacePage extends BasePage {
     }
 
     /**
-     * Method let log out of the page.
+     * Let log out of the page.
      */
     public void logOut() {
-        getDriver().findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
+        bodyPage.sendKeys(Keys.ESCAPE);
         spaceBarButton.click();
         logOutButton.click();
     }
