@@ -18,7 +18,7 @@ import org.openqa.selenium.support.FindBy;
  * LoginPage class.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 public final class LoginPage extends BasePage {
     @FindBy(id = "email-input")

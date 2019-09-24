@@ -21,7 +21,7 @@ import java.util.List;
  * report class, this class is in charge to create the cucumber reports.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 public class Report {
     /**

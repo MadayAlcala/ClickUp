@@ -15,13 +15,19 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
+/**
+ * ListStep class.
+ *
+ * @author Maday Alcala
+ * @version 1.0
+ */
 public class ListStep {
     private ListPage listPage;
 
     /**
-     * This method let create in the web page new list.
+     * Creates new list in a space.
      *
-     * @param nameList parameter type string.
+     * @param nameList that is the name of the new List.
      */
     @When("The user create a new list with the following name (.*)")
     public void createNewSpace(String nameList) {
@@ -30,9 +36,9 @@ public class ListStep {
     }
 
     /**
-     * This method let compare if name space was create.
+     * Checks that the list has been created.
      *
-     * @param nameList type string.
+     * @param nameList to search the specific element in 'ListPage' class.
      */
     @Then("The list name with the name (.*) appear in the panel successfully")
     public void name(String nameList) {

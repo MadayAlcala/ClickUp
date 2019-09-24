@@ -15,13 +15,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * ListPage class.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 public class ListPage extends BasePage {
     @FindBy(css = ".sidebar-section__plus-icon")
@@ -33,26 +32,40 @@ public class ListPage extends BasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
 
+    /**
+     * Selects the '+' symbol to displayed their options.
+     */
     private void getIconBtn() {
-
         iconBtn.click();
     }
 
+    /**
+     * Selects the option 'New List' to create a new List.
+     */
     private void getListBox() {
         listBox.click();
     }
 
-    public void createList(String listName) {
+    /**
+     * Creates a new list.
+     *
+     * @param listName that is the name of the new List.
+     */
+    public void createList(final String listName) {
         getIconBtn();
         getListBox();
         nameTxtField.sendKeys(listName);
         nameTxtField.sendKeys(Keys.ENTER);
     }
 
-       public String nameTxtBox(String listName) {
-//           return getDriver().findElement(By.xpath("//div[@class='nav-section'] //a[contains(.,'"+listName+"')]")).getText();
-
-           return getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section/div/a[contains(.,'"+listName+"')]")).getText();
-
-       }
+    /**
+     * Returns the Name of the new List.
+     *
+     * @param listName to find the specific element.
+     * @return a String with the name of list created.
+     */
+    public String nameTxtBox(final String listName) {
+        return getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section/div/a[contains(.,'"
+                + listName + "')]")).getText();
+    }
 }

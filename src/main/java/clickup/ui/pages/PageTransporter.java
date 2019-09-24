@@ -17,7 +17,7 @@ import org.openqa.selenium.WebDriver;
  * PageTransporter class.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 public final class PageTransporter {
     private static WebDriver webDriver;

@@ -20,7 +20,7 @@ import org.testng.annotations.AfterTest;
  * RunCukesTest class.
  *
  * @author Maday Alcala
- * @version 0.0.1
+ * @version 1.0
  */
 @CucumberOptions(
         plugin = {"pretty", "html:target/cucumber", "json:target/cucumber.json"},
