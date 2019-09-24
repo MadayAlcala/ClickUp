@@ -32,10 +32,10 @@ public class ListStep {
     /**
      * This method let compare if name space was create.
      *
-     * @param nameSpace type string.
+     * @param nameList type string.
      */
     @Then("The list name with the name (.*) appear in the panel successfully")
-    public void IfExistName(String nameSpace) {
-        Assert.assertTrue(listPage.isFoundListName(nameSpace));
+    public void name(String nameList) {
+        Assert.assertEquals(listPage.nameTxtBox(nameList), nameList);
     }
 }

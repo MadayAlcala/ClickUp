@@ -11,6 +11,7 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,7 +48,11 @@ public class ListPage extends BasePage {
         nameTxtField.sendKeys(listName);
         nameTxtField.sendKeys(Keys.ENTER);
     }
-    public boolean isFoundListName(String nameSpace) {
-        return getDriver().getPageSource().contains(nameSpace);
-    }
+
+       public String nameTxtBox(String listName) {
+//           return getDriver().findElement(By.xpath("//div[@class='nav-section'] //a[contains(.,'"+listName+"')]")).getText();
+
+           return getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section/div/a[contains(.,'"+listName+"')]")).getText();
+
+       }
 }
