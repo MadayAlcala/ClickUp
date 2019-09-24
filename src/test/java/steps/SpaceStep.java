@@ -10,32 +10,44 @@
 
 package steps;
 
-import clickup.ui.pages.StarPage;
+import clickup.ui.entities.Context;
+import clickup.ui.pages.SpacePage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 /**
- * Class contain the method to drive space .
+ * Allows to execute some steps for create a space.
  *
  * @author Jesus Menacho
  * @version 1.0
  */
-public class StarStep {
-    private StarPage starPage;
+public class SpaceStep {
+    private SpacePage starPage;
+    private Context context;
 
     /**
-     * This method let create in the web page new name space.
+     * Initializes the class setting the context.
+     *
+     * @param context type Context class.
+     */
+    public SpaceStep(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * Creates a new name space.
      *
      * @param nameSpace parameter type string.
      */
     @When("The user create a new space with the following name (.*)")
     public void createNewSpace(String nameSpace) {
-        starPage = new StarPage();
+        starPage = new SpacePage();
+        context.getSpace().setTitle(nameSpace);
         starPage.addNewSpace(nameSpace);
     }
 
     /**
-     * This method let compare if name space was create.
+     * Compares if name space was create.
      *
      * @param nameSpace type string.
      */

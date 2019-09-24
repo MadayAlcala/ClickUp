@@ -11,17 +11,18 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.selenium.WebDriverManager;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * StarPage Class.
+ * Saves some element to the page clickUp.
  *
  * @author Jesus Menacho
  * @version 1.0
  */
-public class StarPage extends BasePage {
+public class SpacePage extends BasePage {
+    static final int BUTTONCLICK = 7;
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
@@ -31,26 +32,44 @@ public class StarPage extends BasePage {
     @FindBy(css = ".cu-btn")
     private WebElement nextButton;
 
+    @FindBy(css = ".cu-avatar-container > .cu-avatar")
+    private WebElement spaceBarButton;
+
+    @FindBy(xpath = "//div[contains(@class, 'cu-user-settings-menu__link cu-user-settings-menu__link_logout')]")
+    private WebElement logOutButton;
+
+    @FindBy(xpath = "By.xpath(\"//body\")")
+    private WebElement bodyPage;
+
     /**
-     * This Method create a new space.
+     * Creates a new space.
      *
      * @param nameSpace String parameter.
      */
-    public void addNewSpace(String nameSpace) {
+    public void addNewSpace(final String nameSpace) {
         addNewButton.click();
         inputNameSpaceTextBox.sendKeys(nameSpace);
-        for (int buttonPresses = 0; buttonPresses < 7; buttonPresses++) {
+        for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
             nextButton.click();
         }
     }
 
     /**
-     * This method find name space.
+     * Finds name space in the page.
      *
      * @param nameSpace parameter string.
      * @return boolean result.
      */
-    public boolean isFoundNameSpace(String nameSpace) {
+    public boolean isFoundNameSpace(final String nameSpace) {
         return getDriver().getPageSource().contains(nameSpace);
+    }
+
+    /**
+     * Lets log out from the main page.
+     */
+    public void logOut() {
+        bodyPage.sendKeys(Keys.ESCAPE);
+        spaceBarButton.click();
+        logOutButton.click();
     }
 }

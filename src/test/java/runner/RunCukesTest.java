@@ -30,7 +30,7 @@ import org.testng.annotations.AfterTest;
 public class RunCukesTest extends AbstractTestNGCucumberTests {
 
     /**
-     * This method afterExecution executes the project, close the driver instance and generates the reports.
+     * AfterExecution executes the project, close the driver instance and generates the reports.
      */
     @AfterTest
     public void afterExecution() {
