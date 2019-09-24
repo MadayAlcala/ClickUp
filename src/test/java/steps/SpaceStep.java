@@ -10,7 +10,8 @@
 
 package steps;
 
-import clickup.ui.pages.StarPage;
+import clickup.ui.entities.Context;
+import clickup.ui.pages.SpacePage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -20,8 +21,17 @@ import cucumber.api.java.en.When;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class ContactStep {
-    private StarPage starPage;
+public class SpaceStep {
+    private SpacePage starPage;
+    private Context context;
+
+    /**
+     * Constructor class.
+     * @param context type Context class.
+     */
+    public SpaceStep(Context context) {
+        this.context = context;
+    }
 
     /**
      * This method let create in the web page new name space.
@@ -30,8 +40,9 @@ public class ContactStep {
      */
     @When("The user create a new space with the following name (.*)")
     public void createNewSpace(String nameSpace) {
-        starPage = new StarPage();
+        starPage = new SpacePage();
         starPage.addNewSpace(nameSpace);
+        context.getSpace().setTitle(nameSpace);
     }
 
     /**
