@@ -38,7 +38,7 @@ public class Context {
      * Mehtod to let set a space.
      * @param space variable.
      */
-    public void setSpace(Space space) {
+    public void setSpace(final Space space) {
         this.space = space;
     }
 }
