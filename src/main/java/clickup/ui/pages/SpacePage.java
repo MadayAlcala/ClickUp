@@ -12,6 +12,8 @@ package clickup.ui.pages;
 
 import clickup.ui.BasePage;
 import core.selenium.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -21,7 +23,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class StarPage extends BasePage {
+public class SpacePage extends BasePage {
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
@@ -34,7 +36,7 @@ public class StarPage extends BasePage {
     @FindBy(css = ".cu-avatar-container > .cu-avatar")
     private WebElement spaceBarButton;
 
-    @FindBy(xpath = "//div[contains(@class, 'modalBox-body scroll scroll--rounded')]")
+    @FindBy(xpath = "//div[contains(@class, 'cu-user-settings-menu__link cu-user-settings-menu__link_logout')]")
     private WebElement logOutButton;
 
     /**
@@ -64,6 +66,7 @@ public class StarPage extends BasePage {
      * Method let log out of the page.
      */
     public void logOut(){
+        getDriver().findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
         spaceBarButton.click();
         logOutButton.click();
     }
