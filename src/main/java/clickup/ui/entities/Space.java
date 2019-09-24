@@ -20,7 +20,8 @@ public class Space {
     private String title;
 
     /**
-     * Method to let get the title.
+     * Let gets the title.
+     *
      * @return title type string.
      */
     public String getTitle() {
@@ -28,7 +29,8 @@ public class Space {
     }
 
     /**
-     * Method to let set the title.
+     * Let set the title.
+     *
      * @param title type string.
      */
     public void setTitle(final String title) {
