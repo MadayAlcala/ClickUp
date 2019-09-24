@@ -19,14 +19,25 @@ package clickup.ui.entities;
 public class Context {
    private Space space;
 
+    /**
+     * Constructor.
+     */
     public Context() {
         this.space = new Space();
     }
 
+    /**
+     * Method let the ger the space.
+     * @return space variable.
+     */
     public Space getSpace() {
         return space;
     }
 
+    /**
+     * Mehtod to let set a space.
+     * @param space variable.
+     */
     public void setSpace(Space space) {
         this.space = space;
     }
