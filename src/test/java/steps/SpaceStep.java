@@ -16,7 +16,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 /**
- * Class contain the method to drive space .
+ * Let to model page object model.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -26,7 +26,8 @@ public class SpaceStep {
     private Context context;
 
     /**
-     * Constructor class.
+     * Initializes the class setting the context.
+     *
      * @param context type Context class.
      */
     public SpaceStep(Context context) {
@@ -34,19 +35,19 @@ public class SpaceStep {
     }
 
     /**
-     * This method let create in the web page new name space.
+     * Let create in the web page new name space.
      *
      * @param nameSpace parameter type string.
      */
     @When("The user create a new space with the following name (.*)")
     public void createNewSpace(String nameSpace) {
         starPage = new SpacePage();
-        starPage.addNewSpace(nameSpace);
         context.getSpace().setTitle(nameSpace);
+        starPage.addNewSpace(nameSpace);
     }
 
     /**
-     * This method let compare if name space was create.
+     * Let compare if name space was create.
      *
      * @param nameSpace type string.
      */
