@@ -11,7 +11,6 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.selenium.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -24,6 +23,7 @@ import org.openqa.selenium.support.FindBy;
  * @version 1.0
  */
 public class SpacePage extends BasePage {
+    static final int BUTTONCLICK = 7;
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
@@ -44,10 +44,10 @@ public class SpacePage extends BasePage {
      *
      * @param nameSpace String parameter.
      */
-    public void addNewSpace(String nameSpace) {
+    public void addNewSpace(final String nameSpace) {
         addNewButton.click();
         inputNameSpaceTextBox.sendKeys(nameSpace);
-        for (int buttonPresses = 0; buttonPresses < 7; buttonPresses++) {
+        for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
             nextButton.click();
         }
     }
@@ -58,14 +58,14 @@ public class SpacePage extends BasePage {
      * @param nameSpace parameter string.
      * @return boolean result.
      */
-    public boolean isFoundNameSpace(String nameSpace) {
+    public boolean isFoundNameSpace(final String nameSpace) {
         return getDriver().getPageSource().contains(nameSpace);
     }
 
     /**
      * Method let log out of the page.
      */
-    public void logOut(){
+    public void logOut() {
         getDriver().findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
         spaceBarButton.click();
         logOutButton.click();
