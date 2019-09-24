@@ -27,7 +27,7 @@ public class Context {
     }
 
     /**
-     * Allows get the space class.
+     * Gets the space class.
      *
      * @return space class.
      */
@@ -36,7 +36,7 @@ public class Context {
     }
 
     /**
-     * Lets set a space class.
+     * Sets a space class.
      *
      * @param space variable.
      */

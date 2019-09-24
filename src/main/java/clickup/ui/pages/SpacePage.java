@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Allows representatives some element to the page clickUp.
+ * Saves some element to the page clickUp.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -42,7 +42,7 @@ public class SpacePage extends BasePage {
     private WebElement bodyPage;
 
     /**
-     * Allows create a new space.
+     * Creates a new space.
      *
      * @param nameSpace String parameter.
      */

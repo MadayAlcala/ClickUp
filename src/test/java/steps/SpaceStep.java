@@ -35,7 +35,7 @@ public class SpaceStep {
     }
 
     /**
-     * Lets create a new name space.
+     * Creates a new name space.
      *
      * @param nameSpace parameter type string.
      */
@@ -47,7 +47,7 @@ public class SpaceStep {
     }
 
     /**
-     * Lets compare if name space was create.
+     * Compares if name space was create.
      *
      * @param nameSpace type string.
      */

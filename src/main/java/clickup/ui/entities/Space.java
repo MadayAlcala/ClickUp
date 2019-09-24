@@ -11,7 +11,7 @@
 package clickup.ui.entities;
 
 /**
- * Lets save some variables according our requirements.
+ * Saves some variables according our requirements.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -29,7 +29,7 @@ public class Space {
     }
 
     /**
-     * Lets set the title to the space name.
+     * Sets name of the title to the space name for page.
      *
      * @param title type string.
      */
