@@ -20,7 +20,7 @@ public class Context {
    private Space space;
 
     /**
-     * Creation of the constructor.
+     * Creation of the constructor to init the class Space.
      */
     public Context() {
         this.space = new Space();
@@ -36,7 +36,7 @@ public class Context {
     }
 
     /**
-     * Let set a space.
+     * Let set a space class.
      *
      * @param space variable.
      */

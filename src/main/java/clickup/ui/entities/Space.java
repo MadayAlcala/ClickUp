@@ -11,7 +11,7 @@
 package clickup.ui.entities;
 
 /**
- * Context class.
+ * Let save some variables according our requirements.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -20,7 +20,7 @@ public class Space {
     private String title;
 
     /**
-     * Let gets the title.
+     * Let gets the title for space name.
      *
      * @return title type string.
      */
@@ -29,7 +29,7 @@ public class Space {
     }
 
     /**
-     * Let set the title.
+     * Let set the title to the space name.
      *
      * @param title type string.
      */
