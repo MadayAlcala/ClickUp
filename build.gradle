@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.5'
+    implementation 'io.rest-assured:rest-assured:4.0.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile("io.github.bonigarcia:webdrivermanager:3.6.2")
     compile group: 'io.cucumber', name: 'cucumber-java', version: '4.2.0'
