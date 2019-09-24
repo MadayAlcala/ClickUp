@@ -1,4 +1,5 @@
 Feature: Report
+
   @Acceptance
   Scenario: Save report
     Given the guest user is logged in ClickUp web application
