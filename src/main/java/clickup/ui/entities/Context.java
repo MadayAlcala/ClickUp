@@ -20,14 +20,15 @@ public class Context {
    private Space space;
 
     /**
-     * Constructor.
+     * Creation of the constructor.
      */
     public Context() {
         this.space = new Space();
     }
 
     /**
-     * Method let the ger the space.
+     * Let the get the space class.
+     *
      * @return space variable.
      */
     public Space getSpace() {
@@ -35,7 +36,8 @@ public class Context {
     }
 
     /**
-     * Mehtod to let set a space.
+     * Let set a space.
+     *
      * @param space variable.
      */
     public void setSpace(final Space space) {
