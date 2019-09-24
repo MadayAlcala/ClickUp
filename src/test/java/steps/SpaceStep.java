@@ -20,7 +20,7 @@ import cucumber.api.java.en.When;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class StarStep {
+public class ContactStep {
     private StarPage starPage;
 
     /**

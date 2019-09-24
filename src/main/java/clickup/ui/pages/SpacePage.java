@@ -31,6 +31,12 @@ public class StarPage extends BasePage {
     @FindBy(css = ".cu-btn")
     private WebElement nextButton;
 
+    @FindBy(css = ".cu-avatar-container > .cu-avatar")
+    private WebElement spaceBarButton;
+
+    @FindBy(xpath = "//div[contains(@class, 'modalBox-body scroll scroll--rounded')]")
+    private WebElement logOutButton;
+
     /**
      * This Method create a new space.
      *
@@ -52,5 +58,13 @@ public class StarPage extends BasePage {
      */
     public boolean isFoundNameSpace(String nameSpace) {
         return getDriver().getPageSource().contains(nameSpace);
+    }
+
+    /**
+     * Method let log out of the page.
+     */
+    public void logOut(){
+        spaceBarButton.click();
+        logOutButton.click();
     }
 }

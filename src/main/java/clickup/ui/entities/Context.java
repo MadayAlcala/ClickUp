@@ -17,4 +17,17 @@ package clickup.ui.entities;
  * @version 1.0
  */
 public class Context {
+   private Space space;
+
+    public Context() {
+        this.space = new Space();
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
+    }
 }
