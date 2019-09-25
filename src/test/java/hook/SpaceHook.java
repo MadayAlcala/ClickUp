@@ -28,8 +28,8 @@ public class SpaceHook {
      *
      * @param context - set the class context.
      */
-    public SpaceHook(Context context){
-        this.context=context;
+    public SpaceHook(final Context context) {
+        this.context = context;
     }
 
     /**
@@ -37,7 +37,7 @@ public class SpaceHook {
      */
     @After("@logout")
     public void logout() {
-        SpacePage starPage =new SpacePage();
+        SpacePage starPage = new SpacePage();
         starPage.logOut();
     }
 }
