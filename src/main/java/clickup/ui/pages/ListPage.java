@@ -15,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * ListPage class.
@@ -31,6 +32,12 @@ public class ListPage extends BasePage {
 
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
+
+    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
+    private WebElement deleteBtn;
+
+    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
+    private WebElement conrfirmDelete;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -84,7 +91,8 @@ public class ListPage extends BasePage {
      * @param listName that is the name of the list.
      */
     public void listMenu(final String listName) {
-        getDriver().findElement(By.xpath("//div[@class='nav-section'][contains(.,'" + listName
+        getDriver().findElement(By.xpath("//cu-nav-section[contains(.,'"
+                + listName
                 + "')]//following-sibling::div[@class='nav-section__menu']")).click();
     }
 
@@ -92,6 +100,8 @@ public class ListPage extends BasePage {
      * Selects delete button.
      */
     public void deleteList() {
-        getDriver().findElement(By.xpath("//*[@id=\"cdk-overlay-3\"]/div/div/a[@cutooltip='Delete']")).click();
+        deleteBtn.click();
+        getWait().until(ExpectedConditions.elementToBeClickable(conrfirmDelete));
+        conrfirmDelete.click();
     }
 }

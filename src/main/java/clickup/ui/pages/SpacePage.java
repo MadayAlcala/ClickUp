@@ -13,6 +13,7 @@ package clickup.ui.pages;
 import clickup.ui.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Saves some element to the page clickUp.
@@ -67,6 +68,7 @@ public class SpacePage extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
+        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
         spaceBarButton.click();
         logOutButton.click();
     }

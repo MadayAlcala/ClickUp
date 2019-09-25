@@ -1,6 +1,6 @@
 Feature: List
 
-  @logout
+  @logout @deleteList
   Scenario: Create new List
     Given The user goes to "login" page
     When The "user" fills the form with email and password
