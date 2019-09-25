@@ -14,6 +14,7 @@ import clickup.ui.entities.Context;
 import clickup.ui.pages.SpacePage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.testng.Assert;
 
 /**
  * Allows to execute some steps for create a space.
@@ -53,6 +54,6 @@ public class SpaceStep {
      */
     @Then("The space name with the name (.*) appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
-        starPage.isFoundNameSpace(nameSpace);
+        Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
     }
 }
