@@ -1,4 +1,4 @@
-Feature: Task notifications
+Feature: Task
   Scenario: A user receives notification for a task assigned to him
     Given the admin user is logged in ClickUp web application
     When the admin user goes to workplace page
