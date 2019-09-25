@@ -68,7 +68,6 @@ public class SpacePage extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
-        bodyPage.sendKeys(Keys.ESCAPE);
         spaceBarButton.click();
         logOutButton.click();
     }
