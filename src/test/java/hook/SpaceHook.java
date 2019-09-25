@@ -35,7 +35,7 @@ public class SpaceHook {
     /**
      * Lets logout from to web page.
      */
-    @After("@logout")
+    @After(order = 1, value = "@logout")
     public void logout() {
         SpacePage starPage = new SpacePage();
         starPage.logOut();
