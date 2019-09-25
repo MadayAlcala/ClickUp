@@ -56,7 +56,6 @@ public class LoginStep {
      */
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
-        loginPage.getAvatar();
         Assert.assertEquals(loginPage.getTitleName(), user.getFullName());
     }
 }

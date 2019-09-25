@@ -11,7 +11,6 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -68,7 +67,6 @@ public class SpacePage extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
-        bodyPage.sendKeys(Keys.ESCAPE);
         spaceBarButton.click();
         logOutButton.click();
     }

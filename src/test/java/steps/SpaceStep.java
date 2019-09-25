@@ -30,7 +30,7 @@ public class SpaceStep {
      *
      * @param context type Context class.
      */
-    public SpaceStep(Context context) {
+    public SpaceStep(final Context context) {
         this.context = context;
     }
 
@@ -40,7 +40,7 @@ public class SpaceStep {
      * @param nameSpace parameter type string.
      */
     @When("The user create a new space with the following name (.*)")
-    public void createNewSpace(String nameSpace) {
+    public void createNewSpace(final String nameSpace) {
         starPage = new SpacePage();
         context.getSpace().setTitle(nameSpace);
         starPage.addNewSpace(nameSpace);
@@ -52,7 +52,7 @@ public class SpaceStep {
      * @param nameSpace type string.
      */
     @Then("The space name with the name (.*) appear in the panel successfully")
-    public void IfExistName(String nameSpace) {
+    public void ifExistName(final String nameSpace) {
         starPage.isFoundNameSpace(nameSpace);
     }
 }

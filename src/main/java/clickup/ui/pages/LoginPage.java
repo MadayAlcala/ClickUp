@@ -31,7 +31,7 @@ public final class LoginPage extends BasePage {
     private WebElement avatar;
 
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title > .cu-user-settings-menu__title-name")
-    private WebElement titleName;
+    private WebElement titleNameTxt;
 
     /**
      * Fills email in the 'email' field.
@@ -61,7 +61,7 @@ public final class LoginPage extends BasePage {
     /**
      * Clicks on the account avatar.
      */
-    public void getAvatar() {
+    private void displayUserMenu() {
         avatar.click();
     }
 
@@ -71,7 +71,10 @@ public final class LoginPage extends BasePage {
      * @return a String with the title name.
      */
     public String getTitleName() {
-        return titleName.getText();
+        displayUserMenu();
+        String titleName = titleNameTxt.getText();
+        displayUserMenu();
+        return titleName;
     }
 
     /**
