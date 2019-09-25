@@ -33,7 +33,7 @@ public class List {
      *
      * @param name a String containing the new value to assign as a new name for this list.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 }

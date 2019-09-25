@@ -54,6 +54,6 @@ public class SpaceStep {
      */
     @Then("The space name with the name (.*) appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
-        starPage.isFoundNameSpace(nameSpace);
+        Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
     }
 }

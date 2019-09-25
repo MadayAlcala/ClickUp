@@ -62,7 +62,6 @@ public class ListPage extends BasePage {
      * Returns the Name of the new List.
      *
      * @param listName to find the specific element.
-     * @return a String with the name of list created.
      */
     public void nameList(final String listName) {
         getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
@@ -76,7 +75,23 @@ public class ListPage extends BasePage {
      * @return a String with the name of list created.
      */
     public String nameTxtBox(final String listName) {
-//        return getDriver().findElement(By.xpath("//a[contains(.,'" + listName + "')]")).getText();
         return getDriver().findElement(By.linkText(listName)).getText();
+    }
+
+    /**
+     * Selects the list' menu.
+     *
+     * @param listName that is the name of the list.
+     */
+    public void listMenu(final String listName) {
+        getDriver().findElement(By.xpath("//div[@class='nav-section'][contains(.,'" + listName
+                + "')]//following-sibling::div[@class='nav-section__menu']")).click();
+    }
+
+    /**
+     * Selects delete button.
+     */
+    public void deleteList() {
+        getDriver().findElement(By.xpath("//*[@id=\"cdk-overlay-3\"]/div/div/a[@cutooltip='Delete']")).click();
     }
 }

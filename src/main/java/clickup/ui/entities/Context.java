@@ -17,13 +17,15 @@ package clickup.ui.entities;
  * @version 1.0
  */
 public class Context {
-   private Space space;
+    private Space space;
+    private List list;
 
     /**
-     * Initializes the class Space.
+     * Initializes the variables.
      */
     public Context() {
         this.space = new Space();
+        this.list = new List();
     }
 
     /**
@@ -42,5 +44,23 @@ public class Context {
      */
     public void setSpace(final Space space) {
         this.space = space;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a List' object.
+     */
+    public List getList() {
+        return list;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param list that is the object to change its behavior.
+     */
+    public void setList(final List list) {
+        this.list = list;
     }
 }

@@ -31,10 +31,10 @@ public class SpacePage extends BasePage {
     @FindBy(css = ".cu-btn")
     private WebElement nextButton;
 
-    @FindBy(css = ".cu-avatar-container > .cu-avatar")
+    @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton;
 
-    @FindBy(xpath = "//div[contains(@class, 'cu-user-settings-menu__link cu-user-settings-menu__link_logout')]")
+    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
     private WebElement logOutButton;
 
     @FindBy(xpath = "By.xpath(\"//body\")")
