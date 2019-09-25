@@ -6,3 +6,4 @@ Feature: Create new space
     And The "user" fills the form with email and password
     When The user create a new space with the following name test7
     Then The space name with the name test7 appear in the panel successfully
+    
