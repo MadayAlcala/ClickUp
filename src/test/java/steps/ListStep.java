@@ -10,6 +10,7 @@
 
 package steps;
 
+import clickup.ui.entities.Context;
 import clickup.ui.pages.ListPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,6 +24,16 @@ import org.testng.Assert;
  */
 public class ListStep {
     private ListPage listPage;
+    private Context context;
+
+    /**
+     * Class constructor.
+     *
+     * @param context context.
+     */
+    public ListStep(final Context context) {
+        this.context = context;
+    }
 
     /**
      * Creates new list in a space.
@@ -32,6 +43,7 @@ public class ListStep {
     @When("The user create a new list with the following name (.*)")
     public void createNewSpace(String nameList) {
         listPage = new ListPage();
+        context.getList().setName(nameList);
         listPage.createList(nameList);
     }
 

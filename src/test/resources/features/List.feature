@@ -6,8 +6,8 @@ Feature: List
   Scenario: Create new List
     Given The user goes to "login" page
     When The "user" fills the form with email and password
-    When The user create a new list with the following name Hello72
-    Then The list name with the name Hello72 appear in the panel successfully
+    When The user create a new list with the following name Hello99
+    Then The list name with the name appear in the panel successfully
 
 #  @CreateSpace
 #  Scenario: Filter and Search Tasks in List View

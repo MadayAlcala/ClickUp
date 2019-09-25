@@ -64,8 +64,19 @@ public class ListPage extends BasePage {
      * @param listName to find the specific element.
      * @return a String with the name of list created.
      */
+    public void nameList(final String listName) {
+        getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
+                + listName + "')]"));
+    }
+
+    /**
+     * Returns the Name of the new List.
+     *
+     * @param listName to find the specific element.
+     * @return a String with the name of list created.
+     */
     public String nameTxtBox(final String listName) {
-        return getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section/div/a[contains(.,'"
-                + listName + "')]")).getText();
+//        return getDriver().findElement(By.xpath("//a[contains(.,'" + listName + "')]")).getText();
+        return getDriver().findElement(By.linkText(listName)).getText();
     }
 }
