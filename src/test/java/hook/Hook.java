@@ -18,7 +18,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Hook class.
+ * Allows to execute some steps.
  *
  * @author Jesus Menacho
  * @version 1.0
@@ -27,14 +27,14 @@ public class Hook {
     private WebDriver webDriver;
 
     /**
-     * Constructor of Hook.
+     * Allows init the webDriver.
      */
     public Hook() {
         this.webDriver = WebDriverManager.getInstance().getWebDriver();
     }
 
     /**
-     * This method is executed after the scenarios.
+     * Allows take a screenshot after the scenarios failures.
      *
      * @param scenario that represent the scenarios of cucumber.
      */

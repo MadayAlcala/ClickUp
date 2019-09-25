@@ -11,36 +11,29 @@
 package clickup.ui.entities;
 
 /**
- * Contains all objects or variables that wee need save.
+ * Saves some variables according our requirements.
  *
  * @author Jesus Menacho
  * @version 1.0
  */
-public class Context {
-   private Space space;
+public class Space {
+    private String title;
 
     /**
-     * Initializes the class Space.
+     * Gets the title for space name.
+     *
+     * @return title type string.
      */
-    public Context() {
-        this.space = new Space();
+    public String getTitle() {
+        return title;
     }
 
     /**
-     * Gets the space class.
+     * Sets name of the title to the space name for page.
      *
-     * @return space class.
+     * @param title type string.
      */
-    public Space getSpace() {
-        return space;
-    }
-
-    /**
-     * Sets a space class.
-     *
-     * @param space variable.
-     */
-    public void setSpace(final Space space) {
-        this.space = space;
+    public void setTitle(final String title) {
+        this.title = title;
     }
 }
