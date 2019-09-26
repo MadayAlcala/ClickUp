@@ -19,6 +19,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 /**
  * LoginStep class.
  *
@@ -45,7 +48,7 @@ public class LoginStep {
      * @param userType    represents the type of user, i.e. user or admin.
      */
     @When("The {string} fills the form with email and password")
-    public void fillingForm(final String userType) {
+    public void fillingForm(final String userType) throws GeneralSecurityException, IOException {
         loginPage = new LoginPage();
         user = CredentialDeserializer.getInstance().getUser(userType);
         loginPage.authenticate(user.getEmail(), user.getPassword());
