@@ -34,7 +34,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("The user goes to {string} page")
+    @Given("The user goes to (.*) page")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl("https://app.clickup.com/".concat(login));
     }
@@ -44,7 +44,7 @@ public class LoginStep {
      *
      * @param userType    represents the type of user, i.e. user or admin.
      */
-    @When("The {string} fills the form with email and password")
+    @When("The (.*) fills the form with email and password")
     public void fillingForm(final String userType) {
         loginPage = new LoginPage();
         user = CredentialDeserializer.getInstance().getUser(userType);
