@@ -19,17 +19,25 @@ import static org.apache.commons.io.FileUtils.readFileToByteArray;
  * @version 1.0
  */
 public final class Hasher {
-    private static final String keyLocation = System.getProperty("user.home")
+    private static final String KEY_LOCATION = System.getProperty("user.home")
             .concat(System.getProperty("file.separator")).concat("ClickUp.key");
 
     /**
-     *
-     * @param string
-     * @return
-     * @throws GeneralSecurityException
-     * @throws IOException
+     * Private constructor to comply checkStyle tool suggestions.
      */
-    public static String decrypt(final String string) throws GeneralSecurityException, IOException {
+    private Hasher() {
+    }
+
+    /**
+     * Decrypts a hashed passkey.
+     *
+     * @param string A string containing the hashed passkey.
+     * @return A string with a decrypted/unhashed passkey.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
+     */
+    public static String decrypt(final String string) throws GeneralSecurityException, DecoderException, IOException {
         String iv = string.split(":")[0];
         String property = string.split(":")[1];
         Cipher pbeCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -38,28 +46,31 @@ public final class Hasher {
         return new String(pbeCipher.doFinal(base64Decode(property)), "UTF-8");
     }
 
+    /**
+     * Decode via base64 a String.
+     *
+     * @param property to init a Cypher instance.
+     * @return an arrays of bytes.
+     * @throws IOException .
+     */
     private static byte[] base64Decode(final String property) throws IOException {
         return Base64.getDecoder().decode(property);
     }
 
-    private static SecretKeySpec loadKey() throws IOException
-    {
-        File file = new File(keyLocation);
+    /**
+     * Loads a encryption/decryption key previously stored in the filesystem.
+     *
+     * @return A SecretKeySpec instance to be used in the decryption method.
+     * @throws DecoderException .
+     * @throws IOException .
+     */
+    private static SecretKeySpec loadKey() throws IOException, DecoderException {
+        File file = new File(KEY_LOCATION);
         String data = new String(readFileToByteArray(file));
         char[] hex = data.toCharArray();
         byte[] encoded;
-        try
-        {
-            encoded = decodeHex(hex);
-        }
-        catch (DecoderException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
+        encoded = decodeHex(hex);
         SecretKeySpec key = new SecretKeySpec(encoded, "AES");
         return key;
     }
-
 }

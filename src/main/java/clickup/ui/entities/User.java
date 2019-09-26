@@ -1,6 +1,7 @@
 package clickup.ui.entities;
 
 import core.utils.Hasher;
+import org.apache.commons.codec.DecoderException;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -39,16 +40,23 @@ public class User {
      * Getter method.
      *
      * @return a String containing the password associated to this user.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
      */
-    public String getPassword() throws GeneralSecurityException, IOException {
+    public String getPassword() throws GeneralSecurityException, DecoderException, IOException {
         return Hasher.decrypt(password);
     }
 
     /**
+     * Getter method.
      *
-     * @return
+     * @return a String containing the API personal token associated to this user.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
      */
-    public String getPersonalToken() throws GeneralSecurityException, IOException {
+    public String getPersonalToken() throws GeneralSecurityException, DecoderException, IOException {
         return Hasher.decrypt(personalToken);
     }
 
