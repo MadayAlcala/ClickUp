@@ -67,7 +67,6 @@ public class ListPage extends BasePage {
         nameTxtField.sendKeys(Keys.ENTER);
     }
 
-
     /**
      * Returns a list webElement.
      *
@@ -105,7 +104,6 @@ public class ListPage extends BasePage {
      */
     public void listMenu(final String listName) {
         getListMenuElementByName(listName).click();
-
     }
 
     /**
