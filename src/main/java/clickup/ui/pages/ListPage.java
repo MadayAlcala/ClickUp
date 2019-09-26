@@ -23,7 +23,8 @@ import org.openqa.selenium.support.FindBy;
  * @version 1.0
  */
 public class ListPage extends BasePage {
-    private final String listMenu = "//div[@class='nav-section'][contains(.,'%s')]//following-sibling::div[@class='nav-section__menu']";
+    private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
+    private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
@@ -66,35 +67,36 @@ public class ListPage extends BasePage {
         nameTxtField.sendKeys(Keys.ENTER);
     }
 
-//    /**
-//     * Returns the Name of the new List.
-//     *
-//     * @param listName to find the specific element.
-//     */
-//    public void listPrue(final String listName) {
-//        getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
-//                + listName + "')]"));
-//    }
+
+    /**
+     * Returns a list webElement.
+     *
+     * @param listName that is the name of the list to find.
+     * @return WebElement 'list'.
+     */
+    private WebElement getListElementByName(final String listName) {
+        return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName)));
+    }
 
     /**
      * Returns the Name of the new List.
      *
-     * @param listName to find the specific element.
+     * @param listName to find the specific list element.
      * @return a String with the name of list created.
      */
-    public String nameTxtBox(final String listName) {
-        return getDriver().findElement(By.linkText(listName)).getText();
+    public String nameList(final String listName) {
+        return getListElementByName(listName).getText();
     }
 
-//    /**
-//     * Selects the list' menu.
-//     *
-//     * @param listName that is the name of the list.
-//     */
-//    public void listMenu(final String listName) {
-//        getDriver().findElement(By.xpath("//div[@class='nav-section'][contains(.,'" + listName
-//                + "')]//following-sibling::div[@class='nav-section__menu']")).click();
-//    }
+    /**
+     * Returns a listMenu webElement.
+     *
+     * @param listName that is the name of the list to find.
+     * @return WebElement 'listMenu'.
+     */
+    private WebElement getListMenuElementByName(final String listName) {
+        return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName).concat(LIST_MENU_BTN)));
+    }
 
     /**
      * Selects the list' menu.
@@ -102,10 +104,9 @@ public class ListPage extends BasePage {
      * @param listName that is the name of the list.
      */
     public void listMenu(final String listName) {
-        getDriver().findElement(By.xpath(String.format(listMenu, listName))).click();
+        getListMenuElementByName(listName).click();
 
     }
-
 
     /**
      * Selects delete button.
