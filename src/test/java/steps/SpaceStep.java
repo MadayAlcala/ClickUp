@@ -40,7 +40,7 @@ public class SpaceStep {
      *
      * @param nameSpace parameter type string.
      */
-    @When("The user create a new space with the following name (.*)")
+    @When("The user creates a new space with the following name (.*)")
     public void createNewSpace(final String nameSpace) {
         starPage = new SpacePage();
         context.getSpace().setTitle(nameSpace);
