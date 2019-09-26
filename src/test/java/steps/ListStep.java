@@ -40,7 +40,7 @@ public class ListStep {
      *
      * @param nameList that is the name of the new List.
      */
-    @When("The user create a new list with the following name (.*)")
+    @When("The user creates a new list with the following name (.*)")
     public void createNewSpace(final String nameList) {
         listPage = new ListPage();
         context.getList().setName(nameList);

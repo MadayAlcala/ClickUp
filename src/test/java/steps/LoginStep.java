@@ -17,7 +17,11 @@ import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.codec.DecoderException;
 import org.testng.Assert;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * LoginStep class.
@@ -34,7 +38,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("The user goes to {string} page")
+    @Given("The user goes to (.*) page")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl(login);
     }
@@ -43,9 +47,12 @@ public class LoginStep {
      * Fills email and password in the login page.
      *
      * @param userType    represents the type of user, i.e. user or admin.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
      */
-    @When("The {string} fills the form with email and password")
-    public void fillingForm(final String userType) {
+    @When("The (.*) fills the form with email and password")
+    public void fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
         loginPage = new LoginPage();
         user = CredentialDeserializer.getInstance().getUser(userType);
         loginPage.authenticate(user.getEmail(), user.getPassword());

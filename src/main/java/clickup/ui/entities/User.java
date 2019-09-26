@@ -1,5 +1,11 @@
 package clickup.ui.entities;
 
+import core.utils.Hasher;
+import org.apache.commons.codec.DecoderException;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 /**
  * User entity class.
  *
@@ -9,6 +15,7 @@ package clickup.ui.entities;
 public class User {
     private String email;
     private String password;
+    private String personalToken;
     private String fullName;
 
     /**
@@ -33,18 +40,24 @@ public class User {
      * Getter method.
      *
      * @return a String containing the password associated to this user.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
      */
-    public String getPassword() {
-        return password;
+    public String getPassword() throws GeneralSecurityException, DecoderException, IOException {
+        return Hasher.decrypt(password);
     }
 
     /**
-     * Setter method.
+     * Getter method.
      *
-     * @param password a String containing the new value to assign as new password for this user.
+     * @return a String containing the API personal token associated to this user.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
      */
-    public void setPassword(final String password) {
-        this.password = password;
+    public String getPersonalToken() throws GeneralSecurityException, DecoderException, IOException {
+        return Hasher.decrypt(personalToken);
     }
 
     /**

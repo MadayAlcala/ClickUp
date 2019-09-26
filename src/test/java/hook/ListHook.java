@@ -35,7 +35,7 @@ public class ListHook {
     /**
      * Deletes a list.
      */
-    @After("@deleteList")
+    @After(order = 2, value = "@deleteList")
     public void logout() {
         ListPage listPage = new ListPage();
         listPage.listMenu(context.getList().getName());
