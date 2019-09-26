@@ -38,7 +38,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("The user goes to {string} page")
+    @Given("The user goes to (.*) page")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl("https://app.clickup.com/".concat(login));
     }
@@ -51,7 +51,7 @@ public class LoginStep {
      * @throws DecoderException .
      * @throws IOException .
      */
-    @When("The {string} fills the form with email and password")
+    @When("The (.*) fills the form with email and password")
     public void fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
         loginPage = new LoginPage();
         user = CredentialDeserializer.getInstance().getUser(userType);
