@@ -36,7 +36,7 @@ public class LoginStep {
      */
     @Given("The user goes to {string} page")
     public void navigatePage(final String login) {
-        PageTransporter.goToUrl("https://app.clickup.com/".concat(login));
+        PageTransporter.goToUrl(login);
     }
 
     /**
