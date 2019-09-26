@@ -23,6 +23,8 @@ import org.openqa.selenium.support.FindBy;
  * @version 1.0
  */
 public class ListPage extends BasePage {
+    private final String listMenu = "//div[@class='nav-section'][contains(.,'%s')]//following-sibling::div[@class='nav-section__menu']";
+
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
 
@@ -58,15 +60,15 @@ public class ListPage extends BasePage {
         nameTxtField.sendKeys(Keys.ENTER);
     }
 
-    /**
-     * Returns the Name of the new List.
-     *
-     * @param listName to find the specific element.
-     */
-    public void nameList(final String listName) {
-        getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
-                + listName + "')]"));
-    }
+//    /**
+//     * Returns the Name of the new List.
+//     *
+//     * @param listName to find the specific element.
+//     */
+//    public void listPrue(final String listName) {
+//        getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
+//                + listName + "')]"));
+//    }
 
     /**
      * Returns the Name of the new List.
@@ -78,15 +80,25 @@ public class ListPage extends BasePage {
         return getDriver().findElement(By.linkText(listName)).getText();
     }
 
+//    /**
+//     * Selects the list' menu.
+//     *
+//     * @param listName that is the name of the list.
+//     */
+//    public void listMenu(final String listName) {
+//        getDriver().findElement(By.xpath("//div[@class='nav-section'][contains(.,'" + listName
+//                + "')]//following-sibling::div[@class='nav-section__menu']")).click();
+//    }
+
     /**
      * Selects the list' menu.
      *
      * @param listName that is the name of the list.
      */
     public void listMenu(final String listName) {
-        getDriver().findElement(By.xpath("//div[@class='nav-section'][contains(.,'" + listName
-                + "')]//following-sibling::div[@class='nav-section__menu']")).click();
+        getDriver().findElement(By.xpath(String.format(listMenu, listName))).click();
     }
+
 
     /**
      * Selects delete button.
