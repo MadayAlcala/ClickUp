@@ -12,7 +12,9 @@ package hook;
 
 import clickup.ui.entities.Context;
 import clickup.ui.pages.SpacePage;
+import core.utils.Log;
 import cucumber.api.java.After;
+import org.apache.log4j.spi.ErrorCode;
 
 /**
  * Contains after actions for do in a account.
@@ -37,7 +39,13 @@ public class SpaceHook {
      */
     @After(order = 1, value = "@logout")
     public void logout() {
-        SpacePage starPage = new SpacePage();
-        starPage.logOut();
+        try {
+            SpacePage starPage = new SpacePage();
+            starPage.logOut();
+        }
+        catch (Exception ex){
+            Log.getInstance().getLog().error(ex);
+            throw new NullPointerException("File not found" + ex);
+        }
     }
 }
