@@ -10,7 +10,6 @@
 
 package runner;
 
-import org.testng.annotations.AfterMethod;
 import report.Report;
 import core.selenium.WebDriverManager;
 import cucumber.api.CucumberOptions;
@@ -29,15 +28,6 @@ import org.testng.annotations.AfterTest;
         features = {"src/test/resources/features"})
 
 public class RunCukesTest extends AbstractTestNGCucumberTests {
-
-    /**
-     * Deletes cookies.
-     */
-    @AfterMethod
-    public void deleteCookies() {
-//        WebDriverManager.getInstance().getWebDriver().manage().deleteAllCookies();
-    }
-
     /**
      * AfterExecution executes the project, close the driver instance and generates the reports.
      */

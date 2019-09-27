@@ -11,10 +11,8 @@
 package hook;
 
 import clickup.ui.entities.Context;
-import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.SpacePage;
 import cucumber.api.java.After;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Contains after actions for do in a account.

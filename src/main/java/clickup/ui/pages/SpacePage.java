@@ -11,8 +11,6 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.utils.Log;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,8 +41,8 @@ public class SpacePage extends BasePage {
     @FindBy(xpath = "By.xpath(\"//body\")")
     private WebElement bodyPage;
 
-    @FindBy(xpath = "//img[contains(@src, 'no-lists')]")
-    private WebElement createAListBanner;
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
 
     /**
      * Creates a new space.
@@ -59,7 +57,7 @@ public class SpacePage extends BasePage {
             nextButton.click();
         }
         SpacePage spacePage = new SpacePage();
-        getWait().until(ExpectedConditions.visibilityOf(createAListBanner));
+        getWait().until(ExpectedConditions.visibilityOf(emptyTaskListImg));
     }
 
     /**

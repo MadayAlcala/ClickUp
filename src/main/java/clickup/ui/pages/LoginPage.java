@@ -92,6 +92,11 @@ public final class LoginPage extends BasePage {
         getLoginField();
     }
 
+    /**
+     * Returns the Selenium WebElement associated to email input field.
+     *
+     * @return a WebElement instance pointing to the email input field.
+     */
     public WebElement getEmailWebElement() {
         return emailField;
     }
