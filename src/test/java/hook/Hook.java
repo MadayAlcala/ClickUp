@@ -38,7 +38,7 @@ public class Hook {
      *
      * @param scenario that represent the scenarios of cucumber.
      */
-    @After
+    @After(order = 2)
     public void tearDown(final Scenario scenario) {
         if (scenario.isFailed()) {
             byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
@@ -46,4 +46,13 @@ public class Hook {
         }
     }
 
+    /**
+     * Allows take a screenshot after some failure.
+     *
+     * @param scenario that represent the scenarios of cucumber.
+     */
+    public void takeScreenshot(final Scenario scenario){
+        byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
+        scenario.embed(screenshot, "image/png");
+    }
 }
