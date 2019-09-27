@@ -24,6 +24,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @version 1.0
  */
 public class ListPage extends BasePage {
+    private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
+    private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
+
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
     private WebElement conrfirmDelete;
 
@@ -77,23 +80,33 @@ public class ListPage extends BasePage {
     }
 
     /**
-     * Returns the Name of the new List.
+     * Returns a list webElement.
      *
-     * @param listName to find the specific element.
+     * @param listName that is the name of the list to find.
+     * @return WebElement 'list'.
      */
-    public void nameList(final String listName) {
-        getDriver().findElement(By.xpath("//*[@id='-3']/cu-nav-section[contains(.,'"
-                + listName + "')]"));
+    private WebElement getListElementByName(final String listName) {
+        return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName)));
     }
 
     /**
      * Returns the Name of the new List.
      *
-     * @param listName to find the specific element.
+     * @param listName to find the specific list element.
      * @return a String with the name of list created.
      */
-    public String nameTxtBox(final String listName) {
-        return getDriver().findElement(By.linkText(listName)).getText();
+    public String nameList(final String listName) {
+        return getListElementByName(listName).getText();
+    }
+
+    /**
+     * Returns a listMenu webElement.
+     *
+     * @param listName that is the name of the list to find.
+     * @return WebElement 'listMenu'.
+     */
+    private WebElement getListMenuElementByName(final String listName) {
+        return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName).concat(LIST_MENU_BTN)));
     }
 
     /**
@@ -102,9 +115,7 @@ public class ListPage extends BasePage {
      * @param listName that is the name of the list.
      */
     public void listMenu(final String listName) {
-        getDriver().findElement(By.xpath("//cu-nav-section[contains(.,'"
-                + listName
-                + "')]//following-sibling::div[@class='nav-section__menu']")).click();
+        getListMenuElementByName(listName).click();
     }
 
     /**
