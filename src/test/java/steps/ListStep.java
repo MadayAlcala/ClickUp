@@ -40,7 +40,7 @@ public class ListStep {
      *
      * @param nameList that is the name of the new List.
      */
-    @When("The user creates a new list with the following name (.*)")
+    @When("The user creates a new list with the following name {string}")
     public void createNewSpace(final String nameList) {
         listPage = new ListPage();
         context.getList().setName(nameList);
@@ -53,6 +53,6 @@ public class ListStep {
      */
     @Then("The user should see the new list appear in the panel successfully")
     public void name() {
-        Assert.assertEquals(listPage.nameTxtBox(context.getList().getName()), context.getList().getName());
+        Assert.assertEquals(listPage.nameList(context.getList().getName()), context.getList().getName());
     }
 }

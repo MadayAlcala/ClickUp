@@ -40,7 +40,7 @@ public class SpaceStep {
      *
      * @param nameSpace parameter type string.
      */
-    @When("The user creates a new space with the following name (.*)")
+    @When("The user creates a new space with the following name {string}")
     public void createNewSpace(final String nameSpace) {
         starPage = new SpacePage();
         context.getSpace().setTitle(nameSpace);
@@ -52,7 +52,7 @@ public class SpaceStep {
      *
      * @param nameSpace type string.
      */
-    @Then("The space name with the name (.*) appear in the panel successfully")
+    @Then("The space name with the name {string} appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
         Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
     }

@@ -11,7 +11,11 @@
 package clickup.ui.pages;
 
 import core.selenium.WebDriverManager;
+import core.utils.PropertyReader;
 import org.openqa.selenium.WebDriver;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * PageTransporter class.
@@ -20,7 +24,14 @@ import org.openqa.selenium.WebDriver;
  * @version 1.0
  */
 public final class PageTransporter {
-    private static WebDriver webDriver;
+    private static Map<String, String> map = new HashMap<>();
+    private static final String APP_CONFIG_FILE = "app.properties";
+    private static final String URL_BASE = "url";
+
+    static {
+        map.put("login", "login");
+        map.put("space", "https://app.clickup.com/3004860/v/l/s/3007916");
+    }
 
     /**
      * This is the empty constructor according to checkstyle.
@@ -34,7 +45,9 @@ public final class PageTransporter {
      * @param url The parameter url defines a input url.
      */
     public static void goToUrl(final String url) {
-        webDriver = WebDriverManager.getInstance().getWebDriver();
-        webDriver.navigate().to(url);
+        PropertyReader.loadFile(APP_CONFIG_FILE);
+        String urlBase = PropertyReader.retrieveField(URL_BASE);
+        WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
+        webDriver.navigate().to(urlBase.concat(map.get(url)));
     }
 }
