@@ -24,6 +24,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @version 1.0
  */
 public class ListPage extends BasePage {
+    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
+    private WebElement conrfirmDelete;
+
+    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
+    private WebElement deleteBtn;
+
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
+
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
 
@@ -33,16 +42,7 @@ public class ListPage extends BasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
 
-    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
-    private WebElement deleteBtn;
-
-    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
-    private WebElement conrfirmDelete;
-
-    @FindBy(xpath = "//img[contains(@src, 'no-lists')]")
-    private WebElement createAListBanner;
-
-    @FindBy(xpath = "//*[contains(@class, 'item-label-body cu-task-list-header')]")
+    @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
 
     /**
@@ -67,7 +67,7 @@ public class ListPage extends BasePage {
     public void createList(final String listName) {
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
-                ExpectedConditions.visibilityOf(createAListBanner)
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
         getIconBtn();
         getListBox();
@@ -116,7 +116,7 @@ public class ListPage extends BasePage {
         conrfirmDelete.click();
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
-                ExpectedConditions.visibilityOf(createAListBanner)
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
     }
 }
