@@ -1,4 +1,4 @@
-package clickup.ui.entities;
+package clickup.entities;
 
 import core.utils.Hasher;
 import org.apache.commons.codec.DecoderException;

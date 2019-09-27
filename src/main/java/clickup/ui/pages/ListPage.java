@@ -22,7 +22,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Maday Alcala
  * @version 1.0
  */
-public class ListPage extends BasePage {
+public class ListPage extends ApplicationBasePage {
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
 

@@ -8,21 +8,21 @@
  * with Jalasoft.
  */
 
-package clickup.ui.entities;
+package clickup.entities;
 
 /**
- * List class.
+ * Task class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class List {
+public class Task {
     private String name;
 
     /**
      * Getter method.
      *
-     * @return a String containing name associated to this list.
+     * @return a String containing name associated to this task.
      */
     public String getName() {
         return name;
@@ -31,7 +31,7 @@ public class List {
     /**
      * Setter method.
      *
-     * @param name a String containing the new value to assign as a new name for this list.
+     * @param name a String containing the new value to assign as a new name for this task.
      */
     public void setName(final String name) {
         this.name = name;

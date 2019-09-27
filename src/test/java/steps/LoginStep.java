@@ -10,7 +10,7 @@
 
 package steps;
 
-import clickup.ui.entities.User;
+import clickup.entities.User;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.PageTransporter;
 import core.utils.CredentialDeserializer;

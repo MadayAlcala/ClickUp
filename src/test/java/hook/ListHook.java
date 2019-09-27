@@ -10,7 +10,7 @@
 
 package hook;
 
-import clickup.ui.entities.Context;
+import clickup.entities.Context;
 import clickup.ui.pages.ListPage;
 import cucumber.api.java.After;
 

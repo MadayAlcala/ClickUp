@@ -20,7 +20,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Maday Alcala
  * @version 1.0
  */
-public final class LoginPage extends BasePage {
+public final class LoginPage extends ApplicationBasePage{
     @FindBy(id = "email-input")
     private WebElement emailField;
 
