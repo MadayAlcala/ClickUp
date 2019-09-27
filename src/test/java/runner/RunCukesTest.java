@@ -35,7 +35,7 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
      */
     @AfterMethod
     public void deleteCookies() {
-        WebDriverManager.getInstance().getWebDriver().manage().deleteAllCookies();
+//        WebDriverManager.getInstance().getWebDriver().manage().deleteAllCookies();
     }
 
     /**

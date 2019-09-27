@@ -15,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * ListPage class.
@@ -38,6 +39,12 @@ public class ListPage extends BasePage {
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
     private WebElement conrfirmDelete;
 
+    @FindBy(xpath = "//img[contains(@src, 'no-lists')]")
+    private WebElement createAListBanner;
+
+    @FindBy(xpath = "//*[contains(@class, 'item-label-body cu-task-list-header')]")
+    private WebElement taskListHeader;
+
     /**
      * Selects the '+' symbol to displayed their options.
      */
@@ -58,10 +65,15 @@ public class ListPage extends BasePage {
      * @param listName that is the name of the new List.
      */
     public void createList(final String listName) {
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(createAListBanner)
+        ));
         getIconBtn();
         getListBox();
         nameTxtField.sendKeys(listName);
         nameTxtField.sendKeys(Keys.ENTER);
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
     /**
@@ -100,6 +112,11 @@ public class ListPage extends BasePage {
      */
     public void deleteList() {
         deleteBtn.click();
+        getWait().until(ExpectedConditions.elementToBeClickable(conrfirmDelete));
         conrfirmDelete.click();
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(createAListBanner)
+        ));
     }
 }

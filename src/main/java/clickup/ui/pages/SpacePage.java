@@ -11,8 +11,11 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
+import core.utils.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Saves some element to the page clickUp.
@@ -40,6 +43,9 @@ public class SpacePage extends BasePage {
     @FindBy(xpath = "By.xpath(\"//body\")")
     private WebElement bodyPage;
 
+    @FindBy(xpath = "//img[contains(@src, 'no-lists')]")
+    private WebElement createAListBanner;
+
     /**
      * Creates a new space.
      *
@@ -49,8 +55,11 @@ public class SpacePage extends BasePage {
         addNewButton.click();
         inputNameSpaceTextBox.sendKeys(nameSpace);
         for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
+            getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
             nextButton.click();
         }
+        SpacePage spacePage = new SpacePage();
+        getWait().until(ExpectedConditions.visibilityOf(createAListBanner));
     }
 
     /**
@@ -67,7 +76,11 @@ public class SpacePage extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
+        SpacePage spacePage = new SpacePage();
+        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
         spaceBarButton.click();
         logOutButton.click();
+        LoginPage loginPage = new LoginPage();
+        getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
     }
 }

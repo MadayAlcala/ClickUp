@@ -91,4 +91,8 @@ public final class LoginPage extends BasePage {
         getPasswordField(password);
         getLoginField();
     }
+
+    public WebElement getEmailWebElement() {
+        return emailField;
+    }
 }
