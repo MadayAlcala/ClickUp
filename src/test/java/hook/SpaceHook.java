@@ -53,7 +53,7 @@ public class SpaceHook {
             byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
             Log.getInstance().getLog().error(ex);
-            throw new NullPointerException("File not found" + ex);
+            throw new NullPointerException("Don't do execute the log out." + ex);
         }
     }
 }

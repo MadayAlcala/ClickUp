@@ -45,14 +45,4 @@ public class Hook {
             scenario.embed(screenshot, "image/png");
         }
     }
-
-    /**
-     * Allows take a screenshot after some failure.
-     *
-     * @param scenario that represent the scenarios of cucumber.
-     */
-    public void takeScreenshot(final Scenario scenario){
-        byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
-        scenario.embed(screenshot, "image/png");
-    }
 }
