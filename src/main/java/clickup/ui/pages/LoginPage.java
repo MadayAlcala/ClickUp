@@ -21,17 +21,17 @@ import org.openqa.selenium.support.FindBy;
  * @version 1.0
  */
 public final class LoginPage extends BasePage {
+    @FindBy(xpath = "//cu-team-avatar/div")
+    private WebElement avatar;
+
     @FindBy(id = "email-input")
     private WebElement emailField;
-
-    @FindBy(id = "password-input")
-    private WebElement passwordField;
 
     @FindBy(css = ".log-in-button-text")
     private WebElement logInBtn;
 
-    @FindBy(xpath = "//cu-team-avatar/div")
-    private WebElement avatar;
+    @FindBy(id = "password-input")
+    private WebElement passwordField;
 
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title > .cu-user-settings-menu__title-name")
     private WebElement titleNameTxt;

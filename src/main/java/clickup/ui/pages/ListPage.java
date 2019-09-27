@@ -28,7 +28,7 @@ public class ListPage extends BasePage {
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
-    private WebElement conrfirmDelete;
+    private WebElement confirmDelete;
 
     @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
     private WebElement deleteBtn;
@@ -123,8 +123,8 @@ public class ListPage extends BasePage {
      */
     public void deleteList() {
         deleteBtn.click();
-        getWait().until(ExpectedConditions.elementToBeClickable(conrfirmDelete));
-        conrfirmDelete.click();
+        getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
+        confirmDelete.click();
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)

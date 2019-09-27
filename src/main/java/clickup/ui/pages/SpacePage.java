@@ -26,23 +26,23 @@ public class SpacePage extends BasePage {
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
+    @FindBy(xpath = "By.xpath(\"//body\")")
+    private WebElement bodyPage;
+
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
+
     @FindBy(css = ".cu-form__input")
     private WebElement inputNameSpaceTextBox;
+
+    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
+    private WebElement logOutButton;
 
     @FindBy(css = ".cu-btn")
     private WebElement nextButton;
 
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton;
-
-    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
-    private WebElement logOutButton;
-
-    @FindBy(xpath = "By.xpath(\"//body\")")
-    private WebElement bodyPage;
-
-    @FindBy(css = "img[src *= 'no-lists']")
-    private WebElement emptyTaskListImg;
 
     /**
      * Creates a new space.
