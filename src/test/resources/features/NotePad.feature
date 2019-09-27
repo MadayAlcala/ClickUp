@@ -1,4 +1,5 @@
 Feature: Notepad
+
   Scenario: A user creates a note
     Given the guest user is logged in ClickUp web application
     When the user goes to Notepad page
