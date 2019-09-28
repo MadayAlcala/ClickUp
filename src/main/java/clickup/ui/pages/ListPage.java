@@ -15,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * ListPage class.
@@ -26,6 +27,15 @@ public class ListPage extends BasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
+    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
+    private WebElement confirmDelete;
+
+    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
+    private WebElement deleteBtn;
+
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
+
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
 
@@ -35,11 +45,8 @@ public class ListPage extends BasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
 
-    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
-    private WebElement deleteBtn;
-
-    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
-    private WebElement conrfirmDelete;
+    @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
+    private WebElement taskListHeader;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -61,10 +68,15 @@ public class ListPage extends BasePage {
      * @param listName that is the name of the new List.
      */
     public void createList(final String listName) {
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
+        ));
         getIconBtn();
         getListBox();
         nameTxtField.sendKeys(listName);
         nameTxtField.sendKeys(Keys.ENTER);
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
     /**
@@ -111,6 +123,11 @@ public class ListPage extends BasePage {
      */
     public void deleteList() {
         deleteBtn.click();
-        conrfirmDelete.click();
+        getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
+        confirmDelete.click();
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
+        ));
     }
 }
