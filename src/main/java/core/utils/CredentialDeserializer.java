@@ -1,6 +1,6 @@
 package core.utils;
 
-import clickup.ui.entities.User;
+import clickup.entities.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

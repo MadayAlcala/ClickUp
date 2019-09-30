@@ -10,7 +10,7 @@
 
 package clickup.ui.pages;
 
-import clickup.ui.BasePage;
+import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -18,12 +18,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * ListPage class.
+ * ListMenu class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class ListPage extends BasePage {
+public class ListMenu extends ApplicationBasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
@@ -52,14 +52,14 @@ public class ListPage extends BasePage {
      * Selects the '+' symbol to displayed their options.
      */
     private void getIconBtn() {
-        iconBtn.click();
+        Actions.click(iconBtn);
     }
 
     /**
      * Selects the option 'New List' to create a new List.
      */
     private void getListBox() {
-        listBox.click();
+        Actions.click(listBox);
     }
 
     /**
@@ -74,8 +74,8 @@ public class ListPage extends BasePage {
         ));
         getIconBtn();
         getListBox();
-        nameTxtField.sendKeys(listName);
-        nameTxtField.sendKeys(Keys.ENTER);
+        Actions.sendKeys(nameTxtField, listName);
+        Actions.sendKeys(nameTxtField, Keys.ENTER);
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
@@ -96,7 +96,7 @@ public class ListPage extends BasePage {
      * @return a String with the name of list created.
      */
     public String nameList(final String listName) {
-        return getListElementByName(listName).getText();
+        return Actions.getText(getListElementByName(listName));
     }
 
     /**
@@ -114,14 +114,17 @@ public class ListPage extends BasePage {
      *
      * @param listName that is the name of the list.
      */
-    public void listMenu(final String listName) {
-        getListMenuElementByName(listName).click();
+    private void listMenu(final String listName) {
+        Actions.click(getListMenuElementByName(listName));
     }
 
     /**
      * Selects delete button.
+     *
+     * @param listName that is the name of the list.
      */
-    public void deleteList() {
+    public void deleteList(final String listName) {
+        listMenu(listName);
         deleteBtn.click();
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
         confirmDelete.click();

@@ -8,7 +8,7 @@
  * with Jalasoft.
  */
 
-package clickup.ui.entities;
+package clickup.entities;
 
 /**
  * Contains all objects or variables that wee need save.

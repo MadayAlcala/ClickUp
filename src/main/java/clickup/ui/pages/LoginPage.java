@@ -10,7 +10,7 @@
 
 package clickup.ui.pages;
 
-import clickup.ui.BasePage;
+import core.utils.Actions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,10 +20,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Maday Alcala
  * @version 1.0
  */
-public final class LoginPage extends BasePage {
-    @FindBy(xpath = "//cu-team-avatar/div")
-    private WebElement avatar;
-
+public final class LoginPage extends ApplicationBasePage {
     @FindBy(id = "email-input")
     private WebElement emailField;
 
@@ -42,7 +39,7 @@ public final class LoginPage extends BasePage {
      * @param email that is a valid email.
      */
     private void getEmailField(final String email) {
-        emailField.sendKeys(email);
+        Actions.sendKeys(emailField, email);
     }
 
     /**
@@ -51,39 +48,20 @@ public final class LoginPage extends BasePage {
      * @param password that is a valid password.
      */
     private void getPasswordField(final String password) {
-        passwordField.sendKeys(password);
+        Actions.sendKeys(passwordField, password);
     }
 
     /**
      * Clicks in the login button.
      */
     private void getLoginField() {
-        logInBtn.click();
-    }
-
-    /**
-     * Clicks on the account avatar.
-     */
-    private void displayUserMenu() {
-        avatar.click();
-    }
-
-    /**
-     * Gets the account title name.
-     *
-     * @return a String with the title name.
-     */
-    public String getTitleName() {
-        displayUserMenu();
-        String titleName = titleNameTxt.getText();
-        displayUserMenu();
-        return titleName;
+        Actions.click(logInBtn);
     }
 
     /**
      * Fills in and send the user's credentials.
      *
-     * @param email a String containing the email associated to a given user.
+     * @param email    a String containing the email associated to a given user.
      * @param password a String containing the password associated to a given user.
      */
     public void authenticate(final String email, final String password) {

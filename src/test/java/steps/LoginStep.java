@@ -10,7 +10,7 @@
 
 package steps;
 
-import clickup.ui.entities.User;
+import clickup.entities.User;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.PageTransporter;
 import core.utils.CredentialDeserializer;
@@ -63,6 +63,6 @@ public class LoginStep {
      */
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
-        Assert.assertEquals(loginPage.getTitleName(), user.getFullName());
+        Assert.assertEquals(loginPage.getSideMenu().getTitleName(), user.getFullName());
     }
 }

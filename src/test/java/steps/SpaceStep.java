@@ -10,8 +10,8 @@
 
 package steps;
 
-import clickup.ui.entities.Context;
-import clickup.ui.pages.SpacePage;
+import clickup.entities.Context;
+import clickup.ui.pages.SpaceMenu;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -23,7 +23,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class SpaceStep {
-    private SpacePage starPage;
+    private SpaceMenu spaceMenu;
     private Context context;
 
     /**
@@ -42,9 +42,9 @@ public class SpaceStep {
      */
     @When("The user creates a new space with the following name {string}")
     public void createNewSpace(final String nameSpace) {
-        starPage = new SpacePage();
+        spaceMenu = new SpaceMenu();
         context.getSpace().setTitle(nameSpace);
-        starPage.addNewSpace(nameSpace);
+        spaceMenu.addNewSpace(nameSpace);
     }
 
     /**
@@ -54,6 +54,6 @@ public class SpaceStep {
      */
     @Then("The space name with the name {string} appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
-        Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
+        Assert.assertTrue(spaceMenu.isFoundNameSpace(nameSpace));
     }
 }

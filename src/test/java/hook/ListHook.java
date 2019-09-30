@@ -10,8 +10,8 @@
 
 package hook;
 
-import clickup.ui.entities.Context;
-import clickup.ui.pages.ListPage;
+import clickup.entities.Context;
+import clickup.ui.pages.ListMenu;
 import cucumber.api.java.After;
 
 /**
@@ -36,9 +36,8 @@ public class ListHook {
      * Deletes a list.
      */
     @After(order = 2, value = "@deleteList")
-    public void logout() {
-        ListPage listPage = new ListPage();
-        listPage.listMenu(context.getList().getName());
-        listPage.deleteList();
+    public void deleteList() {
+        ListMenu listPage = new ListMenu();
+        listPage.deleteList(context.getList().getName());
     }
 }
