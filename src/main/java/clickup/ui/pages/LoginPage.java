@@ -20,14 +20,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Maday Alcala
  * @version 1.0
  */
-<<<<<<< HEAD
 public final class LoginPage extends ApplicationBasePage {
-    @FindBy(xpath = "//cu-team-avatar/div")
-    private WebElement avatar;
-
-=======
-public final class LoginPage extends ApplicationBasePage{
->>>>>>> 7f513854f667cef5a8d97b96c0f2cada0b266567
     @FindBy(id = "email-input")
     private WebElement emailField;
 
