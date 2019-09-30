@@ -1,6 +1,6 @@
 Feature: Create new space
 
-  @logout
+  @logout @deleteSpace
   Scenario: The user create a new space
     Given The user goes to login page
       And The user fills the form with email and password

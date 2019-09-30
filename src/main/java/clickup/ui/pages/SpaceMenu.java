@@ -10,6 +10,7 @@
 
 package clickup.ui.pages;
 
+import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,17 +28,11 @@ public class SpaceMenu extends ApplicationBasePage {
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
-    @FindBy(css = ".cu-form__input")
+    @FindBy(css = ".cu-form__field > input")
     private WebElement inputNameSpaceTextBox;
 
     @FindBy(css = ".cu-btn")
     private WebElement nextButton;
-
-    @FindBy(css = ".cu-avatar-container")
-    private WebElement spaceBarButton;
-
-    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
-    private WebElement logOutButton;
 
     @FindBy(xpath = "By.xpath(\"//body\")")
     private WebElement bodyPage;
@@ -60,10 +55,13 @@ public class SpaceMenu extends ApplicationBasePage {
      * @param nameSpace String parameter.
      */
     public void addNewSpace(final String nameSpace) {
-        addNewButton.click();
-        inputNameSpaceTextBox.sendKeys(nameSpace);
+        Actions.click(addNewButton);
+//        addNewButton.click();
+//        inputNameSpaceTextBox.sendKeys(nameSpace);
+        Actions.sendKeys(inputNameSpaceTextBox, nameSpace);
         for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
-            nextButton.click();
+            Actions.click(nextButton);
+//            nextButton.click();
         }
     }
 
@@ -75,14 +73,6 @@ public class SpaceMenu extends ApplicationBasePage {
      */
     public boolean isFoundNameSpace(final String nameSpace) {
         return getDriver().getPageSource().contains(nameSpace);
-    }
-
-    /**
-     * Lets log out from the main page.
-     */
-    public void logOut() {
-        spaceBarButton.click();
-        logOutButton.click();
     }
 
     /**
@@ -101,13 +91,13 @@ public class SpaceMenu extends ApplicationBasePage {
      * @param spaceName that is the name of the space to delete.
      */
     public void deleteSpace(final String spaceName) {
-        getSpaceElementByName(spaceName).click();
-        spaceMenuBtn.click();
+        Actions.click(getSpaceElementByName(spaceName));
+        Actions.click(spaceMenuBtn);
         getWait().until(ExpectedConditions.visibilityOf(deleteBtn));
-        deleteBtn.click();
+        Actions.click(deleteBtn);
         getWait().until(ExpectedConditions.visibilityOf(deleteTxtField));
-        deleteTxtField.sendKeys("delete");
+        Actions.sendKeys(deleteTxtField, "delete");
         getWait().until(ExpectedConditions.textToBePresentInElement(deleteTxtField, deleteTxtField.getText()));
-        confirmDeleteBtn.click();
+        Actions.click(confirmDeleteBtn);
     }
 }

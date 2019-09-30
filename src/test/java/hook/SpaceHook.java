@@ -11,7 +11,9 @@
 package hook;
 
 import clickup.entities.Context;
-import clickup.ui.pages.SpacePage;
+import clickup.ui.components.SideMenu;
+import clickup.ui.pages.PageTransporter;
+import clickup.ui.pages.SpaceMenu;
 import cucumber.api.java.After;
 
 /**
@@ -22,6 +24,7 @@ import cucumber.api.java.After;
  */
 public class SpaceHook {
     private Context context;
+    private final int third = 3;
 
     /**
      * Allows to receive the variable context.
@@ -33,11 +36,12 @@ public class SpaceHook {
     }
 
     /**
-     * Lets logout from to web page.
+     * Deletes a space.
      */
-    @After(order = 1, value = "@logout")
-    public void logout() {
-        SpacePage starPage = new SpacePage();
-        starPage.logOut();
+    @After(order = third, value = "@deleteSpace")
+    public void deleteSpace() {
+        SpaceMenu starPage = new SpaceMenu();
+        starPage.deleteSpace(context.getSpace().getTitle());
+        PageTransporter.goToUrl("login");
     }
 }

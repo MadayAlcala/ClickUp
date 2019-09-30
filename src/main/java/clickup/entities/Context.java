@@ -19,6 +19,7 @@ package clickup.entities;
 public class Context {
     private Space space;
     private List list;
+    private User user;
 
     /**
      * Initializes the variables.
@@ -62,5 +63,13 @@ public class Context {
      */
     public void setList(final List list) {
         this.list = list;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
