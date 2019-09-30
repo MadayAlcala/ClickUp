@@ -24,14 +24,11 @@ public final class LoginPage extends ApplicationBasePage{
     @FindBy(id = "email-input")
     private WebElement emailField;
 
-    @FindBy(id = "password-input")
-    private WebElement passwordField;
-
     @FindBy(css = ".log-in-button-text")
     private WebElement logInBtn;
 
-    @FindBy(xpath = "//cu-team-avatar/div")
-    private WebElement avatar;
+    @FindBy(id = "password-input")
+    private WebElement passwordField;
 
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title > .cu-user-settings-menu__title-name")
     private WebElement titleNameTxt;
@@ -90,5 +87,14 @@ public final class LoginPage extends ApplicationBasePage{
         getEmailField(email);
         getPasswordField(password);
         getLoginField();
+    }
+
+    /**
+     * Returns the Selenium WebElement associated to email input field.
+     *
+     * @return a WebElement instance pointing to the email input field.
+     */
+    public WebElement getEmailWebElement() {
+        return emailField;
     }
 }
