@@ -38,6 +38,13 @@ public class TaskPage extends BasePage {
     private WebElement closeButton;
 
     /**
+     * Visits the '+ New Task' hyperlink from the menu at the top of the List group in the body section.
+     */
+    private void followNewTaskLink() {
+        newTaskLink.click();
+    }
+
+    /**
      * Creates a new Task.
      *
      * @param taskName A String containing the name of the Task to be created.
@@ -49,30 +56,10 @@ public class TaskPage extends BasePage {
     }
 
     /**
-     * Visits the '+ New Task' hyperlink from the menu at the top of the List group in the body section.
-     */
-    private void followNewTaskLink() {
-        newTaskLink.click();
-    }
-
-    /**
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
     private void followCopyUrlLink() {
         copyUrlLink.click();
-    }
-
-    /**
-     * Returns a String containing the url assigned to a newly created Task.
-     *
-     * @return a String containing the url assigned to a newly created Task.
-     * @throws UnsupportedFlavorException .
-     * @throws IOException .
-     */
-    public String extractTaskId() throws UnsupportedFlavorException, IOException {
-        String taskUrl = getTaskUrl();
-        closeModal();
-        return taskUrl;
     }
 
     /**
@@ -90,6 +77,26 @@ public class TaskPage extends BasePage {
     }
 
     /**
+     * Closes the modal that appears after the creation of a task.
+     */
+    private void closeModal() {
+        closeButton.click();
+    }
+
+    /**
+     * Returns a String containing the url assigned to a newly created Task.
+     *
+     * @return a String containing the url assigned to a newly created Task.
+     * @throws UnsupportedFlavorException .
+     * @throws IOException .
+     */
+    public String extractTaskId() throws UnsupportedFlavorException, IOException {
+        String taskUrl = getTaskUrl();
+        closeModal();
+        return taskUrl;
+    }
+
+    /**
      * Returns the message on the pop up modal that appears after a Task is created.
      *
      * @return a String containing the message on the pop up modal that appears after a Task is created.
@@ -101,18 +108,12 @@ public class TaskPage extends BasePage {
     }
 
     /**
-     * Closes the modal that appears after the creation of a task.
-     */
-    public void closeModal() {
-        closeButton.click();
-    }
-
-    /**
      * Returns a string containing the name ot task specified by id.
      *
      * @return a string containing the name ot task specified by id
      */
     public String getTaskTitleById() {
+        //TODO implementation pending.
         return null;
     }
 }
