@@ -12,7 +12,7 @@ package steps;
 
 import clickup.entities.User;
 import clickup.ui.pages.LoginPage;
-import clickup.ui.pages.PageTransporter;
+import clickup.ui.PageTransporter;
 import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

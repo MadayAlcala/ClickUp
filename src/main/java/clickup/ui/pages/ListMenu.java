@@ -26,9 +26,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ListMenu extends ApplicationBasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
+    private static final String DASHBOARD_TASKS = "//cu-dashboard-board-card[contains(.,'%s')]";
+
+    @FindBy(xpath = "//div/div/a[@cutooltip='Create task']")
+    private WebElement addNewTaskBtn;
+
+    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
+    private WebElement boardView;
 
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
-    private WebElement confirmDelete;
+    private WebElement confirmDeleteBtn;
+
+    @FindBy(css = "button > .cu-draft-view__submit-btn")
+    private WebElement createTaskBtn;
 
     @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
     private WebElement deleteBtn;
@@ -43,10 +53,16 @@ public class ListMenu extends ApplicationBasePage {
     private WebElement listBox;
 
     @FindBy(css = ".nav-section-maker__input")
-    private WebElement nameTxtField;
+    private WebElement listNameTxtField;
+
+    @FindBy(css = ".cu-search-filter .cu-search-filter__input")
+    private WebElement searchTxtField;
 
     @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
+
+    @FindBy(css = ".cu-form__input")
+    private WebElement taskNameTxtField;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -74,8 +90,8 @@ public class ListMenu extends ApplicationBasePage {
         ));
         getIconBtn();
         getListBox();
-        Actions.sendKeys(nameTxtField, listName);
-        Actions.sendKeys(nameTxtField, Keys.ENTER);
+        Actions.sendKeys(listNameTxtField, listName);
+        Actions.sendKeys(listNameTxtField, Keys.ENTER);
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
@@ -125,12 +141,52 @@ public class ListMenu extends ApplicationBasePage {
      */
     public void deleteList(final String listName) {
         listMenu(listName);
-        deleteBtn.click();
-        getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
-        confirmDelete.click();
+        Actions.click(deleteBtn);
+        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
+        Actions.click(confirmDeleteBtn);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
+    }
+
+    public void addNewTask(String listName, String taskName) {
+        listMenu(listName);
+        Actions.click(addNewTaskBtn);
+        Actions.sendKeys(taskNameTxtField, taskName);
+        Actions.click(createTaskBtn);
+    }
+
+
+    /**
+     * Returns a task webElement.
+     *
+     * @param taskName that is the name of the task to find.
+     * @return WebElement 'taskName'.
+     */
+    private WebElement findTaskInDashboard(final String taskName) {
+        return getDriver().findElement(By.xpath(String.format(DASHBOARD_TASKS, taskName)));
+    }
+
+    /**
+     * Searches a task in the search filter.
+     *
+     * @param taskName that is a String of the task' name that wants to search.
+     */
+    public void searchTask(final String taskName) {
+        Actions.click(boardView);
+        Actions.click(searchTxtField);
+        Actions.sendKeys(searchTxtField, taskName);
+        Actions.sendKeys(searchTxtField, Keys.ENTER);
+    }
+
+    /**
+     * Finds a task in the dashboard that was already searched.
+     *
+     * @param taskName that is a String of the task' name that wants to find.
+     * @return a String with the text of the task found.
+     */
+    public String findTask(final String taskName) {
+        return Actions.getText(findTaskInDashboard(taskName));
     }
 }

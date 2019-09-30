@@ -20,6 +20,7 @@ public class Context {
     private Space space;
     private List list;
     private User user;
+    private Task task;
 
     /**
      * Initializes the variables.
@@ -27,6 +28,7 @@ public class Context {
     public Context() {
         this.space = new Space();
         this.list = new List();
+        this.task = new Task();
     }
 
     /**
@@ -81,5 +83,23 @@ public class Context {
      */
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a Task' object.
+     */
+    public Task getTask() {
+        return task;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param task that is the object to change its behavior.
+     */
+    public void setTask(Task task) {
+        this.task = task;
     }
 }

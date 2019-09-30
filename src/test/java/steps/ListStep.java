@@ -12,6 +12,7 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ListMenu;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -23,7 +24,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class ListStep {
-    private ListMenu listPage;
+    private ListMenu listMenu;
     private Context context;
 
     /**
@@ -41,18 +42,41 @@ public class ListStep {
      * @param nameList that is the name of the new List.
      */
     @When("The user creates a new list with the following name {string}")
-    public void createNewSpace(final String nameList) {
-        listPage = new ListMenu();
+    public void addNewList(final String nameList) {
+        listMenu = new ListMenu();
         context.getList().setName(nameList);
-        listPage.createList(nameList);
+        listMenu.createList(nameList);
     }
 
     /**
      * Checks that the list has been created.
-     *
      */
     @Then("The user should see the new list appear in the panel successfully")
-    public void name() {
-        Assert.assertEquals(listPage.nameList(context.getList().getName()), context.getList().getName());
+    public void assertListName() {
+        Assert.assertEquals(listMenu.nameList(context.getList().getName()), context.getList().getName());
+    }
+
+    @And("the user creates a task with the following name {string}")
+    public void theUserCreatesATaskWithTheFollowingName(String taskName) {
+        context.getTask().setName(taskName);
+        listMenu.addNewTask(context.getList().getName(), taskName);
+    }
+
+    /**
+     * Searches a task in the list view.
+     */
+    @And("the user searches the task")
+    public void theUserSearchesTheTask() {
+        listMenu.searchTask(context.getTask().getName());
+    }
+
+    /**
+     * Finds in the dashboard the task searched.
+     */
+    @Then("the user should see the task listed in the search result.")
+    public void theUserShouldSeeTheTaskListedInTheSearchResult() {
+        String actual = listMenu.findTask(context.getTask().getName());
+        String expected = context.getTask().getName();
+        Assert.assertEquals(actual, expected);
     }
 }

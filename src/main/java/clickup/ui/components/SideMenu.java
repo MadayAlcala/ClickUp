@@ -53,6 +53,7 @@ public class SideMenu extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
+//        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
         spaceBarButton.click();
         logOutButton.click();
         LoginPage loginPage = new LoginPage();
