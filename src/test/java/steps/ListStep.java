@@ -55,12 +55,12 @@ public class ListStep {
     public void assertListName() {
         Assert.assertEquals(listMenu.nameList(context.getList().getName()), context.getList().getName());
     }
-
-    @And("the user creates a task with the following name {string}")
-    public void theUserCreatesATaskWithTheFollowingName(String taskName) {
-        context.getTask().setName(taskName);
-        listMenu.addNewTask(context.getList().getName(), taskName);
-    }
+//
+//    @And("the user creates a task with the following name {string}")
+//    public void theUserCreatesATaskWithTheFollowingName(String taskName) {
+//        context.getTask().setName(taskName);
+//        listMenu.addNewTask(context.getList().getName(), taskName);
+//    }
 
     /**
      * Searches a task in the list view.

@@ -8,11 +8,11 @@ Feature: List
 #    When The user creates a new list with the following name "ListTest"
 #    Then The user should see the new list appear in the panel successfully
 
-#  @logout @deleteList @deleteSpace
+  @logout @deleteList @deleteSpace
   Scenario: Filter and Search Tasks in List View
     When The user creates a new space with the following name "SpaceTest"
     And The user creates a new list with the following name "ListTest"
-    And the user creates a task with the following name "TaskTest"
+    And The user creates a new task with the following name "TaskTest"
     And the user searches the task
     Then the user should see the task listed in the search result.
 

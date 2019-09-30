@@ -26,7 +26,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ListMenu extends ApplicationBasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
-    private static final String DASHBOARD_TASKS = "//cu-dashboard-board-card[contains(.,'%s')]";
+    private static final String DASHBOARD_TASKS = "//span[contains(.,'%s')]";
 
     @FindBy(xpath = "//div/div/a[@cutooltip='Create task']")
     private WebElement addNewTaskBtn;
@@ -176,8 +176,11 @@ public class ListMenu extends ApplicationBasePage {
     public void searchTask(final String taskName) {
         getWait().until(ExpectedConditions.elementToBeClickable(boardView));
         Actions.click(boardView);
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
         Actions.click(searchTxtField);
         Actions.sendKeys(searchTxtField, taskName);
+        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
         Actions.sendKeys(searchTxtField, Keys.ENTER);
     }
 
@@ -188,6 +191,9 @@ public class ListMenu extends ApplicationBasePage {
      * @return a String with the text of the task found.
      */
     public String findTask(final String taskName) {
-        return Actions.getText(findTaskInDashboard(taskName));
+        getWait().until(ExpectedConditions.visibilityOf(findTaskInDashboard(taskName)));
+        String task = Actions.getText(findTaskInDashboard(taskName));
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        return task;
     }
 }

@@ -1,6 +1,6 @@
 package steps;
 
-import clickup.ui.entities.Context;
+import clickup.entities.Context;
 import clickup.ui.pages.TaskPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
