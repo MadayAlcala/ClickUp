@@ -13,11 +13,12 @@ package clickup.ui.entities;
 /**
  * Task class.
  *
- * @author Maday Alcala
+ * @author Maday Alcala, Alejandro Sánchez
  * @version 1.0
  */
 public class Task {
     private String name;
+    private String url;
 
     /**
      * Getter method.
@@ -35,5 +36,23 @@ public class Task {
      */
     public void setName(final String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return the url assigned to an instance of this class.
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param url A integer value to be assigned to an instance of this class.
+     */
+    public void setUrl(final String url) {
+        this.url = url;
     }
 }
