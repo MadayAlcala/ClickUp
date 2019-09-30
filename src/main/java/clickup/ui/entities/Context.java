@@ -80,7 +80,7 @@ public class Context {
      *
      * @param task A Task instance to be shared across step definitions.
      */
-    public void setTask(Task task) {
+    public void setTask(final Task task) {
         this.task = task;
     }
 }
