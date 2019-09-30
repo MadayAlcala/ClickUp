@@ -19,7 +19,6 @@ package clickup.entities;
 public class Context {
     private Space space;
     private List list;
-    private User user;
     private Task task;
 
     /**
@@ -70,25 +69,7 @@ public class Context {
     /**
      * Getter method.
      *
-     * @return a User' object.
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * Setter method.
-     *
-     * @param user that is the object to change its behavior.
-     */
-    public void setUser(final User user) {
-        this.user = user;
-    }
-
-    /**
-     * Getter method.
-     *
-     * @return a Task' object.
+     * @return a Task instance to be shared across step definitions.
      */
     public Task getTask() {
         return task;
@@ -97,9 +78,9 @@ public class Context {
     /**
      * Setter method.
      *
-     * @param task that is the object to change its behavior.
+     * @param task A Task instance to be shared across step definitions.
      */
-    public void setTask(Task task) {
+    public void setTask(final Task task) {
         this.task = task;
     }
 }

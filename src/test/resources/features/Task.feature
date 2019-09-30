@@ -1,4 +1,15 @@
-#Feature: Task
+Feature: Task
+
+  @logout
+  Scenario: A user creates a new task
+    Given The user goes to login page
+      And The user fills the form with email and password
+    When The user creates a new space with the following name "TestSpace"
+      And The user creates a new list with the following name "TestList"
+      And The user creates a new task with the following name "TestTask"
+    Then The user should see the success message
+#      And The user should see the new task appear in the panel
+
 #  Scenario: A user receives notification for a task assigned to him
 #    Given the admin user is logged in ClickUp web application
 #    When the admin user goes to workplace page
