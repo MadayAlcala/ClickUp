@@ -174,6 +174,7 @@ public class ListMenu extends ApplicationBasePage {
      * @param taskName that is a String of the task' name that wants to search.
      */
     public void searchTask(final String taskName) {
+        getWait().until(ExpectedConditions.elementToBeClickable(boardView));
         Actions.click(boardView);
         Actions.click(searchTxtField);
         Actions.sendKeys(searchTxtField, taskName);
