@@ -10,7 +10,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 /**
- * TaskStep
+ * TaskStep.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0

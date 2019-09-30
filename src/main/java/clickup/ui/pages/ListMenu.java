@@ -150,14 +150,6 @@ public class ListMenu extends ApplicationBasePage {
         ));
     }
 
-    public void addNewTask(String listName, String taskName) {
-        listMenu(listName);
-        Actions.click(addNewTaskBtn);
-        Actions.sendKeys(taskNameTxtField, taskName);
-        Actions.click(createTaskBtn);
-    }
-
-
     /**
      * Returns a task webElement.
      *
@@ -191,7 +183,7 @@ public class ListMenu extends ApplicationBasePage {
      * @return a String with the text of the task found.
      */
     public String findTask(final String taskName) {
-        getWait().until(ExpectedConditions.visibilityOf(findTaskInDashboard(taskName)));
+//        getWait().until(ExpectedConditions.visibilityOf(findTaskInDashboard(taskName)));
         String task = Actions.getText(findTaskInDashboard(taskName));
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
         return task;
