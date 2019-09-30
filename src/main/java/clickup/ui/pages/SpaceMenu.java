@@ -10,9 +10,10 @@
 
 package clickup.ui.pages;
 
-import clickup.ui.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Saves some element to the page clickUp.
@@ -20,8 +21,9 @@ import org.openqa.selenium.support.FindBy;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class SpacePage extends BasePage {
-    static final int BUTTONCLICK = 7;
+public class SpaceMenu extends ApplicationBasePage {
+    private static final int BUTTONCLICK = 7;
+    private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
 
@@ -39,6 +41,18 @@ public class SpacePage extends BasePage {
 
     @FindBy(xpath = "By.xpath(\"//body\")")
     private WebElement bodyPage;
+
+    @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
+    private WebElement spaceMenuBtn;
+
+    @FindBy(xpath = "//a[contains(.,'Delete')]")
+    private WebElement deleteBtn;
+
+    @FindBy(css = ".cu-dc__input")
+    private WebElement deleteTxtField;
+
+    @FindBy(css = ".cu-btn:nth-child(2) > .cu-btn__text")
+    private WebElement confirmDeleteBtn;
 
     /**
      * Creates a new space.
@@ -69,5 +83,31 @@ public class SpacePage extends BasePage {
     public void logOut() {
         spaceBarButton.click();
         logOutButton.click();
+    }
+
+    /**
+     * Returns a space webElement.
+     *
+     * @param spaceName that is the name of the space to find.
+     * @return WebElement 'space'.
+     */
+    private WebElement getSpaceElementByName(final String spaceName) {
+        return getDriver().findElement(By.xpath(String.format(SPACE_ELEMENT, spaceName)));
+    }
+
+    /**
+     * Deletes a Space.
+     *
+     * @param spaceName that is the name of the space to delete.
+     */
+    public void deleteSpace(final String spaceName) {
+        getSpaceElementByName(spaceName).click();
+        spaceMenuBtn.click();
+        getWait().until(ExpectedConditions.visibilityOf(deleteBtn));
+        deleteBtn.click();
+        getWait().until(ExpectedConditions.visibilityOf(deleteTxtField));
+        deleteTxtField.sendKeys("delete");
+        getWait().until(ExpectedConditions.textToBePresentInElement(deleteTxtField, deleteTxtField.getText()));
+        confirmDeleteBtn.click();
     }
 }
