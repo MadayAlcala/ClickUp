@@ -27,6 +27,15 @@ public class ListMenu extends ApplicationBasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
+    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
+    private WebElement confirmDelete;
+
+    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
+    private WebElement deleteBtn;
+
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
+
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement iconBtn;
 
@@ -36,11 +45,8 @@ public class ListMenu extends ApplicationBasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
 
-    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
-    private WebElement deleteBtn;
-
-    @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
-    private WebElement confirmDelete;
+    @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
+    private WebElement taskListHeader;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -62,10 +68,15 @@ public class ListMenu extends ApplicationBasePage {
      * @param listName that is the name of the new List.
      */
     public void createList(final String listName) {
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
+        ));
         getIconBtn();
         getListBox();
         Actions.sendKeys(nameTxtField, listName);
-        Actions.sendKeys(nameTxtField,Keys.ENTER);
+        Actions.sendKeys(nameTxtField, Keys.ENTER);
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
     /**
@@ -110,7 +121,8 @@ public class ListMenu extends ApplicationBasePage {
     /**
      * Selects delete button.
      */
-    public void deleteList() {
+    public void deleteList(final String listName) {
+        listMenu(listName);
         deleteBtn.click();
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
         confirmDelete.click();

@@ -25,20 +25,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class SpaceMenu extends ApplicationBasePage {
     private static final int BUTTONCLICK = 7;
     private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
+
     @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
     private WebElement addNewButton;
-
-    @FindBy(css = ".cu-form__field > input")
-    private WebElement inputNameSpaceTextBox;
-
-    @FindBy(css = ".cu-btn")
-    private WebElement nextButton;
 
     @FindBy(xpath = "By.xpath(\"//body\")")
     private WebElement bodyPage;
 
-    @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
-    private WebElement spaceMenuBtn;
+    @FindBy(css = ".cu-btn:nth-child(2) > .cu-btn__text")
+    private WebElement confirmDeleteBtn;
 
     @FindBy(xpath = "//a[contains(.,'Delete')]")
     private WebElement deleteBtn;
@@ -46,8 +41,23 @@ public class SpaceMenu extends ApplicationBasePage {
     @FindBy(css = ".cu-dc__input")
     private WebElement deleteTxtField;
 
-    @FindBy(css = ".cu-btn:nth-child(2) > .cu-btn__text")
-    private WebElement confirmDeleteBtn;
+    @FindBy(css = "img[src *= 'no-lists']")
+    private WebElement emptyTaskListImg;
+
+    @FindBy(css = ".cu-form__input")
+    private WebElement inputNameSpaceTextBox;
+
+    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
+    private WebElement logOutButton;
+
+    @FindBy(css = ".cu-btn")
+    private WebElement nextButton;
+
+    @FindBy(css = ".cu-avatar-container")
+    private WebElement spaceBarButton;
+
+    @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
+    private WebElement spaceMenuBtn;
 
     /**
      * Creates a new space.
@@ -56,13 +66,13 @@ public class SpaceMenu extends ApplicationBasePage {
      */
     public void addNewSpace(final String nameSpace) {
         Actions.click(addNewButton);
-//        addNewButton.click();
-//        inputNameSpaceTextBox.sendKeys(nameSpace);
         Actions.sendKeys(inputNameSpaceTextBox, nameSpace);
         for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
-            Actions.click(nextButton);
-//            nextButton.click();
+            getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
+            nextButton.click();
         }
+        SpaceMenu spaceMenu = new SpaceMenu();
+        getWait().until(ExpectedConditions.visibilityOf(emptyTaskListImg));
     }
 
     /**
