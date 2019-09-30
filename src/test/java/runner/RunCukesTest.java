@@ -10,7 +10,7 @@
 
 package runner;
 
-import report.Report;
+import core.utils.ReportGenerator;
 import core.selenium.WebDriverManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -34,6 +34,6 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     @AfterTest
     public void afterExecution() {
         WebDriverManager.getInstance().getWebDriver().quit();
-        Report.getInstance().generateReport();
+        ReportGenerator.getInstance().generateReport();
     }
 }

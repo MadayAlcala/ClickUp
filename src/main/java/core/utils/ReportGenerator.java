@@ -8,7 +8,7 @@
  * with Jalasoft.
  */
 
-package report;
+package core.utils;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
@@ -23,14 +23,14 @@ import java.util.List;
  * @author Maday Alcala
  * @version 1.0
  */
-public class Report {
+public class ReportGenerator {
     /**
      * This method gets an instance of report from getInstance.
      *
      * @return an instance report.
      */
-    public static Report getInstance() {
-        return new Report();
+    public static ReportGenerator getInstance() {
+        return new ReportGenerator();
     }
 
     /**

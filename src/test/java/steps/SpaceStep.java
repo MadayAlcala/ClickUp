@@ -23,7 +23,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class SpaceStep {
-    private SpaceMenu starPage;
+    private SpaceMenu spaceMenu;
     private Context context;
 
     /**
@@ -42,9 +42,9 @@ public class SpaceStep {
      */
     @When("The user creates a new space with the following name {string}")
     public void createNewSpace(final String nameSpace) {
-        starPage = new SpaceMenu();
+        spaceMenu = new SpaceMenu();
         context.getSpace().setTitle(nameSpace);
-        starPage.addNewSpace(nameSpace);
+        spaceMenu.addNewSpace(nameSpace);
     }
 
     /**
@@ -54,6 +54,6 @@ public class SpaceStep {
      */
     @Then("The space name with the name {string} appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
-        Assert.assertTrue(starPage.isFoundNameSpace(nameSpace));
+        Assert.assertTrue(spaceMenu.isFoundNameSpace(nameSpace));
     }
 }

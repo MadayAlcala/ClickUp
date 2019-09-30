@@ -23,19 +23,39 @@ public class ApplicationBasePage extends BasePage {
         sideMenu = new SideMenu();
     }
 
+    /**
+     * Getter method.
+     *
+     * @return a TopMenu' object.
+     */
     public TopMenu getTopMenu() {
         return topMenu;
     }
 
-    public void setTopMenu(TopMenu topMenu) {
+    /**
+     * Setter method.
+     *
+     * @param topMenu that is the object to change its behavior.
+     */
+    public void setTopMenu(final TopMenu topMenu) {
         this.topMenu = topMenu;
     }
 
+    /**
+     * Getter method.
+     *
+     * @return a SideMenu' object.
+     */
     public SideMenu getSideMenu() {
         return sideMenu;
     }
 
-    public void setSideMenu(SideMenu sideMenu) {
+    /**
+     * Setter method.
+     *
+     * @param sideMenu that is the object to change its behavior.
+     */
+    public void setSideMenu(final SideMenu sideMenu) {
         this.sideMenu = sideMenu;
     }
 }

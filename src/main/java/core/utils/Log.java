@@ -14,7 +14,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
- * This class is used to generate logs.
+ * Log class, generates logs.
  *
  * @author Maday Alcala Cuba.
  * @version 1.0

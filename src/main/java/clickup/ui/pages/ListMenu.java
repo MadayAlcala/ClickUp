@@ -120,6 +120,8 @@ public class ListMenu extends ApplicationBasePage {
 
     /**
      * Selects delete button.
+     *
+     * @param listName that is the name of the list.
      */
     public void deleteList(final String listName) {
         listMenu(listName);

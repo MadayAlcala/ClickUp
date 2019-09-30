@@ -65,11 +65,21 @@ public class Context {
         this.list = list;
     }
 
+    /**
+     * Getter method.
+     *
+     * @return a User' object.
+     */
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    /**
+     * Setter method.
+     *
+     * @param user that is the object to change its behavior.
+     */
+    public void setUser(final User user) {
         this.user = user;
     }
 }

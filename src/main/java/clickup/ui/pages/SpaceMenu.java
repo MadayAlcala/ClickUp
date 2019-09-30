@@ -26,7 +26,7 @@ public class SpaceMenu extends ApplicationBasePage {
     private static final int BUTTONCLICK = 7;
     private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
 
-    @FindBy(css = ".cu2-project-list-bar__add-icon > .ng-star-inserted")
+    @FindBy(css = ".cu2-project-list-bar__add .cu2-project-list-bar__add-icon")
     private WebElement addNewButton;
 
     @FindBy(xpath = "By.xpath(\"//body\")")
@@ -67,6 +67,8 @@ public class SpaceMenu extends ApplicationBasePage {
     public void addNewSpace(final String nameSpace) {
         Actions.click(addNewButton);
         Actions.sendKeys(inputNameSpaceTextBox, nameSpace);
+        getWait().until(ExpectedConditions.textToBePresentInElement(inputNameSpaceTextBox,
+                inputNameSpaceTextBox.getText()));
         for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
             getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
             nextButton.click();

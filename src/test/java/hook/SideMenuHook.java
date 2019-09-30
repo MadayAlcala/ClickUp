@@ -3,7 +3,13 @@ package hook;
 import clickup.ui.pages.SpaceMenu;
 import cucumber.api.java.After;
 
-public class CommonHooks {
+/**
+ * SideMenuHook class.
+ *
+ * @author Maday Alcala
+ * @version 1.0
+ */
+public class SideMenuHook {
 
     /**
      * Lets logout from to web page.

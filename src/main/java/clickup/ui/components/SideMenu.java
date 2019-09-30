@@ -14,11 +14,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @version 1.0
  */
 public class SideMenu extends BasePage {
-    @FindBy(css = ".cu-avatar-container")
-    private WebElement spaceBarButton;
-
     @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
     private WebElement logOutButton;
+
+    @FindBy(css = ".cu-avatar-container")
+    private WebElement spaceBarButton;
 
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title .cu-user-settings-menu__title-name")
     private WebElement titleNameTxt;
