@@ -16,17 +16,22 @@ import com.google.gson.JsonObject;
 import org.apache.commons.codec.DecoderException;
 
 /**
- * Client
+ * Client class.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
-public class ApiClient {
+public final class ApiClient {
     private RequestSpecification request;
     private static ApiClient instance;
 
     /**
      * Constructor of rest client API.
+     *
+     * @param userType a String containing the type of user that is going to use the API interface.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
     private ApiClient(final String userType) throws GeneralSecurityException, IOException, DecoderException {
         initialize(userType);
@@ -35,9 +40,14 @@ public class ApiClient {
     /**
      * Returns an instance of RestClientAPI.
      *
-     * @return a instance.
+     * @param userType a String containing the type of user that is going to use the API interface.
+     * @return a single instance of this class.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
-    public static ApiClient getInstance(final String userType) throws GeneralSecurityException, IOException, DecoderException {
+    public static ApiClient getInstance(final String userType) throws GeneralSecurityException, IOException,
+            DecoderException {
         if (instance == null) {
             instance = new ApiClient(userType);
         }
@@ -47,6 +57,10 @@ public class ApiClient {
     /**
      * Initializes RequestSpecification.
      *
+     * @param userType a String containing the type of user that is going to use the API interface.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
     private void initialize(final String userType) throws GeneralSecurityException, IOException, DecoderException {
         request = Authentication.requestSpecification(userType);
@@ -66,7 +80,7 @@ public class ApiClient {
      *
      * @param request the RequestSpecification structure to be associated to this class' attribute.
      */
-    public void setRequest(RequestSpecification request) {
+    public void setRequest(final RequestSpecification request) {
         this.request = request;
     }
 
@@ -127,7 +141,7 @@ public class ApiClient {
      * @param endPoint URI.
      * @return a RestAssured Response structure.
      */
-    public Response apiResponse(String httpMethod, final String endPoint) {
+    public Response apiResponse(final String httpMethod, final String endPoint) {
         return given().spec(request).when().request(httpMethod, endPoint);
     }
 

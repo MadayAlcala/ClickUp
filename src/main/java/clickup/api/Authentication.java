@@ -1,7 +1,6 @@
 package clickup.api;
 
 import clickup.ui.entities.User;
-import clickup.ui.pages.PageTransporter;
 import core.utils.CredentialDeserializer;
 import core.utils.PropertyReader;
 import io.restassured.builder.RequestSpecBuilder;
@@ -12,12 +11,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 /**
- * Authentication
+ * Authentication class.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
-public class Authentication {
+public final class Authentication {
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String API_URI = "api";
 
@@ -30,9 +29,14 @@ public class Authentication {
     /**
      * Builds a RequestSpecifiction to be used to interact via API with ClickUpby providing a Personal API Token.
      *
+     * @param userType a String defining how priviliged a user is.
      * @return RequestSpecification instance with the necessary personal token and base uri.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
-    public static RequestSpecification requestSpecification(final String userType) throws GeneralSecurityException, IOException, DecoderException {
+    public static RequestSpecification requestSpecification(final String userType) throws GeneralSecurityException,
+            IOException, DecoderException {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         String apiUrl = PropertyReader.retrieveField(API_URI);
         User user = CredentialDeserializer.getInstance().getUser(userType);
