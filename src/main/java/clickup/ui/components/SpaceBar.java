@@ -10,5 +10,13 @@
 
 package clickup.ui.components;
 
-public class SpaceBar {
+import clickup.ui.BasePage;
+
+/**
+ * SpaceBar class.
+ *
+ * @author Maday Alcala
+ * @version 1.0
+ */
+public class SpaceBar extends BasePage {
 }

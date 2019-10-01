@@ -27,7 +27,7 @@ public abstract class ApplicationBasePage extends BasePage {
     /**
      * Class' constructor.
      */
-    public ApplicationBasePage() {
+    protected ApplicationBasePage() {
         super();
         topMenu = new TopMenu();
         sideMenu = new SideMenu();
@@ -43,29 +43,11 @@ public abstract class ApplicationBasePage extends BasePage {
     }
 
     /**
-     * Setter method.
-     *
-     * @param topMenu that is the object to change its behavior.
-     */
-    public void setTopMenu(final TopMenu topMenu) {
-        this.topMenu = topMenu;
-    }
-
-    /**
      * Getter method.
      *
      * @return a SideMenu' object.
      */
     public SideMenu getSideMenu() {
         return sideMenu;
-    }
-
-    /**
-     * Setter method.
-     *
-     * @param sideMenu that is the object to change its behavior.
-     */
-    public void setSideMenu(final SideMenu sideMenu) {
-        this.sideMenu = sideMenu;
     }
 }

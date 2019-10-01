@@ -8,7 +8,7 @@
  * with Jalasoft.
  */
 
-package clickup.ui.pages;
+package clickup.ui.components;
 
 import clickup.ui.BasePage;
 import org.openqa.selenium.Keys;
@@ -23,12 +23,12 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 /**
- * TaskPage Object Model.
+ * ContentPanel Object Model.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
-public class TaskPage extends BasePage {
+public class ContentPanel extends BasePage {
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 

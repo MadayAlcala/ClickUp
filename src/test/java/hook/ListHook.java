@@ -11,7 +11,7 @@
 package hook;
 
 import clickup.entities.Context;
-import clickup.ui.components.ListPanel;
+import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.After;
 
 /**
@@ -37,7 +37,7 @@ public class ListHook {
      */
     @After(order = 2, value = "@deleteList")
     public void deleteList() {
-        ListPanel listPage = new ListPanel();
-        listPage.deleteList(context.getList().getName());
+        ApplicationPage applicationPage = new ApplicationPage();
+        applicationPage.getListPanel().deleteList(context.getList().getName());
     }
 }

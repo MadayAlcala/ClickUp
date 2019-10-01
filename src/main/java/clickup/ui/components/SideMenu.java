@@ -63,8 +63,10 @@ public class SideMenu extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
-        spaceBarButton.click();
-        logOutButton.click();
+        Actions.click(spaceBarButton);
+//        spaceBarButton.click();
+//        logOutButton.click();
+        Actions.click(logOutButton);
         LoginPage loginPage = new LoginPage();
         getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
     }

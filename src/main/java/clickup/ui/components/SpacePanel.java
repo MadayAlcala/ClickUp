@@ -11,7 +11,6 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import clickup.ui.pages.ApplicationBasePage;
 import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,7 +23,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class SpacePanel extends ApplicationBasePage {
+public class SpacePanel extends BasePage {
     private static final int BUTTONCLICK = 7;
     private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
 

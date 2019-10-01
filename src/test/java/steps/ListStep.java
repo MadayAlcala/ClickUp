@@ -11,7 +11,7 @@
 package steps;
 
 import clickup.entities.Context;
-import clickup.ui.components.ListPanel;
+import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -23,7 +23,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class ListStep {
-    private ListPanel listPage;
+    private ApplicationPage applicationPage;
     private Context context;
 
     /**
@@ -42,17 +42,18 @@ public class ListStep {
      */
     @When("The user creates a new list with the following name {string}")
     public void createNewSpace(final String nameList) {
-        listPage = new ListPanel();
+        applicationPage = new ApplicationPage();
         context.getList().setName(nameList);
-        listPage.createList(nameList);
+        applicationPage.getListPanel().createList(nameList);
     }
 
     /**
      * Checks that the list has been created.
-     *
      */
     @Then("The user should see the new list appear in the panel successfully")
     public void name() {
-        Assert.assertEquals(listPage.nameList(context.getList().getName()), context.getList().getName());
+        String actual = applicationPage.getListPanel().nameList(context.getList().getName());
+        String expected = context.getList().getName();
+        Assert.assertEquals(actual, expected);
     }
 }

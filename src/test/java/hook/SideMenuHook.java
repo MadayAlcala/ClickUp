@@ -10,7 +10,7 @@
 
 package hook;
 
-import clickup.ui.components.SpacePanel;
+import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.After;
 
 /**
@@ -26,7 +26,7 @@ public class SideMenuHook {
      */
     @After(order = 1, value = "@logout")
     public void logout() {
-        SpacePanel starPage = new SpacePanel();
-        starPage.getSideMenu().logOut();
+        ApplicationPage applicationPage = new ApplicationPage();
+        applicationPage.getSideMenu().logOut();
     }
 }

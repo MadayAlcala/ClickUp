@@ -126,9 +126,12 @@ public class ListPanel extends BasePage {
      */
     public void deleteList(final String listName) {
         listMenu(listName);
-        deleteBtn.click();
+//        getWait().until(ExpectedConditions.elementToBeClickable(deleteBtn));
+        Actions.click(deleteBtn);
+//        deleteBtn.click();
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
-        confirmDelete.click();
+//        confirmDelete.click();
+        Actions.click(confirmDelete);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
