@@ -1,6 +1,16 @@
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
 package steps;
 
-import clickup.ui.entities.Context;
+import clickup.entities.Context;
 import clickup.ui.pages.TaskPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -44,7 +54,7 @@ public class TaskStep {
      * Confirms the message thrown by application after a Task is created.
      *
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     @Then("The user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {

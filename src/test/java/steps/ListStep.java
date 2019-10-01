@@ -11,7 +11,7 @@
 package steps;
 
 import clickup.entities.Context;
-import clickup.ui.pages.ListMenu;
+import clickup.ui.components.ListPanel;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -23,7 +23,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class ListStep {
-    private ListMenu listPage;
+    private ListPanel listPage;
     private Context context;
 
     /**
@@ -42,7 +42,7 @@ public class ListStep {
      */
     @When("The user creates a new list with the following name {string}")
     public void createNewSpace(final String nameList) {
-        listPage = new ListMenu();
+        listPage = new ListPanel();
         context.getList().setName(nameList);
         listPage.createList(nameList);
     }

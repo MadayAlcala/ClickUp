@@ -11,8 +11,8 @@
 package hook;
 
 import clickup.entities.Context;
-import clickup.ui.pages.PageTransporter;
-import clickup.ui.pages.SpaceMenu;
+import clickup.ui.PageTransporter;
+import clickup.ui.components.SpacePanel;
 import cucumber.api.java.After;
 
 /**
@@ -39,7 +39,7 @@ public class SpaceHook {
      */
     @After(order = third, value = "@deleteSpace")
     public void deleteSpace() {
-        SpaceMenu spaceMenu = new SpaceMenu();
+        SpacePanel spaceMenu = new SpacePanel();
         spaceMenu.deleteSpace(context.getSpace().getTitle());
         PageTransporter.goToUrl("login");
     }

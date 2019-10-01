@@ -8,8 +8,10 @@
  * with Jalasoft.
  */
 
-package clickup.ui.pages;
+package clickup.ui.components;
 
+import clickup.ui.BasePage;
+import clickup.ui.pages.ApplicationBasePage;
 import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -22,7 +24,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @author Jesus Menacho
  * @version 1.0
  */
-public class SpaceMenu extends ApplicationBasePage {
+public class SpacePanel extends ApplicationBasePage {
     private static final int BUTTONCLICK = 7;
     private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
 
@@ -73,7 +75,7 @@ public class SpaceMenu extends ApplicationBasePage {
             getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
             nextButton.click();
         }
-        SpaceMenu spaceMenu = new SpaceMenu();
+        SpacePanel spaceMenu = new SpacePanel();
         getWait().until(ExpectedConditions.visibilityOf(emptyTaskListImg));
     }
 

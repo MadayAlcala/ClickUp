@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
@@ -10,7 +20,7 @@ import clickup.ui.components.TopMenu;
  * @author Maday Alcala
  * @version 1.0
  */
-public class ApplicationBasePage extends BasePage {
+public abstract class ApplicationBasePage extends BasePage {
     private TopMenu topMenu;
     private SideMenu sideMenu;
 

@@ -8,15 +8,7 @@
  * with Jalasoft.
  */
 
-package clickup.ui.components;
+package clickup.ui.pages;
 
-import clickup.ui.BasePage;
-
-/**
- * TopMenu class.
- *
- * @author Maday Alcala
- * @version 1.0
- */
-public class TopMenu extends BasePage {
+public class ReportPage extends PlussBasePage{
 }

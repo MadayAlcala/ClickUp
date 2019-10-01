@@ -8,7 +8,7 @@
  * with Jalasoft.
  */
 
-package clickup.ui.pages;
+package clickup.ui;
 
 import core.selenium.WebDriverManager;
 import core.utils.PropertyReader;

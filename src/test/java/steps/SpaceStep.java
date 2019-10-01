@@ -11,7 +11,7 @@
 package steps;
 
 import clickup.entities.Context;
-import clickup.ui.pages.SpaceMenu;
+import clickup.ui.components.SpacePanel;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -23,7 +23,7 @@ import org.testng.Assert;
  * @version 1.0
  */
 public class SpaceStep {
-    private SpaceMenu spaceMenu;
+    private SpacePanel spaceMenu;
     private Context context;
 
     /**
@@ -42,7 +42,7 @@ public class SpaceStep {
      */
     @When("The user creates a new space with the following name {string}")
     public void createNewSpace(final String nameSpace) {
-        spaceMenu = new SpaceMenu();
+        spaceMenu = new SpacePanel();
         context.getSpace().setTitle(nameSpace);
         spaceMenu.addNewSpace(nameSpace);
     }
