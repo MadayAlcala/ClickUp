@@ -10,6 +10,7 @@
 
 package clickup.ui.pages;
 
+import clickup.ui.BasePage;
 import core.utils.Actions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,7 +21,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Maday Alcala
  * @version 1.0
  */
-public final class LoginPage extends ApplicationBasePage {
+public final class LoginPage extends BasePage {
     @FindBy(id = "email-input")
     private WebElement emailField;
 

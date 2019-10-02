@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
 package steps;
 
 import clickup.entities.Context;
-import clickup.ui.pages.TaskPage;
+import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -17,7 +27,7 @@ import java.io.IOException;
  */
 public class TaskStep {
     private Context context;
-    private TaskPage taskPage;
+    private ApplicationPage applicationPage;
 
     /**
      * Constructor for dependency injection.
@@ -35,9 +45,9 @@ public class TaskStep {
      */
     @When("The user creates a new task with the following name {string}")
     public void createNewTask(final String taskName) {
-        taskPage = new TaskPage();
+        applicationPage = new ApplicationPage();
         context.getTask().setName(taskName);
-        taskPage.createTask(taskName);
+        applicationPage.getContentPanel().createTask(taskName);
     }
 
     /**
@@ -48,8 +58,8 @@ public class TaskStep {
      */
     @Then("The user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
-        String confirmationMessage = taskPage.getCreationConfirmationMessage();
-        context.getTask().setUrl(taskPage.extractTaskId());
+        String confirmationMessage = applicationPage.getContentPanel().getCreationConfirmationMessage();
+        context.getTask().setUrl(applicationPage.getContentPanel().extractTaskId());
         Assert.assertEquals(confirmationMessage, context.getTask().getName() + " Created!",
                 "The task has not been created!");
     }
@@ -59,7 +69,7 @@ public class TaskStep {
      */
     @Then("The user should see the new task appear in the panel")
     public void taskShouldBeListed() {
-        String taskTitle = taskPage.getTaskTitleById();
+        String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
     }
 }

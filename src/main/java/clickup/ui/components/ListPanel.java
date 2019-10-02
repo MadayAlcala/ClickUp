@@ -8,8 +8,9 @@
  * with Jalasoft.
  */
 
-package clickup.ui.pages;
+package clickup.ui.components;
 
+import clickup.ui.BasePage;
 import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -18,27 +19,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * ListMenu class.
+ * ListPanel class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class ListMenu extends ApplicationBasePage {
+public class ListPanel extends BasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
-    private static final String DASHBOARD_TASKS = "//span[contains(.,'%s')]";
-
-    @FindBy(xpath = "//div/div/a[@cutooltip='Create task']")
-    private WebElement addNewTaskBtn;
-
-    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
-    private WebElement boardView;
 
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
     private WebElement confirmDeleteBtn;
-
-    @FindBy(css = "button > .cu-draft-view__submit-btn")
-    private WebElement createTaskBtn;
 
     @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
     private WebElement deleteBtn;
@@ -55,14 +46,8 @@ public class ListMenu extends ApplicationBasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement listNameTxtField;
 
-    @FindBy(css = ".cu-search-filter .cu-search-filter__input")
-    private WebElement searchTxtField;
-
     @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
-
-    @FindBy(css = ".cu-form__input")
-    private WebElement taskNameTxtField;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -148,44 +133,5 @@ public class ListMenu extends ApplicationBasePage {
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
-    }
-
-    /**
-     * Returns a task webElement.
-     *
-     * @param taskName that is the name of the task to find.
-     * @return WebElement 'taskName'.
-     */
-    private WebElement findTaskInDashboard(final String taskName) {
-        return getDriver().findElement(By.xpath(String.format(DASHBOARD_TASKS, taskName)));
-    }
-
-    /**
-     * Searches a task in the search filter.
-     *
-     * @param taskName that is a String of the task' name that wants to search.
-     */
-    public void searchTask(final String taskName) {
-        getWait().until(ExpectedConditions.elementToBeClickable(boardView));
-        Actions.click(boardView);
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
-        getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
-        Actions.click(searchTxtField);
-        Actions.sendKeys(searchTxtField, taskName);
-        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
-        Actions.sendKeys(searchTxtField, Keys.ENTER);
-    }
-
-    /**
-     * Finds a task in the dashboard that was already searched.
-     *
-     * @param taskName that is a String of the task' name that wants to find.
-     * @return a String with the text of the task found.
-     */
-    public String findTask(final String taskName) {
-//        getWait().until(ExpectedConditions.visibilityOf(findTaskInDashboard(taskName)));
-        String task = Actions.getText(findTaskInDashboard(taskName));
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
-        return task;
     }
 }

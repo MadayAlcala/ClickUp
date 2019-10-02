@@ -1,6 +1,6 @@
 Feature: Task
 
-  @logout
+  @logout @deleteSpace
   Scenario: A user creates a new task
     Given The user goes to login page
       And The user fills the form with email and password

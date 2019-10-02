@@ -1,4 +1,14 @@
-package clickup.ui.pages;
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
+package clickup.ui.components;
 
 import clickup.ui.BasePage;
 import org.openqa.selenium.Keys;
@@ -13,12 +23,12 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 /**
- * TaskPage Object Model.
+ * ContentPanel Object Model.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
-public class TaskPage extends BasePage {
+public class ContentPanel extends BasePage {
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 

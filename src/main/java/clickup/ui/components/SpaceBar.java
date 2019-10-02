@@ -13,10 +13,10 @@ package clickup.ui.components;
 import clickup.ui.BasePage;
 
 /**
- * TopMenu class.
+ * SpaceBar class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class TopMenu extends BasePage {
+public class SpaceBar extends BasePage {
 }

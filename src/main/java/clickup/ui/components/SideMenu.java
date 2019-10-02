@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
@@ -53,9 +63,8 @@ public class SideMenu extends BasePage {
      * Lets log out from the main page.
      */
     public void logOut() {
-//        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
-        spaceBarButton.click();
-        logOutButton.click();
+        Actions.click(spaceBarButton);
+        Actions.click(logOutButton);
         LoginPage loginPage = new LoginPage();
         getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
     }
