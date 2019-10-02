@@ -11,8 +11,9 @@
 package steps;
 
 import clickup.entities.User;
+import clickup.ui.PageTransporter;
+import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.LoginPage;
-import clickup.ui.pages.PageTransporter;
 import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -32,6 +33,7 @@ import java.security.GeneralSecurityException;
 public class LoginStep {
     private LoginPage loginPage;
     private User user;
+    private ApplicationPage applicationPage;
 
     /**
      * Navigates through pages.
@@ -63,6 +65,7 @@ public class LoginStep {
      */
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
-        Assert.assertEquals(loginPage.getSideMenu().getTitleName(), user.getFullName());
+        applicationPage = new ApplicationPage();
+        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), user.getFullName());
     }
 }

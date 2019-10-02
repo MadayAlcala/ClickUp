@@ -8,8 +8,9 @@
  * with Jalasoft.
  */
 
-package clickup.ui.pages;
+package clickup.ui.components;
 
+import clickup.ui.BasePage;
 import core.utils.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -18,12 +19,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * ListMenu class.
+ * ListPanel class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class ListMenu extends ApplicationBasePage {
+public class ListPanel extends BasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
 
@@ -125,9 +126,9 @@ public class ListMenu extends ApplicationBasePage {
      */
     public void deleteList(final String listName) {
         listMenu(listName);
-        deleteBtn.click();
+        Actions.click(deleteBtn);
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
-        confirmDelete.click();
+        Actions.click(confirmDelete);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
