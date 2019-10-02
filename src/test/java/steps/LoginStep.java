@@ -40,7 +40,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("The user goes to (.*) page")
+    @Given("the user goes to (.*) page")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl(login);
     }
@@ -53,7 +53,7 @@ public class LoginStep {
      * @throws DecoderException .
      * @throws IOException .
      */
-    @When("The (.*) fills the form with email and password")
+    @When("the (.*) fills the form with email and password")
     public void fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
         loginPage = new LoginPage();
         user = CredentialDeserializer.getInstance().getUser(userType);

@@ -43,7 +43,7 @@ public class TaskStep {
      *
      * @param taskName A String containing the name of the Task to be created.
      */
-    @When("The user creates a new task with the following name {string}")
+    @When("the user creates a new task with the following name {string}")
     public void createNewTask(final String taskName) {
         applicationPage = new ApplicationPage();
         context.getTask().setName(taskName);
@@ -56,7 +56,7 @@ public class TaskStep {
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
-    @Then("The user should see the success message")
+    @Then("the user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
         String confirmationMessage = applicationPage.getContentPanel().getCreationConfirmationMessage();
         context.getTask().setUrl(applicationPage.getContentPanel().extractTaskId());
@@ -67,7 +67,7 @@ public class TaskStep {
     /**
      * Asserts if the a given title is listed in the body of the application page.
      */
-    @Then("The user should see the new task appear in the panel")
+    @Then("the user should see the new task appear in the panel")
     public void taskShouldBeListed() {
         String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
