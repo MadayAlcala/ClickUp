@@ -12,9 +12,12 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
+
+import java.util.Map;
 
 /**
  * ListStep class.
@@ -41,7 +44,7 @@ public class ListStep {
      * @param nameList that is the name of the new List.
      */
     @When("the user creates a new list with the following name {string}")
-    public void createNewSpace(final String nameList) {
+    public void createNewList(final String nameList) {
         applicationPage = new ApplicationPage();
         context.getList().setName(nameList);
         applicationPage.getListPanel().createList(nameList);
@@ -55,5 +58,12 @@ public class ListStep {
         String expected = context.getList().getName();
         String actual = applicationPage.getListPanel().nameList(context.getList().getName());
         Assert.assertEquals(actual, expected, "The list has not been created.");
+    }
+
+    @When("the user updates a list with the following name {string}")
+    public void updateList(String nameList) {
+        applicationPage = new ApplicationPage();
+        context.getList().setName(nameList);
+        applicationPage.getListPanel().updateList(nameList);
     }
 }

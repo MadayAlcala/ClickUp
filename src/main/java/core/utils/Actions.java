@@ -63,7 +63,7 @@ public final class Actions {
      * @param key        that is a String type that want to send as a key.
      */
     public static void sendKeys(final WebElement webElement, final String key) {
-        webElement.click();
+//        webElement.click();
         webElement.clear();
         webElement.sendKeys(key);
     }

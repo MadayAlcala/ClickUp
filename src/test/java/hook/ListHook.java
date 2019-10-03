@@ -13,6 +13,7 @@ package hook;
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 
 /**
  * ListHook class.
@@ -39,5 +40,11 @@ public class ListHook {
     public void deleteList() {
         ApplicationPage applicationPage = new ApplicationPage();
         applicationPage.getListPanel().deleteList(context.getList().getName());
+    }
+
+    @Before(value = "@createList")
+    public void createList() {
+        ApplicationPage applicationPage = new ApplicationPage();
+        applicationPage.getListPanel().createList("ListTest");
     }
 }

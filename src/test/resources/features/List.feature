@@ -2,35 +2,29 @@ Feature: List
 
   Background: The user is logged.
     Given the user goes to login page
-    And the user fills the form with email and password
+    And the guest fills the form with email and password
+
+#  @logout @deleteList
+#  Scenario: Create new List
+#    When the user creates a new list with the following name "ListTest"
+#    Then the user should see the new list appear in the panel successfully
 
   @logout @deleteList
   Scenario: Create new List
-    When the user creates a new list with the following name "ListTest"
+    Given the user creates a new list with the following name "ListTest"
+    When the user updates a list with the following name "Test"
     Then the user should see the new list appear in the panel successfully
-#
-#  @logout @createList @deleteList
-#  Scenario: Update new List
-#    When the user creates a new list with the following name "ListTest"
-#    Then the user should see the new list appear in the panel successfully
-#
-#  @logout @createList
-#  Scenario: Delete new List
-#    When the user creates a new list with the following name "ListTest"
-#    Then the user should see the new list appear in the panel successfully
 
 #  @logout @deleteSpace
-#  Scenario Outline: Filter and Search Tasks in List View without any filter
+#  Scenario: Filter and Search Tasks in List View without any filter
 #    Given the user creates a new space with the following name "SpaceTest"
 #    And the user creates a new list with the following name "ListTest"
-#    And the user creates a new task with the following name "TaskTest"
 #    Given the user creates the following tasks:
-#      | task gatuno           |
-#      | gato de navidad       |
-#      | Era un task de gato   |
-#      | El gato tenia un task |
-#      | task                  |
-#      |                       |
+#      | 1 | task gatuno           |
+#      | 2 | gato de navidad       |
+#      | 3 | Era un task de gato   |
+#      | 4 | El gato tenia un task |
+#      | 5 | task                  |
 #    And the user searches a task with "<newTask>" keyword
 #    Then the user should see the following tasks displayed
 #      | task |

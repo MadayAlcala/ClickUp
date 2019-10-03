@@ -31,8 +31,11 @@ public class ListPanel extends BasePage {
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
     private WebElement confirmDeleteBtn;
 
-    @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
+    @FindBy(xpath = "//a[@cutooltip='Delete']")
     private WebElement deleteBtn;
+
+    @FindBy(xpath = " //a[@cutooltip='Rename']")
+    private WebElement renameBtn;
 
     @FindBy(css = "img[src *= 'no-lists']")
     private WebElement emptyTaskListImg;
@@ -133,5 +136,11 @@ public class ListPanel extends BasePage {
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
+    }
+    public void updateList(final String newListName){
+        listMenu(newListName);
+        Actions.click(renameBtn);
+        Actions.sendKeys(listNameTxtField, newListName);
+        Actions.sendKeys(listNameTxtField, Keys.ENTER);
     }
 }

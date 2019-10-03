@@ -1,15 +1,15 @@
-Feature: Task
-
-  @logout @deleteSpace
-  Scenario: A user creates a new task
-    Given The user goes to login page
-      And The guest fills the form with email and password
-    When The user creates a new space with the following name "TestSpace"
-      And The user creates a new list with the following name "TestList"
-      And The user creates a new task with the following name "TestTask"
-    Then The user should see the success message
-      And The user should see the new task appear in the panel
-
+#Feature: Task
+#
+#  @logout @deleteSpace
+#  Scenario: A user creates a new task
+#    Given the user goes to login page
+#    And the guest fills the form with email and password
+#    When the user creates a new space with the following name "TestSpace"
+#    And the user creates a new list with the following name "TestList"
+#    And the user creates a new task with the following name "TestTask"
+#    Then the user should see the success message
+#    And the user should see the new task appear in the panel
+#
 #  @logout
 #  Scenario: A user receives notification for a task assigned to him
 #    Given The user goes to login page
@@ -43,7 +43,6 @@ Feature: Task
 #        And the guest user attaches a file from the computer to a task
 #      Then the guest user should see the filename in the attachments section.
 #
-
 #    @logout @CreateTaskWithAttachment
 #    Scenario: A user downloads an attachment from a task
 #      Given The user goes to login page

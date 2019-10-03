@@ -12,12 +12,14 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * TaskStep.
@@ -54,7 +56,7 @@ public class TaskStep {
      * Confirms the message thrown by application after a Task is created.
      *
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     @Then("the user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
@@ -71,5 +73,14 @@ public class TaskStep {
     public void taskShouldBeListed() {
         String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
+    }
+
+    @Given("the user creates the following tasks:")
+    public void theUserCreatesTheFollowingTasks(final Map<String, String> tasksMap) {
+        applicationPage = new ApplicationPage();
+        applicationPage.getContentPanel().createTask(tasksMap.get("1"));
+        applicationPage.getContentPanel().createTask(tasksMap.get("2"));
+        applicationPage.getContentPanel().createTask(tasksMap.get("3"));
+        applicationPage.getContentPanel().createTask(tasksMap.get("4"));
     }
 }
