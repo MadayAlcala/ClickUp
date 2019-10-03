@@ -31,8 +31,6 @@ public class Chrome implements IBrowser {
         ChromeDriverManager.chromedriver().version("76.0.3809.126").setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--disable-dev-shm-usagge");
-        chromeOptions.setExperimentalOption("useAutomationExtension", false);
         return new ChromeDriver(chromeOptions);
     }
 }
