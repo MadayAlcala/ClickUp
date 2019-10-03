@@ -57,13 +57,11 @@ public final class CredentialDeserializer {
     /**
      * Deserializes the credentials information provided as a json file to a POJO entity class.
      *
-     * @param userType a String containing the type of user to retrieve, i.e. user or admin.
+     * @param user a String containing the type of user to retrieve, i.e. user or admin.
      * @return a POJO entity instanceaccording to the value set for userType in the resource file.
      */
-    public static User getUser(final String userType) {
-        PropertyReader.loadFile(USER_RSRC_CONFIG_FILE);
-        String user = PropertyReader.retrieveField(userType);
-        JsonElement jsonUser = credentials.getAsJsonObject(userType).getAsJsonObject(user);
+    public static User getUser(final String user) {
+        JsonElement jsonUser = credentials.getAsJsonObject(user);
         Gson gson = new Gson();
         User userObject = gson.fromJson(jsonUser, User.class);
         return userObject;
