@@ -51,5 +51,3 @@ Feature: List
 #    And the guest user selects the “board” view
 #    And the guest user drags the task to “Done” status
 #    Then the guest user should see the task in “Done” status.
-
-
