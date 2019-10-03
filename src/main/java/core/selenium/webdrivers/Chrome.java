@@ -32,6 +32,7 @@ public class Chrome implements IBrowser {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.setExperimentalOption("useAutomationExtension", false);
         return new ChromeDriver(chromeOptions);
     }
 }
