@@ -66,4 +66,11 @@ public class ListStep {
         context.getList().setName(nameList);
         applicationPage.getListPanel().updateList(nameList);
     }
+
+    @When("the user deletes the list")
+    public void deleteList() {
+        applicationPage = new ApplicationPage();
+        String listsName = context.getList().getName();
+        applicationPage.getListPanel().deleteList(listsName);
+    }
 }

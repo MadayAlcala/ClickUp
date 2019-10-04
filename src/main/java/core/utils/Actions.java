@@ -50,10 +50,9 @@ public final class Actions {
      * Sends keys of an web element.
      *
      * @param webElement to send the keys.
-     * @param key        that is a Key type that want to send as a key.
      */
-    public static void sendKeys(final WebElement webElement, final Keys key) {
-        webElement.sendKeys(key);
+    public static void enter(final WebElement webElement) {
+        webElement.sendKeys(Keys.ENTER);
     }
 
     /**
@@ -63,7 +62,7 @@ public final class Actions {
      * @param key        that is a String type that want to send as a key.
      */
     public static void sendKeys(final WebElement webElement, final String key) {
-//        webElement.click();
+        webElement.click();
         webElement.clear();
         webElement.sendKeys(key);
     }

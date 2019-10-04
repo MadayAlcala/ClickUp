@@ -47,7 +47,10 @@ public class ListPanel extends BasePage {
     private WebElement listBox;
 
     @FindBy(css = ".nav-section-maker__input")
-    private WebElement listNameTxtField;
+    private WebElement listNameMakerTxtField;
+
+    @FindBy(css = ".nav-editor__input")
+    private WebElement listNameEditorTxtField;
 
     @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
@@ -78,8 +81,8 @@ public class ListPanel extends BasePage {
         ));
         getIconBtn();
         getListBox();
-        Actions.sendKeys(listNameTxtField, listName);
-        Actions.sendKeys(listNameTxtField, Keys.ENTER);
+        Actions.sendKeys(listNameMakerTxtField, listName);
+        Actions.enter(listNameMakerTxtField);
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
@@ -130,17 +133,25 @@ public class ListPanel extends BasePage {
     public void deleteList(final String listName) {
         listMenu(listName);
         Actions.click(deleteBtn);
-        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
+        getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
+//        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
         Actions.click(confirmDeleteBtn);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
     }
-    public void updateList(final String newListName){
+
+    public void updateList(final String newListName) {
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
+        ));
         listMenu(newListName);
         Actions.click(renameBtn);
-        Actions.sendKeys(listNameTxtField, newListName);
-        Actions.sendKeys(listNameTxtField, Keys.ENTER);
+        listNameEditorTxtField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        listNameEditorTxtField.sendKeys(newListName);
+        listNameEditorTxtField.sendKeys(Keys.ENTER);
+        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 }

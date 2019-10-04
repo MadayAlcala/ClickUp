@@ -4,16 +4,22 @@ Feature: List
     Given the user goes to login page
     And the guest fills the form with email and password
 
-#  @logout @deleteList
-#  Scenario: Create new List
-#    When the user creates a new list with the following name "ListTest"
-#    Then the user should see the new list appear in the panel successfully
-
   @logout @deleteList
   Scenario: Create new List
+    When the user creates a new list with the following name "ListTest"
+    Then the user should see the new list appear in the panel successfully
+
+  @logout @deleteList
+  Scenario: Update a List
     Given the user creates a new list with the following name "ListTest"
     When the user updates a list with the following name "Test"
     Then the user should see the new list appear in the panel successfully
+
+  @logout
+  Scenario: Delete new List
+    Given the user creates a new list with the following name "ListTest"
+    When the user deletes the list
+#    Then the user should not see the list in the panel
 
 #  @logout @deleteSpace
 #  Scenario: Filter and Search Tasks in List View without any filter
