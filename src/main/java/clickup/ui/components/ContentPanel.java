@@ -11,6 +11,8 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
+import clickup.ui.PageTransporter;
+import core.utils.PropertyReader;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +31,10 @@ import java.io.IOException;
  * @version 1.0
  */
 public class ContentPanel extends BasePage {
+    private static final String APP_CONFIG_FILE = "app.properties";
+    private static final String URL_BASE = "url";
+    private static final String TASK_PREFIX = "t/";
+
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 
@@ -89,21 +95,21 @@ public class ContentPanel extends BasePage {
     /**
      * Closes the modal that appears after the creation of a task.
      */
-    private void closeModal() {
+    public void closeModal() {
         closeButton.click();
     }
 
     /**
-     * Returns a String containing the url assigned to a newly created Task.
+     * Returns a String containing the id assigned to a newly created Task.
      *
-     * @return a String containing the url assigned to a newly created Task.
+     * @return a String containing the id assigned to a newly created Task.
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
     public String extractTaskId() throws UnsupportedFlavorException, IOException {
-        String taskUrl = getTaskUrl();
-        closeModal();
-        return taskUrl;
+        PropertyReader.loadFile(APP_CONFIG_FILE);
+        PropertyReader.retrieveField(URL_BASE);
+        return getTaskUrl().replace(PropertyReader.retrieveField(URL_BASE).concat(TASK_PREFIX) ,"");
     }
 
     /**

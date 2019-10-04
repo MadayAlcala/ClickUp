@@ -18,7 +18,7 @@ package clickup.entities;
  */
 public class Task {
     private String name;
-    private String url;
+    private String id;
 
     /**
      * Getter method.
@@ -41,18 +41,17 @@ public class Task {
     /**
      * Getter method.
      *
-     * @return the url assigned to an instance of this class.
      */
-    public String getUrl() {
-        return url;
+    public String getId() {
+        return id;
     }
 
     /**
      * Setter method.
      *
-     * @param url A integer value to be assigned to an instance of this class.
+     * @param id A String containing the id to be assigned to an instance of this class.
      */
-    public void setUrl(final String url) {
-        this.url = url;
+    public void setId(final String id) {
+        this.id = id;
     }
 }

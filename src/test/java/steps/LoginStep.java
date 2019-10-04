@@ -10,6 +10,7 @@
 
 package steps;
 
+import clickup.entities.Context;
 import clickup.entities.User;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
@@ -31,9 +32,18 @@ import java.security.GeneralSecurityException;
  * @version 1.0
  */
 public class LoginStep {
+    private Context context;
     private LoginPage loginPage;
-    private User user;
     private ApplicationPage applicationPage;
+
+    /**
+     * Constructor for dependency injection.
+     *
+     * @param context A Context instance to be instantiated by pico-container library.
+     */
+    public LoginStep(final Context context) {
+        this.context = context;
+    }
 
     /**
      * Navigates through pages.
@@ -56,8 +66,9 @@ public class LoginStep {
     @When("The (.*) fills the form with email and password")
     public void fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
         loginPage = new LoginPage();
-        user = CredentialDeserializer.getInstance().getUser(userType);
-        loginPage.authenticate(user.getEmail(), user.getPassword());
+        context.setUser(CredentialDeserializer.getInstance().getUser(userType));
+        context.getUserMap().put(userType, context.getUser());
+        loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType).getPassword());
     }
 
     /**
@@ -66,6 +77,6 @@ public class LoginStep {
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
         applicationPage = new ApplicationPage();
-        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), user.getFullName());
+        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), context.getUser().getFullName(), context.getUser().getFullName() + "was unable to log into the system!");
     }
 }

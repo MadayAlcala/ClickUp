@@ -11,7 +11,10 @@
 package steps;
 
 import clickup.entities.Context;
+import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.TaskModalPage;
+import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -28,6 +31,7 @@ import java.io.IOException;
 public class TaskStep {
     private Context context;
     private ApplicationPage applicationPage;
+    private TaskModalPage taskModalPage;
 
     /**
      * Constructor for dependency injection.
@@ -44,10 +48,11 @@ public class TaskStep {
      * @param taskName A String containing the name of the Task to be created.
      */
     @When("The user creates a new task with the following name {string}")
-    public void createNewTask(final String taskName) {
+    public void createNewTask(final String taskName) throws IOException, UnsupportedFlavorException {
         applicationPage = new ApplicationPage();
         context.getTask().setName(taskName);
         applicationPage.getContentPanel().createTask(taskName);
+        context.getTask().setId(applicationPage.getContentPanel().extractTaskId());
     }
 
     /**
@@ -59,9 +64,9 @@ public class TaskStep {
     @Then("The user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
         String confirmationMessage = applicationPage.getContentPanel().getCreationConfirmationMessage();
-        context.getTask().setUrl(applicationPage.getContentPanel().extractTaskId());
+        applicationPage.getContentPanel().closeModal();
         Assert.assertEquals(confirmationMessage, context.getTask().getName() + " Created!",
-                "The task has not been created!");
+                "The task " + context.getTask().getName() + " has not been created!");
     }
 
     /**
@@ -71,5 +76,22 @@ public class TaskStep {
     public void taskShouldBeListed() {
         String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
+    }
+
+    /**
+     * Visits a Task page by its id.
+     */
+    @When("The user goes to page of the new task")
+    public void goToNewTaskPage() {
+        taskModalPage = PageTransporter.goToTaskPageById(context.getTask().getId());
+    }
+
+    /**
+     * A task creator assigns task to a user
+     */
+    @When("the admin user assigns the task to (.*) user")
+    public void amdinAssignsTaskToUser(final String userType) {
+        context.setUser(CredentialDeserializer.getInstance().getUser(userType));
+        taskModalPage.assignTaskToUser(context.getUser().getFullName());
     }
 }
