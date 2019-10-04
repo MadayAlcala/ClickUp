@@ -4,34 +4,36 @@ Feature: List
     Given the user goes to login page
     And the guest fills the form with email and password
 
-  @logout @deleteList
-  Scenario: Create new List
-    When the user creates a new list with the following name "ListTest"
-    Then the user should see the new list appear in the panel successfully
-
-  @logout @deleteList
-  Scenario: Update a List
-    Given the user creates a new list with the following name "ListTest"
-    When the user updates a list with the following name "Test"
-    Then the user should see the new list appear in the panel successfully
-
-  @logout
-  Scenario: Delete new List
-    Given the user creates a new list with the following name "ListTest"
-    When the user deletes the list
+#  @logout @deleteList
+#  Scenario: Create new List
+#    When the user creates a new list with the following name "ListTest"
+#    Then the user should see the new list appear in the panel successfully
+#
+#  @logout @deleteList
+#  Scenario: Update a List
+#    Given the user creates a new list with the following name "ListTest"
+#    When the user updates a list with the following name "Test"
+#    Then the user should see the new list appear in the panel successfully
+#
+#  @logout
+#  Scenario: Delete new List
+#    Given the user creates a new list with the following name "ListTest"
+#    When the user deletes the list
 #    Then the user should not see the list in the panel
 
-#  @logout @deleteSpace
-#  Scenario: Filter and Search Tasks in List View without any filter
-#    Given the user creates a new space with the following name "SpaceTest"
-#    And the user creates a new list with the following name "ListTest"
-#    Given the user creates the following tasks:
-#      | 1 | task gatuno           |
-#      | 2 | gato de navidad       |
-#      | 3 | Era un task de gato   |
-#      | 4 | El gato tenia un task |
-#      | 5 | task                  |
-#    And the user searches a task with "<newTask>" keyword
+  @logout @deleteSpace
+  Scenario: Filter and Search Tasks in List View without any filter
+    Given the user creates a new space with the following name "SpaceTest"
+    And the user creates a new list with the following name "ListTest"
+    Given the user creates the following tasks:
+      | task gatuno           |
+      | gato de navidad       |
+      | Era un task de gato   |
+      | El gato tenia un task |
+      | task                  |
+      | task2                 |
+      | task89745             |
+    And the user searches a task with "Task" keyword
 #    Then the user should see the following tasks displayed
 #      | task |
 #      | task |

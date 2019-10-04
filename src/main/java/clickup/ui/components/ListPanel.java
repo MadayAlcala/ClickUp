@@ -55,6 +55,12 @@ public class ListPanel extends BasePage {
     @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
 
+    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
+    private WebElement boardView;
+
+    @FindBy(css = ".cu-search-filter .cu-search-filter__input")
+    private WebElement searchTxtField;
+
     /**
      * Selects the '+' symbol to displayed their options.
      */
@@ -134,7 +140,7 @@ public class ListPanel extends BasePage {
         listMenu(listName);
         Actions.click(deleteBtn);
         getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
-//        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
+        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
         Actions.click(confirmDeleteBtn);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(taskListHeader),
@@ -153,5 +159,21 @@ public class ListPanel extends BasePage {
         listNameEditorTxtField.sendKeys(newListName);
         listNameEditorTxtField.sendKeys(Keys.ENTER);
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+    }
+
+    /**
+     * Searches a task in the search filter.
+     *
+     * @param taskName that is a String of the task' name that wants to search.
+     */
+    public void searchTask(final String taskName) {
+//        getWait().until(ExpectedConditions.elementToBeClickable(boardView));
+//        Actions.click(boardView);
+//        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
+        Actions.click(searchTxtField);
+        Actions.sendKeys(searchTxtField, taskName);
+        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
+        searchTxtField.sendKeys(Keys.ENTER);
     }
 }

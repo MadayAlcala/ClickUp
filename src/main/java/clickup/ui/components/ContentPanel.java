@@ -11,6 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ContentPanel Object Model.
@@ -29,6 +32,7 @@ import java.io.IOException;
  * @version 1.0
  */
 public class ContentPanel extends BasePage {
+    private final static String contentListHeader= "//cu-list-group[contains(.,'%s')]";
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 
@@ -125,5 +129,25 @@ public class ContentPanel extends BasePage {
     public String getTaskTitleById() {
         //TODO implementation pending.
         return null;
+    }
+
+    /**
+     * Returns a listMenu webElement.
+     *
+     * @param listName that is the name of the list to find.
+     * @return WebElement 'listMenu'.
+     */
+    private WebElement contentListHeader(final String listName) {
+        return getDriver().findElement(By.xpath(String.format(contentListHeader, listName)));
+    }
+
+    public void createListTasks(final List taskName, final String listName) {
+        getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
+        followNewTaskLink();
+        taskName.forEach(task -> {
+            newTaskNameTxtField.sendKeys((CharSequence) task);
+            newTaskNameTxtField.sendKeys(Keys.ENTER);
+        });
+        getWait().until(ExpectedConditions.visibilityOf(newTaskLink));
     }
 }

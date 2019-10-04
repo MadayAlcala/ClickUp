@@ -19,7 +19,8 @@ import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TaskStep.
@@ -76,11 +77,9 @@ public class TaskStep {
     }
 
     @Given("the user creates the following tasks:")
-    public void theUserCreatesTheFollowingTasks(final Map<String, String> tasksMap) {
+    public void theUserCreatesTheFollowingTasks(final List tasksList) {
         applicationPage = new ApplicationPage();
-        applicationPage.getContentPanel().createTask(tasksMap.get("1"));
-        applicationPage.getContentPanel().createTask(tasksMap.get("2"));
-        applicationPage.getContentPanel().createTask(tasksMap.get("3"));
-        applicationPage.getContentPanel().createTask(tasksMap.get("4"));
+        String listName = context.getList().getName();
+        applicationPage.getContentPanel().createListTasks(tasksList, listName);
     }
 }
