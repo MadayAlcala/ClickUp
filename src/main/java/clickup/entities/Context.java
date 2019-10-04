@@ -93,6 +93,8 @@ public class Context {
     /**
      * Getter method.
      * Retrieves the user that this context shares across step definitions.
+     *
+     * @return an instance of a User class.
      */
     public User getUser() {
         return user;
@@ -103,13 +105,15 @@ public class Context {
      *
      * @param user A User instance to be shared across step definitions.
      */
-    public void setUser(User user) {
+    public void setUser(final User user) {
         this.user = user;
     }
 
     /**
      * Getter method.
      * Retrieves the user map that this context shares across step definitions.
+     *
+     * @return a the map containing multiple instances of the entities shared by this class.
      */
     public HashMap<String, User> getUserMap() {
         return (HashMap<String, User>) userMap;
@@ -120,7 +124,7 @@ public class Context {
      *
      * @param userMap a userMap to be copied onto this class' instance.
      */
-    public void setUserMap(Map<String, User> userMap) {
+    public void setUserMap(final Map<String, User> userMap) {
         this.userMap = userMap;
     }
 }

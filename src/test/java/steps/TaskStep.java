@@ -16,11 +16,9 @@ import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
-import core.utils.Actions;
 import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.Keys;
 import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -51,6 +49,8 @@ public class TaskStep {
      * Creates new task in a list.
      *
      * @param taskName A String containing the name of the Task to be created.
+     * @throws IOException .
+     * @throws UnsupportedFlavorException .
      */
     @When("The user creates a new task with the following name {string}")
     public void createNewTask(final String taskName) throws IOException, UnsupportedFlavorException {
@@ -92,7 +92,9 @@ public class TaskStep {
     }
 
     /**
-     * A task creator assigns task to a user
+     * A task creator assigns task to a user.
+     *
+     * @param userType a String containing the user type that the task is going to assigned to.
      */
     @When("The admin user assigns the task to a (.*) user")
     public void amdinAssignsTaskToUser(final String userType) {
@@ -101,12 +103,20 @@ public class TaskStep {
         taskModalPage.close();
     }
 
+    /**
+     * Logs a user out of the application.
+     */
     @When("The admin user logs out")
     public void userLogsOut() {
         applicationPage.getSideMenu().logOut();
         new LoginPage();
     }
 
+    /**
+     * Visits to Notifications page for a given workplace.
+     *
+     * @param userType a String containing the user type that the task is going to assigned to.
+     */
     @When("The user goes to notifications page for (.*) workplace")
     public void userSwitchWorkplace(final String userType) {
         String ownerId = context.getUserMap().get(userType).getId();

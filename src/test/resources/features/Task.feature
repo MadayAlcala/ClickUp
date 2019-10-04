@@ -62,4 +62,3 @@ Feature: Task
       Then the guest user should see the task anchored in the bottom right corner
       When the guest user goes to another list page
       Then the guest user should see the task anchored in the bottom right corner
-q

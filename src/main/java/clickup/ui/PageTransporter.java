@@ -26,10 +26,10 @@ import java.util.Map;
  * @version 1.0
  */
 public final class PageTransporter {
-    private static final Map<String, String> map = new HashMap<>();
+    private static Map<String, String> map = new HashMap<>();
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
-    private static final WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
+    private static WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
 
     static {
         map.put("login", "login");
@@ -56,7 +56,7 @@ public final class PageTransporter {
     /**
      * Returns a String containing the base url of the web application.
      *
-     * @return
+     * @return a String containing the root URI of the web application under test.
      */
     private static String getBaseUrl() {
         PropertyReader.loadFile(APP_CONFIG_FILE);
@@ -67,6 +67,7 @@ public final class PageTransporter {
      * Visits a Task's page by its id.
      *
      * @param taskId a String containing the id of a given Task.
+     * @return a new instance of Task Modal Page Object Model.
      */
     public static TaskModalPage goToTaskPageById(final String taskId) {
         webDriver.navigate().to(getBaseUrl().concat(map.get("task")).concat(taskId));
@@ -74,7 +75,7 @@ public final class PageTransporter {
     }
 
     /**
-     * Visits the Notifications Page containing the task assigned to the user by the owner of a workplace
+     * Visits the Notifications Page containing the task assigned to the user by the owner of a workplace.
      *
      * @param ownerId a String containing the id of the owner of the workplace where the user's task is located at.
      * @return an instance of NotificationsPage Page Object Model Class.

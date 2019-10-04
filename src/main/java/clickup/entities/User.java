@@ -43,7 +43,7 @@ public class User {
      *
      * @param id associated to a user registered at ClickUp application.
      */
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
