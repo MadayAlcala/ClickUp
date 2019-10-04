@@ -79,4 +79,9 @@ public class LoginStep {
         applicationPage = new ApplicationPage();
         Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), context.getUser().getFullName(), context.getUser().getFullName() + "was unable to log into the system!");
     }
+
+    @When("The user logs as (.*)")
+    public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
+        fillingForm(userType);
+    }
 }

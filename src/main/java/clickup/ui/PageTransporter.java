@@ -10,6 +10,7 @@
 
 package clickup.ui;
 
+import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.selenium.WebDriverManager;
 import core.utils.PropertyReader;
@@ -34,6 +35,7 @@ public final class PageTransporter {
         map.put("login", "login");
         map.put("space", "https://app.clickup.com/3004860/v/l/s/3007916");
         map.put("task", "t/");
+        map.put("notifications", "notifications");
     }
 
     /**
@@ -69,5 +71,16 @@ public final class PageTransporter {
     public static TaskModalPage goToTaskPageById(final String taskId) {
         webDriver.navigate().to(getBaseUrl().concat(map.get("task")).concat(taskId));
         return new TaskModalPage();
+    }
+
+    /**
+     * Visits the Notifications Page containing the task assigned to the user by the owner of a workplace
+     *
+     * @param ownerId a String containing the id of the owner of the workplace where the user's task is located at.
+     * @return an instance of NotificationsPage Page Object Model Class.
+     */
+    public static NotificationsPage goToNotificationsPage(final String ownerId) {
+        webDriver.navigate().to(getBaseUrl().concat(ownerId).concat("/").concat(map.get("notifications")));
+        return new NotificationsPage();
     }
 }
