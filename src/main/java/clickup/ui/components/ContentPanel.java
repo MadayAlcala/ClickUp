@@ -11,6 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
+import core.utils.Actions;
 import core.utils.PropertyReader;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -95,7 +96,7 @@ public class ContentPanel extends BasePage {
      * Closes the modal that appears after the creation of a task.
      */
     public void closeModal() {
-        closeButton.click();
+        Actions.click(closeButton);
     }
 
     /**

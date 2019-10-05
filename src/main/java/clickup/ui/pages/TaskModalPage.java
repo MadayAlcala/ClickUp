@@ -41,8 +41,7 @@ public class TaskModalPage extends BasePage {
      * @param userFullName a String containing the Full Name associated to a given user's account.
      */
     public void assignTaskToUser(final String userFullName) {
-        getWait().until(ExpectedConditions.elementToBeClickable(addUserDropdownButton));
-        addUserDropdownButton.click();
+        Actions.click(addUserDropdownButton);
         for (WebElement element : userSelectorLink) {
             if (element.getText().equals(userFullName)) {
                 element.click();
