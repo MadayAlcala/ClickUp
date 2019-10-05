@@ -11,7 +11,6 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import clickup.ui.PageTransporter;
 import core.utils.PropertyReader;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -109,7 +108,7 @@ public class ContentPanel extends BasePage {
     public String extractTaskId() throws UnsupportedFlavorException, IOException {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         PropertyReader.retrieveField(URL_BASE);
-        return getTaskUrl().replace(PropertyReader.retrieveField(URL_BASE).concat(TASK_PREFIX) ,"");
+        return getTaskUrl().replace(PropertyReader.retrieveField(URL_BASE).concat(TASK_PREFIX), "");
     }
 
     /**

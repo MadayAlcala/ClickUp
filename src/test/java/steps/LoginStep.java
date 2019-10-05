@@ -11,7 +11,6 @@
 package steps;
 
 import clickup.entities.Context;
-import clickup.entities.User;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.LoginPage;
@@ -68,7 +67,8 @@ public class LoginStep {
         loginPage = new LoginPage();
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         context.getUserMap().put(userType, context.getUser());
-        loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType).getPassword());
+        loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType)
+                .getPassword());
     }
 
     /**
@@ -77,6 +77,20 @@ public class LoginStep {
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
         applicationPage = new ApplicationPage();
-        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), context.getUser().getFullName(), context.getUser().getFullName() + "was unable to log into the system!");
+        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), context.getUser().getFullName(),
+                context.getUser().getFullName() + "was unable to log into the system!");
+    }
+
+    /**
+     * Logs a user into the application.
+     *
+     * @param userType a String containing the user type that the task is going to assigned to.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
+    @When("The user logs as (.*)")
+    public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
+        fillingForm(userType);
     }
 }

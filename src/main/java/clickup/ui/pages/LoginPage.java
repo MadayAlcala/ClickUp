@@ -14,6 +14,7 @@ import clickup.ui.BasePage;
 import core.utils.Actions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * LoginPage class.
@@ -66,6 +67,7 @@ public final class LoginPage extends BasePage {
      * @param password a String containing the password associated to a given user.
      */
     public void authenticate(final String email, final String password) {
+        getWait().until(ExpectedConditions.visibilityOf(emailField));
         getEmailField(email);
         getPasswordField(password);
         getLoginField();

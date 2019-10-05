@@ -41,6 +41,7 @@ public class Task {
     /**
      * Getter method.
      *
+     * @return a the id associated to an instance of this class.
      */
     public String getId() {
         return id;
