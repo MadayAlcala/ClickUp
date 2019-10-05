@@ -26,7 +26,7 @@ import java.util.Map;
  * @version 1.0
  */
 public final class PageTransporter {
-    private static Map<String, String> map = new HashMap<>();
+    public static Map<String, String> map = new HashMap<>();
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
     private static WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
@@ -58,7 +58,7 @@ public final class PageTransporter {
      *
      * @return a String containing the root URI of the web application under test.
      */
-    private static String getBaseUrl() {
+    public static String getBaseUrl() {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         return PropertyReader.retrieveField(URL_BASE);
     }
