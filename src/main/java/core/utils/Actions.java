@@ -10,8 +10,11 @@
 
 package core.utils;
 
+import core.selenium.WebDriverManager;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Actions class, does actions on web elements.
@@ -20,6 +23,7 @@ import org.openqa.selenium.WebElement;
  * @version 1.0
  */
 public final class Actions {
+    private static WebDriverWait webDriverWait = WebDriverManager.getInstance().getWebDriverWait();
 
     /**
      * Private constructor to comply checkStyle tool suggestions.
@@ -33,6 +37,7 @@ public final class Actions {
      * @param webElement to be clicked.
      */
     public static void click(final WebElement webElement) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();
     }
 
