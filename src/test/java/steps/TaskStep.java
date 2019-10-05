@@ -119,7 +119,17 @@ public class TaskStep {
      */
     @When("The user goes to notifications page for (.*) workplace")
     public void userSwitchWorkplace(final String userType) {
-        String ownerId = context.getUserMap().get(userType).getId();
+        String ownerId = context.getUserMap().get(userType).getTeamId();
         notificationsPage = PageTransporter.goToNotificationsPage(ownerId);
+    }
+
+    /**
+     * Searches for a newly created task inside a listing.
+     */
+    @Then("The user should see the task listed")
+    public void isTaskListed() {
+        String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
+        Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
+                .getName() + " is not listed!");
     }
 }

@@ -58,7 +58,7 @@ public final class PageTransporter {
      *
      * @return a String containing the root URI of the web application under test.
      */
-    private static String getBaseUrl() {
+    public static String getBaseUrl() {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         return PropertyReader.retrieveField(URL_BASE);
     }
@@ -83,5 +83,14 @@ public final class PageTransporter {
     public static NotificationsPage goToNotificationsPage(final String ownerId) {
         webDriver.navigate().to(getBaseUrl().concat(ownerId).concat("/").concat(map.get("notifications")));
         return new NotificationsPage();
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a map object containing the identifier/url-suffix pairs.
+     */
+    public static Map<String, String> getMap() {
+        return map;
     }
 }
