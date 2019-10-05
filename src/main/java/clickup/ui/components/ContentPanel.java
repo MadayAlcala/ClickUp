@@ -75,7 +75,7 @@ public class ContentPanel extends BasePage {
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
     private void followCopyUrlLink() {
-        copyUrlLink.click();
+        Actions.click(copyUrlLink);
     }
 
     /**
