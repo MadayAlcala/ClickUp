@@ -26,7 +26,7 @@ import java.util.Map;
  * @version 1.0
  */
 public final class PageTransporter {
-    public static Map<String, String> map = new HashMap<>();
+    private static Map<String, String> map = new HashMap<>();
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
     private static WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
@@ -83,5 +83,14 @@ public final class PageTransporter {
     public static NotificationsPage goToNotificationsPage(final String ownerId) {
         webDriver.navigate().to(getBaseUrl().concat(ownerId).concat("/").concat(map.get("notifications")));
         return new NotificationsPage();
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a map object containing the identifier/url-suffix pairs.
+     */
+    public static Map<String, String> getMap() {
+        return map;
     }
 }

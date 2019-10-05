@@ -45,7 +45,7 @@ public class NotificationsPage extends ApplicationBasePage {
      */
     private boolean isTaskByIdPresent(final String taskId) {
         List<WebElement> resultList = new ArrayList<WebElement>();
-        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.map.get("task").concat(taskId));
+        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
         resultList = getDriver().findElements(By.cssSelector(String.format(TASK_ANCHOR, hyperLink)));
         return (resultList.size() == 1);
     }
@@ -53,11 +53,11 @@ public class NotificationsPage extends ApplicationBasePage {
     /**
      * Searches for a task by its id and retrieves its Name.
      *
-     * @param taskId
-     * @return
+     * @param taskId The id of a partiuclar Task.
+     * @return a String containing the name assigned to the Task.
      */
     public String searchTaskByIdAndGetName(final String taskId) {
-        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.map.get("task").concat(taskId));
+        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
         return Actions.getText(getAnchorElementByUrl(hyperLink));
     }
 }

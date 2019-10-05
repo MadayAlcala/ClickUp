@@ -129,6 +129,7 @@ public class TaskStep {
     @Then("The user should see the task listed")
     public void isTaskListed() {
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
-        Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask().getName() + " is not listed!");
+        Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
+                .getName() + " is not listed!");
     }
 }
