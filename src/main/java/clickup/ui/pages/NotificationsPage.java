@@ -11,7 +11,7 @@
 package clickup.ui.pages;
 
 /**
- * WebDriverConfig.
+ * Notifications Page Object Model.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
