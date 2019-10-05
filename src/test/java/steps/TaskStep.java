@@ -11,15 +11,22 @@
 package steps;
 
 import clickup.entities.Context;
+import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+<<<<<<<HEAD
 import cucumber.api.java.en.Given;
+=======
+import clickup.ui.pages.LoginPage;
+import clickup.ui.pages.NotificationsPage;
+import clickup.ui.pages.TaskModalPage;
+import core.utils.CredentialDeserializer;
+>>>>>>>develop
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +38,8 @@ import java.util.List;
 public class TaskStep {
     private Context context;
     private ApplicationPage applicationPage;
+    private TaskModalPage taskModalPage;
+    private NotificationsPage notificationsPage;
 
     /**
      * Constructor for dependency injection.
@@ -45,12 +54,15 @@ public class TaskStep {
      * Creates new task in a list.
      *
      * @param taskName A String containing the name of the Task to be created.
+     * @throws IOException                .
+     * @throws UnsupportedFlavorException .
      */
-    @When("the user creates a new task with the following name {string}")
-    public void createNewTask(final String taskName) {
+    @When("The user creates a new task with the following name {string}")
+    public void createNewTask(final String taskName) throws IOException, UnsupportedFlavorException {
         applicationPage = new ApplicationPage();
         context.getTask().setName(taskName);
         applicationPage.getContentPanel().createTask(taskName);
+        context.getTask().setId(applicationPage.getContentPanel().extractTaskId());
     }
 
     /**
@@ -62,9 +74,9 @@ public class TaskStep {
     @Then("the user should see the success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
         String confirmationMessage = applicationPage.getContentPanel().getCreationConfirmationMessage();
-        context.getTask().setUrl(applicationPage.getContentPanel().extractTaskId());
+        applicationPage.getContentPanel().closeModal();
         Assert.assertEquals(confirmationMessage, context.getTask().getName() + " Created!",
-                "The task has not been created!");
+                "The task " + context.getTask().getName() + " has not been created!");
     }
 
     /**
@@ -81,5 +93,46 @@ public class TaskStep {
         applicationPage = new ApplicationPage();
         String listName = context.getList().getName();
         applicationPage.getContentPanel().createListTasks(tasksList, listName);
+
+    }
+
+    /**
+     * Visits a Task page by its id.
+     */
+    @When("The user goes to page of the new task")
+    public void goToNewTaskPage() {
+        taskModalPage = PageTransporter.goToTaskPageById(context.getTask().getId());
+    }
+
+    /**
+     * A task creator assigns task to a user.
+     *
+     * @param userType a String containing the user type that the task is going to assigned to.
+     */
+    @When("The admin user assigns the task to a (.*) user")
+    public void amdinAssignsTaskToUser(final String userType) {
+        context.setUser(CredentialDeserializer.getInstance().getUser(userType));
+        taskModalPage.assignTaskToUser(context.getUser().getFullName());
+        taskModalPage.close();
+    }
+
+    /**
+     * Logs a user out of the application.
+     */
+    @When("The admin user logs out")
+    public void userLogsOut() {
+        applicationPage.getSideMenu().logOut();
+        new LoginPage();
+    }
+
+    /**
+     * Visits to Notifications page for a given workplace.
+     *
+     * @param userType a String containing the user type that the task is going to assigned to.
+     */
+    @When("The user goes to notifications page for (.*) workplace")
+    public void userSwitchWorkplace(final String userType) {
+        String ownerId = context.getUserMap().get(userType).getId();
+        notificationsPage = PageTransporter.goToNotificationsPage(ownerId);
     }
 }

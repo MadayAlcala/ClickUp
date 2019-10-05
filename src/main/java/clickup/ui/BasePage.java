@@ -40,7 +40,7 @@ public abstract class BasePage {
     /**
      * @return a single WebDriver instance.
      */
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 

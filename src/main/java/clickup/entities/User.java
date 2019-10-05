@@ -23,10 +23,29 @@ import java.security.GeneralSecurityException;
  * @version 1.0
  */
 public class User {
+    private String teamId;
     private String email;
     private String password;
     private String personalToken;
     private String fullName;
+
+    /**
+     * Getter method.
+     *
+     * @return the teamId associated to a user registered at ClickUp application.
+     */
+    public String getTeamId() {
+        return teamId;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param teamId associated to a user registered at ClickUp application.
+     */
+    public void setTeamId(final String teamId) {
+        this.teamId = teamId;
+    }
 
     /**
      * Getter method.

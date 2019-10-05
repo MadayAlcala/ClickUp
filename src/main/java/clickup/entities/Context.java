@@ -10,6 +10,9 @@
 
 package clickup.entities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Contains all objects or variables that wee need save.
  *
@@ -20,6 +23,8 @@ public class Context {
     private Space space;
     private List list;
     private Task task;
+    private User user;
+    private Map<String, User> userMap;
 
     /**
      * Initializes the variables.
@@ -28,6 +33,7 @@ public class Context {
         this.space = new Space();
         this.list = new List();
         this.task = new Task();
+        this.userMap = new HashMap<>();
     }
 
     /**
@@ -82,5 +88,43 @@ public class Context {
      */
     public void setTask(final Task task) {
         this.task = task;
+    }
+
+    /**
+     * Getter method.
+     * Retrieves the user that this context shares across step definitions.
+     *
+     * @return an instance of a User class.
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param user A User instance to be shared across step definitions.
+     */
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
+    /**
+     * Getter method.
+     * Retrieves the user map that this context shares across step definitions.
+     *
+     * @return a the map containing multiple instances of the entities shared by this class.
+     */
+    public HashMap<String, User> getUserMap() {
+        return (HashMap<String, User>) userMap;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param userMap a userMap to be copied onto this class' instance.
+     */
+    public void setUserMap(final Map<String, User> userMap) {
+        this.userMap = userMap;
     }
 }

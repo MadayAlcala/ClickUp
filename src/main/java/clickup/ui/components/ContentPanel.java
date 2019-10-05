@@ -12,6 +12,8 @@ package clickup.ui.components;
 
 import clickup.ui.BasePage;
 import org.openqa.selenium.By;
+import core.utils.Actions;
+import core.utils.PropertyReader;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +24,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +34,10 @@ import java.util.List;
  */
 public class ContentPanel extends BasePage {
     private final static String contentListHeader= "//cu-list-group[contains(.,'%s')]";
+    private static final String APP_CONFIG_FILE = "app.properties";
+    private static final String URL_BASE = "url";
+    private static final String TASK_PREFIX = "t/";
+
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 
@@ -73,7 +78,7 @@ public class ContentPanel extends BasePage {
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
     private void followCopyUrlLink() {
-        copyUrlLink.click();
+        Actions.click(copyUrlLink);
     }
 
     /**
@@ -93,21 +98,21 @@ public class ContentPanel extends BasePage {
     /**
      * Closes the modal that appears after the creation of a task.
      */
-    private void closeModal() {
-        closeButton.click();
+    public void closeModal() {
+        Actions.click(closeButton);
     }
 
     /**
-     * Returns a String containing the url assigned to a newly created Task.
+     * Returns a String containing the id assigned to a newly created Task.
      *
-     * @return a String containing the url assigned to a newly created Task.
+     * @return a String containing the id assigned to a newly created Task.
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
     public String extractTaskId() throws UnsupportedFlavorException, IOException {
-        String taskUrl = getTaskUrl();
-        closeModal();
-        return taskUrl;
+        PropertyReader.loadFile(APP_CONFIG_FILE);
+        PropertyReader.retrieveField(URL_BASE);
+        return getTaskUrl().replace(PropertyReader.retrieveField(URL_BASE).concat(TASK_PREFIX), "");
     }
 
     /**
