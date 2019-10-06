@@ -65,6 +65,7 @@ public class TaskStep {
         context.getTask().setName(taskName);
         applicationPage.getContentPanel().createTask(taskName);
         context.getTask().setId(applicationPage.getContentPanel().extractTaskId());
+        context.getUserMap().put("creator", context.getUser());
     }
 
     /**
