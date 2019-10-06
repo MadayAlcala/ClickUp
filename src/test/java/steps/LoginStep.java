@@ -92,5 +92,8 @@ public class LoginStep {
     @When("The user logs as (.*)")
     public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
         fillingForm(userType);
+        // TODO Refactor
+        applicationPage = new ApplicationPage();
+        applicationPage.getSideMenu().waitForPageLoading();
     }
 }

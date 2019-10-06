@@ -10,6 +10,7 @@
 
 package steps;
 
+import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
@@ -19,10 +20,15 @@ import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.response.Response;
+import org.apache.commons.codec.DecoderException;
 import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * TaskStep.
@@ -35,13 +41,14 @@ public class TaskStep {
     private ApplicationPage applicationPage;
     private TaskModalPage taskModalPage;
     private NotificationsPage notificationsPage;
+    private TaskApi taskApi;
 
     /**
      * Constructor for dependency injection.
      *
      * @param context A Context instance to be instantiated by pico-container library.
      */
-    public TaskStep(final Context context) {
+    public TaskStep(final Context context) throws GeneralSecurityException, IOException, DecoderException {
         this.context = context;
     }
 
@@ -121,6 +128,8 @@ public class TaskStep {
     public void userSwitchWorkplace(final String userType) {
         String ownerId = context.getUserMap().get(userType).getTeamId();
         notificationsPage = PageTransporter.goToNotificationsPage(ownerId);
+        // TODO Refactor
+        notificationsPage.waitForPageLoading();
     }
 
     /**
@@ -131,5 +140,21 @@ public class TaskStep {
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
+    }
+
+    @Then("The task should not have any assignees")
+    public void isTaskWithAssignee() throws GeneralSecurityException, IOException, DecoderException {
+        taskApi = new TaskApi(context.getUser());
+        Response response = taskApi.findTaskById(context.getTask().getId());
+        List<Map> asigneeList = response.jsonPath().get("assignees");
+        Assert.assertTrue(asigneeList.isEmpty(), "Task " + context.getTask().getName() + " has already been assigned!");
+    }
+
+    @Then("The user should be the asignee")
+    public void isUserAssignee() throws GeneralSecurityException, IOException, DecoderException {
+        taskApi = new TaskApi(context.getUser());
+        Response response = taskApi.findTaskById(context.getTask().getId());
+        List<Map> asigneeList = response.jsonPath().get("assignees");
+        Assert.assertEquals(asigneeList.get(0).get("username"), context.getUserMap().get("guest").getFullName());
     }
 }
