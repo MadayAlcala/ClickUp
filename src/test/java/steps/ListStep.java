@@ -12,13 +12,11 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ProjectModalPage;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
-
-import java.util.Map;
 
 /**
  * ListStep class.
@@ -29,6 +27,7 @@ import java.util.Map;
 public class ListStep {
     private ApplicationPage applicationPage;
     private Context context;
+    private ProjectModalPage projectModalPage;
 
     /**
      * Class constructor.
@@ -79,7 +78,33 @@ public class ListStep {
      * Searches a task in the list view.
      */
     @And("the user searches a task with {string} keyword")
-    public void theUserSearchesTheTask(String key) {
-        applicationPage.getListPanel().searchTask(key);
+    public void searchTask(String key) {
+        applicationPage.getContentPanel().searchTask(key);
+    }
+
+    @Then("the user should see displayed {string} at the bottom of the list")
+    public void verifyTasksQuantity(String quantity) {
+        Assert.assertEquals(applicationPage.getContentPanel().getTasksQuantity(), quantity.toUpperCase());
+    }
+
+    @And("the user should see the name of the list on content Task")
+    public void verifyNameListOnContentPanel() {
+        String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());
+        String expected = context.getList().getName();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @And("the user should see the name of the list on the Bar title of content panel")
+    public void verifyNameListOnContentPanelBarTitle() {
+        String actual = applicationPage.getContentPanel().getBarTitleListName(context.getList().getName());
+        String expected = context.getList().getName();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @And("the user creates a new project with the following name {string}")
+    public void createProject(String projectName) {
+        applicationPage = new ApplicationPage();
+        applicationPage.getListPanel().addNewFolder(projectName);
+//        applicationPage.getListPanel().assignNewFolderName(projectName);
     }
 }

@@ -8,48 +8,90 @@ Feature: List
 #  Scenario: Create new List
 #    When the user creates a new list with the following name "ListTest"
 #    Then the user should see the new list appear in the panel successfully
-#
+#      And the user should see the name of the list on the Bar title of content panel
+#      And the user should see the name of the list on content Task
+
 #  @logout @deleteList
 #  Scenario: Update a List
 #    Given the user creates a new list with the following name "ListTest"
 #    When the user updates a list with the following name "Test"
 #    Then the user should see the new list appear in the panel successfully
+##      And the user should see the name of the list on the Bar title of content panel
+#      And the user should see the name of the list on content Task
 #
 #  @logout
 #  Scenario: Delete new List
 #    Given the user creates a new list with the following name "ListTest"
 #    When the user deletes the list
-#    Then the user should not see the list in the panel
-
-  @logout @deleteSpace
-  Scenario: Filter and Search Tasks in List View without any filter
-    Given the user creates a new space with the following name "SpaceTest"
-    And the user creates a new list with the following name "ListTest"
-    Given the user creates the following tasks:
-      | task gatuno           |
-      | gato de navidad       |
-      | Era un task de gato   |
-      | El gato tenia un task |
-      | task                  |
-      | task2                 |
-      | task89745             |
-    And the user searches a task with "Task" keyword
+##    Then the user should not see the list in the panel
+#
+#  @logout @deleteSpace
+#  Scenario: Search Tasks in List View without any filter
+#    Given the user creates a new space with the following name "SpaceTest"
+#    And the user creates a new list with the following name "ListTest"
+#    And the user creates the following tasks:
+#      | task gatuno           |
+#      | gato de navidad       |
+#      | Era un task de gato   |
+#      | El gato tenia un task |
+#      | task                  |
+#      | task2                 |
+#      | task89745             |
+#    When the user searches a task with "Task" keyword
+#    Then the user should see displayed "7 Tasks" at the bottom of the list
 #    Then the user should see the following tasks displayed
-#      | task |
-#      | task |
+#      | task gatuno           |
+#      | Era un task de gato   |
+#      | El gato tenia un task |
+#      | task                  |
+#      | task2                 |
+#      | task89745             |
 #    And the user should not see the following tasks displayed
-#      | task |
-#      | task |
-#    Examples:
-#      | newTask |
-#      | task    |
-
+#      | gato de navidad       |
+#
 #  @CreateSpace
-#  Scenario: Drag and drop reordering in board view
-#    When the guest user creates a workplace
-#    And the guest user creates a space
-#    And the guest user creates a list
-#    And the guest user creates a task
-#    And the guest user selects the “board” view
-#    And the guest user drags the task to “Done” status
-#    Then the guest user should see the task in “Done” status.
+#  Scenario: A user changes a task from a status to another
+#    Given the user creates a new space with the following name "SpaceTest"
+#      And the user creates a new list with the following name "ListTest"
+#      And the user creates a new task with the following name "TestTask"
+#      And the user selects the "board" view
+#    When the user drags the task to "Complete" status
+#    Then the user user should see the task in "Complete" status.
+
+  @CreateSpace
+  Scenario: A user changes a list from a project to another
+    Given the user creates a new space with the following name "SpaceTest"
+      And the user creates a new project with the following name "First ProjectTest"
+      And the user creates a new project with the following name "Second ProjectTest"
+      And the user creates a new list with the following name "TestList to Move"
+#    When the user moves the list to other project
+#      And the user goes to other project
+#    Then the user should see the list in the other project.
+#
+#  @CreateSpace
+#  Scenario: A user moves a project from a space to another
+#    Given the user creates a new space with the following name "First SpaceTest"
+#      And the user creates a new space with the following name "Second SpaceTest"
+#      And the user creates a new project with the following name "ProjectTest"
+#    When the user moves the project to other space
+#      And the user goes to other space
+#    Then the user should see the project in the other space.
+#
+#  @CreateSpace
+#  Scenario: Copy a project with all values
+#    Given the user creates a new space with the following name "SpaceTest"
+#      And the user creates a new project with the following name "ProjectTest"
+#      And the guest copy the project
+#    Then the user should see the success message
+#      And the user should see the copy project displayed
+#
+#  @CreateSpace
+#  Scenario: Copy a list with all values
+#    Given the user creates a new space with the following name "SpaceTest"
+#      And the user creates a new project with the following name "First ProjectTest"
+#      And the user creates a new project with the following name "Second ProjectTest"
+#      And the user creates a new list with the following name "TestList to Copy"
+#    When the user copy the list to other project
+#    Then the user should see the success message
+#    When the user goes to other project
+#    Then the user should see the copy list in the other project.

@@ -49,7 +49,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("^the user goes to (.*) page$")
+    @Given("the user goes to (.*) page")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl(login);
     }
@@ -89,7 +89,7 @@ public class LoginStep {
      * @throws IOException .
      * @throws DecoderException .
      */
-    @When("The user logs as (.*)")
+    @When("the user logs as (.*)")
     public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
         fillingForm(userType);
     }

@@ -33,7 +33,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ContentPanel extends BasePage {
-    private final static String contentListHeader= "//cu-list-group[contains(.,'%s')]";
+    private final static String contentListHeader = "//cu-list-group[contains(.,'%s')]";
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
     private static final String TASK_PREFIX = "t/";
@@ -55,6 +55,24 @@ public class ContentPanel extends BasePage {
 
     @FindBy(css = "div.toast__close-button-block")
     private WebElement closeButton;
+
+    @FindBy(css = ".cu-task-list-header-field__item:nth-child(1) .cu-task-list-header-field__title-text")
+    private WebElement taskQtyLink;
+
+    @FindBy(css = "div > .cu2-views-bar__selected-view-options-text")
+    private WebElement saveAlert;
+
+    @FindBy(css = ".cu-search-filter .cu-search-filter__input")
+    private WebElement searchTxtField;
+
+    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
+    private WebElement boardViewBtn;
+
+    @FindBy(css = "div.cu-list-group__name")
+    private WebElement listNameContentPanelLabelTxt;
+
+    @FindBy(className = "cu-views-bar-title__list-btn-label")
+    private WebElement listNameBarTitleLabelTxt;
 
     /**
      * Visits the '+ New Task' hyperlink from the menu at the top of the List group in the body section.
@@ -86,7 +104,7 @@ public class ContentPanel extends BasePage {
      *
      * @return a String containing the Task url.
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     private String getTaskUrl() throws UnsupportedFlavorException, IOException {
         followCopyUrlLink();
@@ -107,7 +125,7 @@ public class ContentPanel extends BasePage {
      *
      * @return a String containing the id assigned to a newly created Task.
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     public String extractTaskId() throws UnsupportedFlavorException, IOException {
         PropertyReader.loadFile(APP_CONFIG_FILE);
@@ -150,9 +168,43 @@ public class ContentPanel extends BasePage {
         getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
         followNewTaskLink();
         taskName.forEach(task -> {
-            newTaskNameTxtField.sendKeys((CharSequence) task);
-            newTaskNameTxtField.sendKeys(Keys.ENTER);
+            createTask((String) task);
+            closeModal();
         });
         getWait().until(ExpectedConditions.visibilityOf(newTaskLink));
+    }
+
+    /**
+     * Searches a task in the search filter.
+     *
+     * @param taskName that is a String of the task' name that wants to search.
+     */
+    public void searchTask(final String taskName) {
+        getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
+        Actions.click(searchTxtField);
+        Actions.sendKeys(searchTxtField, taskName);
+        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
+        searchTxtField.sendKeys(Keys.ENTER);
+    }
+
+    public String getTasksQuantity() {
+        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
+        String tasksQty = Actions.getText(taskQtyLink);
+        return  tasksQty;
+    }
+
+    public void setBoardView(){
+        boardViewBtn.click();
+    }
+
+    public String getContentListHeader(final String listName){
+        getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
+        return listNameContentPanelLabelTxt.getText();
+    }
+
+    public String getBarTitleListName(final String listName){
+        getWait().until(ExpectedConditions.visibilityOf(listNameBarTitleLabelTxt));
+        getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
+        return listNameBarTitleLabelTxt.getText();
     }
 }

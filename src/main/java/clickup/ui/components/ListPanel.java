@@ -27,6 +27,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ListPanel extends BasePage {
     private static final String LIST_BTN = "//cu-nav-section[contains(.,'%s')]";
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
+    @FindBy(css = ".sidebar-section__plus-icon")
+    private WebElement addBtn;
 
     @FindBy(xpath = "//div[@class='cu-btn__text'][contains(.,'Delete')]")
     private WebElement confirmDeleteBtn;
@@ -40,8 +42,8 @@ public class ListPanel extends BasePage {
     @FindBy(css = "img[src *= 'no-lists']")
     private WebElement emptyTaskListImg;
 
-    @FindBy(css = ".sidebar-section__plus-icon")
-    private WebElement iconBtn;
+    @FindBy(css = " .cu-dropdown-list-item__icon_new-folder")
+    private WebElement folderBox;
 
     @FindBy(css = ".cu-dropdown-list-item__icon_new-list")
     private WebElement listBox;
@@ -55,17 +57,11 @@ public class ListPanel extends BasePage {
     @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
     private WebElement taskListHeader;
 
-    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
-    private WebElement boardView;
-
-    @FindBy(css = ".cu-search-filter .cu-search-filter__input")
-    private WebElement searchTxtField;
-
     /**
      * Selects the '+' symbol to displayed their options.
      */
-    private void getIconBtn() {
-        Actions.click(iconBtn);
+    private void addBtn() {
+        Actions.click(addBtn);
     }
 
     /**
@@ -85,7 +81,7 @@ public class ListPanel extends BasePage {
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
-        getIconBtn();
+        addBtn();
         getListBox();
         Actions.sendKeys(listNameMakerTxtField, listName);
         Actions.enter(listNameMakerTxtField);
@@ -161,19 +157,35 @@ public class ListPanel extends BasePage {
         getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
     }
 
+    @FindBy(css = ".cu-form__input")
+    private WebElement folderNameTxtBox;
+
+    @FindBy(className = "cu-modal__control-item cu-modal__close icon")
+    private WebElement folderCloseButton;
+
+    public void addNewFolder(final String folderName){
+        addBtn();
+        Actions.click(folderBox);
+        Actions.sendKeys(folderNameTxtBox, folderName);
+        Actions.enter(folderNameTxtBox);
+    }
+
     /**
-     * Searches a task in the search filter.
+     * Writes a name for create a new Folder.
      *
-     * @param taskName that is a String of the task' name that wants to search.
+     * @param folderName that is the new name for the folder.
      */
-    public void searchTask(final String taskName) {
-//        getWait().until(ExpectedConditions.elementToBeClickable(boardView));
-//        Actions.click(boardView);
-//        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
-        getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
-        Actions.click(searchTxtField);
-        Actions.sendKeys(searchTxtField, taskName);
-        getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
-        searchTxtField.sendKeys(Keys.ENTER);
+    public void assignNewFolderName(final String folderName) {
+        Actions.sendKeys(folderNameTxtBox, folderName);
+        getWait().until(ExpectedConditions.textToBePresentInElement(folderNameTxtBox,
+                folderNameTxtBox.getText()));
+        Actions.enter(folderNameTxtBox);
+    }
+
+    /**
+     * Closes a given Folder modal window.
+     */
+    public void close() {
+        Actions.click(folderCloseButton);
     }
 }
