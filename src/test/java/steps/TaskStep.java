@@ -13,14 +13,11 @@ package steps;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
-<<<<<<<HEAD
 import cucumber.api.java.en.Given;
-=======
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
->>>>>>>develop
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
