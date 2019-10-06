@@ -188,4 +188,21 @@ public class ListPanel extends BasePage {
     public void close() {
         Actions.click(folderCloseButton);
     }
+
+    @FindBy(css = "div.toast__undo.ng-tns-c0-0.ng-star-inserted")
+    private WebElement informationPopUp;
+
+    @FindBy(css = ".toast__undo-content")
+    private WebElement copyConfirmationMessage;
+
+    /**
+     * Returns the message on the pop up modal that appears after a List or folder is copied.
+     *
+     * @return a String containing the message on the pop up modal that appears after a some actions is realized.
+     */
+    public String getCopyConfirmationMessage() {
+        getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
+        String result = copyConfirmationMessage.getText();
+        return result;
+    }
 }

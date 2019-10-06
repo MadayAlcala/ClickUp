@@ -1,4 +1,4 @@
-#Feature: Task
+Feature: Task
 #
 #  @logout @deleteSpace
 #  Scenario: A user creates a new task
@@ -23,16 +23,16 @@
 #    When the user goes to new the task
 #    Then his name should appear as asignee
 #
-#    Scenario: A user changes a task from one list to another
-#      Given the user goes to login page
-#      And the user fills the form with email and password
-#      And the user creates a new list with the following name "First TestList"
-#      And the user creates a new list with the following name "Second TestList"
-#      And the user creates a new task with the following name "Test to Move"
-#        And the guest user moves a task to other list
-#      Then the user should see the success message
-#        And the guest user goes to list page
-#      Then the guest user should see the task in the other list.
+    Scenario: A user changes a task from one list to another
+      Given the user goes to login page
+      And the user fills the form with email and password
+      And the user creates a new list with the following name "First TestList"
+      And the user creates a new list with the following name "Second TestList"
+      And the user creates a new task with the following name "Test to Move"
+        And the guest user moves a task to other list
+      Then the user should see the success message
+        And the guest user goes to list page
+      Then the guest user should see the task in the other list.
 #
 #    @logout
 #    Scenario: A user attaches a file to a task

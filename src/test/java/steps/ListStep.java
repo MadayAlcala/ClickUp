@@ -107,4 +107,11 @@ public class ListStep {
         applicationPage.getListPanel().addNewFolder(projectName);
 //        applicationPage.getListPanel().assignNewFolderName(projectName);
     }
+
+    @Then("the user should see the copy success message: {string}")
+    public void successCopyMessage(String copyMessage) {
+        String expected = copyMessage;
+        String actual = applicationPage.getListPanel().getCopyConfirmationMessage();
+        Assert.assertEquals(expected, actual, "The copy does not exist.");
+    }
 }
