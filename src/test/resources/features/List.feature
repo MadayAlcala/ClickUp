@@ -67,31 +67,4 @@ Feature: List
 #    When the user moves the list to other project
 #      And the user goes to other project
 #    Then the user should see the list in the other project.
-#
-#  @CreateSpace
-#  Scenario: A user moves a project from a space to another
-#    Given the user creates a new space with the following name "First SpaceTest"
-#      And the user creates a new space with the following name "Second SpaceTest"
-#      And the user creates a new project with the following name "ProjectTest"
-#    When the user moves the project to other space
-#      And the user goes to other space
-#    Then the user should see the project in the other space.
-#
-#  @CreateSpace
-#  Scenario: Copy a project with all values
-#    Given the user creates a new space with the following name "SpaceTest"
-#      And the user creates a new project with the following name "ProjectTest"
-#      And the guest copy the project
-#    Then the user should see the success message
-#      And the user should see the copy project displayed
-#
-#  @CreateSpace
-#  Scenario: Copy a list with all values
-#    Given the user creates a new space with the following name "SpaceTest"
-#      And the user creates a new project with the following name "First ProjectTest"
-#      And the user creates a new project with the following name "Second ProjectTest"
-#      And the user creates a new list with the following name "TestList to Copy"
-#    When the user copy the list to other project
-#    Then the user should see the success message
-#    When the user goes to other project
-#    Then the user should see the copy list in the other project.
+
