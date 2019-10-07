@@ -1,5 +1,6 @@
 package clickup.ui.pages;
 
+import clickup.entities.Context;
 import clickup.ui.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 public class ImportPage extends BasePage {
-
+    private Boolean isSuccessfully;
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton2;
 
@@ -95,11 +96,14 @@ public class ImportPage extends BasePage {
         WebElement bannerButton = driver_1.findElement(By.cssSelector(".cu-banner-popup__button.cu-banner-popup__button_purple"));
         bannerButton.click();
 
-        //div[contains(@class,'cu-import-progress__data-status importPending')]
         WebElement pendingStatus = driver_1.findElement(By.cssSelector(".cu-import-progress__data-status.importPending"));
-        Boolean test;
-        test = pendingStatus.isDisplayed();
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println(test);
+        isSuccessfully=pendingStatus.isDisplayed();
+        //div[contains(@class,'cu-import-progress__data-status importPending')]
+
     }
+
+    public boolean isSuccessfullyImport() {
+        return isSuccessfully;
+    }
+
 }
