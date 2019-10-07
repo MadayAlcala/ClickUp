@@ -49,7 +49,7 @@ public class LoginStep {
      *
      * @param login represents the specific page.
      */
-    @Given("^The user goes to (.*) page$")
+    @Given("^the user goes to (.*) page$")
     public void navigatePage(final String login) {
         PageTransporter.goToUrl(login);
     }
