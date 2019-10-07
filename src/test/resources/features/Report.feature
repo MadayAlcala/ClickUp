@@ -18,4 +18,3 @@ Feature: Report
     And the guest user moves the task to “Done” status
     When the guest user goes to report page
     Then the task should be displayed as Completed.
-    

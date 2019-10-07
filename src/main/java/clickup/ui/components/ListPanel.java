@@ -288,7 +288,7 @@ public class ListPanel extends BasePage {
     /**
      * Copies a list.
      *
-     * @param listName that represent the list to copy.
+     * @param listName     that represent the list to copy.
      * @param copyListName that represent the new name for the list to copy.
      */
     public void copylist(final String listName, final String copyListName) {
@@ -304,7 +304,7 @@ public class ListPanel extends BasePage {
     /**
      * Copies a project.
      *
-     * @param projectName that represent the project to copy.
+     * @param projectName     that represent the project to copy.
      * @param copyProjectName that represent the new name for the project to copy.
      */
     public void copyProject(final String projectName, final String copyProjectName) {
