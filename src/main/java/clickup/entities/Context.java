@@ -25,6 +25,7 @@ public class Context {
     private Task task;
     private User user;
     private Project project;
+    private Map<String, List> listMap;
     private Map<String, User> userMap;
 
     /**
@@ -35,6 +36,7 @@ public class Context {
         this.list = new List();
         this.task = new Task();
         this.project = new Project();
+        this.listMap = new HashMap<>();
         this.userMap = new HashMap<>();
     }
 
@@ -113,11 +115,30 @@ public class Context {
 
     /**
      * Getter method.
+     * Retrieves the ClickUp "Lists" map that this context shares across step definitions.
+     *
+     * @return a map containing multiple instances of ClickUp "List" entities shared by this class.
+     */
+    public HashMap<String, List> getListMap() {
+        return (HashMap<String, List>) listMap;
+    }
+
+    /**
+     * Getter method.
      *
      * @return a Project' object.
      */
     public Project getProject() {
         return project;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param listMap a listMap to be copied onto this class' instance.
+     */
+    public void setListMap(final Map<String, List> listMap) {
+        this.listMap = listMap;
     }
 
     /**
@@ -133,7 +154,7 @@ public class Context {
      * Getter method.
      * Retrieves the user map that this context shares across step definitions.
      *
-     * @return a the map containing multiple instances of the entities shared by this class.
+     * @return a map containing multiple instances of the entities shared by this class.
      */
     public HashMap<String, User> getUserMap() {
         return (HashMap<String, User>) userMap;

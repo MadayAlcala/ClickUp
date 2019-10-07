@@ -10,11 +10,14 @@
 
 package clickup.api;
 
+import clickup.entities.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.codec.DecoderException;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -22,58 +25,26 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-import com.google.gson.JsonObject;
-import org.apache.commons.codec.DecoderException;
-
 /**
- * Client class.
+ * Base API Client.
  *
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
 public final class ApiClient {
     private RequestSpecification request;
-    private static ApiClient instance;
 
     /**
      * Constructor of rest client API.
      *
-     * @param userType a String containing the type of user that is going to use the API interface.
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      * @throws GeneralSecurityException .
      * @throws IOException .
      * @throws DecoderException .
      */
-    private ApiClient(final String userType) throws GeneralSecurityException, IOException, DecoderException {
-        initialize(userType);
-    }
-
-    /**
-     * Returns an instance of RestClientAPI.
-     *
-     * @param userType a String containing the type of user that is going to use the API interface.
-     * @return a single instance of this class.
-     * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
-     */
-    public static ApiClient getInstance(final String userType) throws GeneralSecurityException, IOException,
-            DecoderException {
-        if (instance == null) {
-            instance = new ApiClient(userType);
-        }
-        return instance;
-    }
-
-    /**
-     * Initializes RequestSpecification.
-     *
-     * @param userType a String containing the type of user that is going to use the API interface.
-     * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
-     */
-    private void initialize(final String userType) throws GeneralSecurityException, IOException, DecoderException {
-        request = Authentication.requestSpecification(userType);
+    public ApiClient(final User user) throws GeneralSecurityException, IOException, DecoderException {
+        request = Authentication.requestSpecification(user);
     }
 
     /**
