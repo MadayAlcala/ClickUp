@@ -40,3 +40,12 @@ Feature: Task
       Then the user should not see the task listed
       When the user goes to the second list
       Then the user should see the task listed
+
+  @logout
+  Scenario: A user attaches a file to a task
+    Given the user goes to login page
+      And the guest fills the form with email and password
+      And the user creates a new task with the following name "TestTask"
+      And the user goes to page of the new task
+      And the user attaches a file from the computer to a task
+    Then the user should see the filename in the attachments section.
