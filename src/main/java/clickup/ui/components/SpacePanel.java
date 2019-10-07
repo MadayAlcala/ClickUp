@@ -17,6 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Map;
+
 /**
  * Saves some element to the page clickUp.
  *
@@ -59,6 +61,48 @@ public class SpacePanel extends BasePage {
 
     @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
     private WebElement spaceMenuBtn;
+
+    @FindBy(xpath = "//div[contains(@class,'cu-create-project-modal__switch-privacy-title')][contains(.,'Admin Workplace')]")
+    private WebElement spaceForAdmin;
+
+    @FindBy(xpath = "//div[contains(@class,'cu-create-project-modal__switch-privacy-title')][contains(.,'Private')]")
+    private WebElement spaceForPrivate;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name active setup-step-project__preset-status-list-item-text')][contains(.,'Custom')]")
+    private WebElement customButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Kanban')]")
+    private WebElement kanbanButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Content')]")
+    private WebElement contentButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Marketing')]")
+    private WebElement marketingButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Scrum')]")
+    private WebElement scrumButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Normal')]")
+    private WebElement normalButton;
+
+
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Multiple')]")
+    private WebElement multipleButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Time Tracking')]")
+    private WebElement timeTrackingButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Priority')]")
+    private WebElement priorityButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Tags')]")
+    private WebElement tagButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Time Estimates')]")
+    private WebElement timeEstimatesButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Custom fields')]")
+    private WebElement custonFieldsButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Dependency Warning')]")
+    private WebElement dependencyWarningButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Remap Subtask Due Dates')]")
+    private WebElement dueDatesButton;
 
     /**
      * Creates a new space.
@@ -112,5 +156,49 @@ public class SpacePanel extends BasePage {
         Actions.sendKeys(deleteTxtField, "delete");
         getWait().until(ExpectedConditions.textToBePresentInElement(deleteTxtField, deleteTxtField.getText()));
         Actions.click(confirmDeleteBtn);
+    }
+
+    public void createSpaceSetting(Map<String, String> inputContentSpaceSettings) {
+        inputContentSpaceSettings.forEach((key, value) -> {
+            System.out.println("el Key -> " + key);
+            System.out.println("el value -> " + value);
+        });
+        System.out.println(inputContentSpaceSettings.get("Name"));
+        Actions.click(addNewButton);
+        Actions.sendKeys(inputNameSpaceTextBox, inputContentSpaceSettings.get("Name"));
+        getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
+        nextButton.click();
+        //color
+        nextButton.click();
+        //how is this space
+        if ("Admin Workplace".equals(inputContentSpaceSettings.get("Who"))) {
+            spaceForAdmin.click();
+        } else {
+            spaceForPrivate.click();
+        }
+        nextButton.click();
+        //templeates
+
+        switch (inputContentSpaceSettings.get("Type")) {
+            case "Scrum":
+                scrumButton.click();
+                break;
+            case "Marketing":
+                marketingButton.click();
+                break;
+            case "Normal":
+                normalButton.click();
+                break;
+            case "Content":
+                contentButton.click();
+                break;
+            case "Kanban":
+                kanbanButton.click();
+                break;
+            case "Custom":
+                customButton.click();
+                break;
+        }
+
     }
 }
