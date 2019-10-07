@@ -23,7 +23,7 @@ import cucumber.api.java.After;
  */
 public class SpaceHook {
     private Context context;
-    private final int third = 3;
+    private final int second = 2;
 
     /**
      * Allows to receive the variable context.
@@ -37,7 +37,7 @@ public class SpaceHook {
     /**
      * Deletes a space.
      */
-    @After(order = third, value = "@deleteSpace")
+    @After(order = second, value = "@deleteSpace")
     public void deleteSpace() {
         ApplicationPage applicationPage = new ApplicationPage();
         applicationPage.getSpacePanel().deleteSpace(context.getSpace().getTitle());

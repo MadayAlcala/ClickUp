@@ -14,6 +14,8 @@ import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
@@ -61,7 +63,7 @@ public class TaskStep {
      * Creates new task in a list.
      *
      * @param taskName A String containing the name of the Task to be created.
-     * @throws IOException .
+     * @throws IOException                .
      * @throws UnsupportedFlavorException .
      */
     @When("the user creates a new task with the following name {string}")
@@ -77,7 +79,7 @@ public class TaskStep {
      * Confirms the message thrown by application after a Task is created.
      *
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     @Then("the user should see the task creation success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
@@ -94,6 +96,18 @@ public class TaskStep {
     public void taskShouldBeListed() {
         String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
+    }
+
+    /**
+     * Creates multiple tasks.
+     *
+     * @param tasksList that contains the names of the tasks to create.
+     */
+    @Given("the user creates the following tasks:")
+    public void theUserCreatesTheFollowingTasks(final List tasksList) {
+        applicationPage = new ApplicationPage();
+        String listName = context.getList().getName();
+        applicationPage.getContentPanel().createListTasks(tasksList, listName);
     }
 
     /**
@@ -233,5 +247,13 @@ public class TaskStep {
         }
         List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask().getId());
         Assert.assertTrue(elementsList.isEmpty());
+    }
+
+    /**
+     * Changes the view to board view.
+     */
+    @When("the user selects the board view")
+    public void selectBoardView() {
+        applicationPage.getContentPanel().setBoardView();
     }
 }

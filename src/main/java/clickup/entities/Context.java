@@ -24,6 +24,7 @@ public class Context {
     private List list;
     private Task task;
     private User user;
+    private Project project;
     private Map<String, List> listMap;
     private Map<String, User> userMap;
 
@@ -34,6 +35,7 @@ public class Context {
         this.space = new Space();
         this.list = new List();
         this.task = new Task();
+        this.project = new Project();
         this.listMap = new HashMap<>();
         this.userMap = new HashMap<>();
     }
@@ -122,12 +124,30 @@ public class Context {
     }
 
     /**
+     * Getter method.
+     *
+     * @return a Project' object.
+     */
+    public Project getProject() {
+        return project;
+    }
+
+    /**
      * Setter method.
      *
      * @param listMap a listMap to be copied onto this class' instance.
      */
     public void setListMap(final Map<String, List> listMap) {
         this.listMap = listMap;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param project that is the object to change its behavior.
+     */
+    public void setProject(final Project project) {
+        this.project = project;
     }
 
     /**

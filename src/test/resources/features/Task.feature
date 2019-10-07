@@ -40,4 +40,3 @@ Feature: Task
       Then the user should not see the task listed
       When the user goes to the second list
       Then the user should see the task listed
-

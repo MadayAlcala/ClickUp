@@ -106,7 +106,7 @@ public class SpacePanel extends BasePage {
     public void deleteSpace(final String spaceName) {
         WebElementActions.click(getSpaceElementByName(spaceName));
         WebElementActions.click(spaceMenuBtn);
-        getWait().until(ExpectedConditions.visibilityOf(deleteBtn));
+        getWait().until(ExpectedConditions.elementToBeClickable(deleteBtn));
         WebElementActions.click(deleteBtn);
         getWait().until(ExpectedConditions.visibilityOf(deleteTxtField));
         WebElementActions.sendKeys(deleteTxtField, "delete");
