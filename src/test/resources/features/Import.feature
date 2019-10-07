@@ -1,7 +1,7 @@
 Feature: Import
-  Scenario: Import some information to web page
+  @logoutImport
+  Scenario: Import file CSV
     Given The user goes to login page
-      And The admin fills the form with email and password
-#      When The user creates a new space with the following name "Test"
-      When The user access to import and fill fields
-
+    And the user is logged with admin credentials
+    When the user import CSV file
+    Then the import is successfully
