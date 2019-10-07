@@ -1,7 +1,7 @@
 Feature: Import
   @logoutImport
   Scenario: Import file CSV
-    Given The user goes to login page
+    Given the user goes to login page
     And the user is logged with admin credentials
     When the user import CSV file
     Then the import is successfully
