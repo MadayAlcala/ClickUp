@@ -71,6 +71,21 @@ public class ListPanel extends BasePage {
     @FindBy(className = "cu-modal__control-item cu-modal__close icon")
     private WebElement folderCloseButton;
 
+    @FindBy(xpath = "//a[contains(.,'Copy')]")
+    private WebElement copyLink;
+
+    @FindBy(css = "div.toast__close-button-block")
+    private WebElement closeButton;
+
+    @FindBy(xpath = "//a[contains(.,'Move')]")
+    private WebElement moveLink;
+
+    @FindBy(className = "cu-btn")
+    private WebElement copyFolderBtn;
+
+    @FindBy(css = ".category-list__folderless > .cu-checkbox__label")
+    private WebElement folderlessListCheckBox;
+
     /**
      * Selects the '+' symbol to displayed their options.
      */
@@ -195,13 +210,22 @@ public class ListPanel extends BasePage {
     }
 
     /**
+     * Closes the modal that appears after the copy of a project.
+     */
+    public void closeModal() {
+        WebElementActions.click(closeButton);
+    }
+
+    /**
      * Returns the message on the pop up modal that appears after a List or folder is copied.
      *
      * @return a String containing the message on the pop up modal that appears after a some actions is realized.
      */
     public String getCopyConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
+        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
         String result = copyConfirmationMessage.getText();
+        closeModal();
         return result;
     }
 
@@ -226,7 +250,7 @@ public class ListPanel extends BasePage {
     }
 
     /**
-     * Returns a projectMenu webElement.
+     * Returns a displayProjectMenu webElement.
      *
      * @param projectName that is the name of the project to find.
      * @return WebElement 'projectName'.
@@ -240,7 +264,7 @@ public class ListPanel extends BasePage {
      *
      * @param projectName that is the name of the project.
      */
-    private void projectMenu(final String projectName) {
+    private void displayProjectMenu(final String projectName) {
         WebElementActions.click(getProjectMenuElementByName(projectName));
     }
 
@@ -250,7 +274,7 @@ public class ListPanel extends BasePage {
      * @param projectName that is the name of the project.
      */
     public void deleteProject(final String projectName) {
-        projectMenu(projectName);
+        displayProjectMenu(projectName);
         WebElementActions.click(deleteBtn);
         getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
@@ -259,5 +283,36 @@ public class ListPanel extends BasePage {
                 ExpectedConditions.visibilityOf(taskListHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
+    }
+
+    /**
+     * Copies a list.
+     *
+     * @param listName that represent the list to copy.
+     * @param copyListName that represent the new name for the list to copy.
+     */
+    public void copylist(final String listName, final String copyListName) {
+        displayListMenu(listName);
+        WebElementActions.click(copyLink);
+        folderNameTxtBox.click();
+        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        folderNameTxtBox.sendKeys(copyListName);
+        folderlessListCheckBox.click();
+        WebElementActions.click(copyFolderBtn);
+    }
+
+    /**
+     * Copies a project.
+     *
+     * @param projectName that represent the project to copy.
+     * @param copyProjectName that represent the new name for the project to copy.
+     */
+    public void copyProject(final String projectName, final String copyProjectName) {
+        displayProjectMenu(projectName);
+        WebElementActions.click(copyLink);
+        folderNameTxtBox.click();
+        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        folderNameTxtBox.sendKeys(copyProjectName);
+        WebElementActions.click(copyFolderBtn);
     }
 }

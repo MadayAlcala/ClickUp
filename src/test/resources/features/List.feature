@@ -46,3 +46,25 @@ Feature: List
     And the user selects the board view
     When the user drags the task to Complete status
     Then the user user should see the task in complete status.
+
+  @CreateSpace @deleteSpace
+  Scenario: Copy a list with all values with folderless list
+    Given the user creates a new space with the following name "SpaceTest"
+      And the user creates a new list with the following name "TestList"
+    When the user copies the list with FOLDERLESS LIST option and gives it the name "Copy List"
+    Then the user should see the copy success message: "Copying List..."
+      And the user should see the copy success message: "List copied!"
+      And the user should see the new list appear in the panel successfully
+      And the user should see the name of the list on the Bar title of content panel
+      And the user should see the name of the list on content Task
+
+  @logout @deleteSpace
+  Scenario: Copy a project with all values
+    Given the user creates a new space with the following name "SpaceTest"
+      And the user creates a new project with the following name "ProjectTest"
+    When the user copies the project and gives it the name "Copy Project"
+    Then the user should see the copy success message: "Copying Folder..."
+      And the user should see the copy success message: "Folder copied!"
+      And the user should see the new project appear in the panel successfully
+      And the user should see the name of the project on the Bar title of content panel
+      And the user should see the name of the list on content Task

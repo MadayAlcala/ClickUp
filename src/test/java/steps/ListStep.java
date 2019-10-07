@@ -130,7 +130,6 @@ public class ListStep {
         context.getProject().setName(projectName);
         applicationPage.getListPanel().addNewFolder(projectName);
         context.getList().setName("List");
-//        applicationPage.getListPanel().assignNewFolderName(projectName);
     }
 
     /**
@@ -142,7 +141,7 @@ public class ListStep {
     public void successCopyMessage(final String copyMessage) {
         String expected = copyMessage;
         String actual = applicationPage.getListPanel().getCopyConfirmationMessage();
-        Assert.assertEquals(expected, actual, "The copy does not exist.");
+        Assert.assertEquals(expected, actual, "The message was not displayed.");
     }
 
     /**
@@ -177,7 +176,29 @@ public class ListStep {
      * Verifies if the task is in complete status.
      */
     @Then("the user user should see the task in complete status.")
-    public void theUserUserShouldSeeTheTaskInStatus() {
+    public void verifyTaskInCompleteStatus() {
         Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
+    }
+
+    /**
+     * Copies a list.
+     *
+     * @param copyList that represent the name for the project to copy.
+     */
+    @When("the user copies the list with FOLDERLESS LIST option and gives it the name {string}")
+    public void copyList(final String copyList) {
+        String actualListName = context.getList().getName();
+        applicationPage.getListPanel().copylist(actualListName, copyList);
+    }
+
+    /**
+     * Copies a project.
+     *
+     * @param copyProject that represent the name for the project to copy.
+     */
+    @When("the user copies the project and gives it the name {string}")
+    public void copyProject(final String copyProject) {
+        String actualProjectName = context.getProject().getName();
+        applicationPage.getListPanel().copyProject(actualProjectName, copyProject);
     }
 }

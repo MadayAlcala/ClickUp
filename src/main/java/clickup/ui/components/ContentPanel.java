@@ -249,7 +249,9 @@ public class ContentPanel extends BasePage {
      */
     public String getBarTitleProjectName() {
         getWait().until(ExpectedConditions.visibilityOf(projectNameBarTitleLabelTxt));
-        return projectNameBarTitleLabelTxt.getText();
+        String barTitleProjectName = projectNameBarTitleLabelTxt.getText();
+        closeModal();
+        return barTitleProjectName;
     }
 
     /**
