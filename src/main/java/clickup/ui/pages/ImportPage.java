@@ -7,6 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
 public class ImportPage extends BasePage {
 
     @FindBy(css = ".cu-avatar-container")
@@ -21,15 +25,24 @@ public class ImportPage extends BasePage {
     @FindBy(css = ".cu-btn_fw")
     private WebElement importFromCsvButton;
 
-    @FindBy(xpath= "//button[@id='continue']//ancestor::html")
+    @FindBy(id= "continue")
     private WebElement scrollBlock;
 
     @FindBy(css = ".flatfile-component iframe")
     private WebElement block;
 
+    @FindBy(css = ".icon-upload")
+    private WebElement uploadButton;
 
-    @FindBy(xpath = "div[@id='hot']/div/div/div/div/table/tbody/tr/td")
-    private WebElement fillFieldTaskName;
+    @FindBy(css = ".ReactModalPortal")
+    private WebElement modalyesOrFalse;
+
+    @FindBy(css = ".cu-btn.ng-star-inserted")
+    private WebElement selectSpaceButton;
+
+    @FindBy(xpath = "//div[contains(@class,'user-list-item__name')][contains(.,'ads')]")
+    private WebElement selectSpaceMenu;
+
 
     public void importTable() {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
@@ -37,13 +50,56 @@ public class ImportPage extends BasePage {
         importExportMenuButton.click();
         csvFileButton.click();
         importFromCsvButton.click();
-//        getWait().until(ExpectedConditions.visibilityOf(block));
+
         WebDriver driver_1 = getDriver().switchTo().frame(block);
+
+        WebElement sentfile =driver_1.findElement(By.cssSelector(".icon-upload"));
+
+        sentfile.click();
+        StringSelection ss = new StringSelection("/home/pepillo/csvtest.csv");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.delay(500);
+
+        WebElement yesButton =driver_1.findElement(By.id("headerConfirm"));
+        yesButton.click();
+
         WebElement button = driver_1.findElement(By.id("continue"));
         button.click();
-//        scrollBlock.click();
-//        getWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(scrollBlock);
-//        fillFieldTaskName.click();
-//        fillFieldTaskName.sendKeys("dsadfasdf");
+        WebElement button2 = driver_1.findElement(By.id("continue"));
+        button2.click();
+
+        WebElement yesButtonSubmit = driver_1.findElement(By.id("final-close-include"));
+        yesButtonSubmit.click();
+        getDriver().switchTo().defaultContent();
+        selectSpaceButton.click();
+        robot.delay(500);
+
+        selectSpaceMenu.click();
+
+        //verify if exist
+//        cu-banner-popup__button cu-banner-popup__button_purple
+//        .cu-banner-popup__button.cu-banner-popup__button_purple
+        WebElement bannerButton = driver_1.findElement(By.cssSelector(".cu-banner-popup__button.cu-banner-popup__button_purple"));
+        bannerButton.click();
+
+        //div[contains(@class,'cu-import-progress__data-status importPending')]
+        WebElement pendingStatus = driver_1.findElement(By.cssSelector(".cu-import-progress__data-status.importPending"));
+        Boolean test;
+        test = pendingStatus.isDisplayed();
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println(test);
     }
 }
