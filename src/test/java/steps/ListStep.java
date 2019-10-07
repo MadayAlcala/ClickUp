@@ -58,7 +58,7 @@ public class ListStep {
     public void createNewLists(final String order, final String listName) {
         String trimmedListName = listName.replaceAll("\"", "");
         applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().createList(trimmedListName);
+        applicationPage.getListPanel().addNewList(trimmedListName);
         List list = new List();
         list.setName(trimmedListName);
         context.setList(list);
