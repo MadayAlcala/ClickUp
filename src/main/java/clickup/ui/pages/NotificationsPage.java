@@ -11,7 +11,7 @@
 package clickup.ui.pages;
 
 import clickup.ui.PageTransporter;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -58,6 +58,6 @@ public class NotificationsPage extends ApplicationBasePage {
      */
     public String searchTaskByIdAndGetName(final String taskId) {
         String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
-        return Actions.getText(getAnchorElementByUrl(hyperLink));
+        return WebElementActions.getText(getAnchorElementByUrl(hyperLink));
     }
 }

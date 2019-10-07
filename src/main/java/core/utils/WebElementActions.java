@@ -12,23 +12,24 @@ package core.utils;
 
 import core.selenium.WebDriverManager;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Actions class, does actions on web elements.
+ * WebElementActions class, does actions on web elements.
  *
  * @author Maday Alcala Cuba.
  * @version 1.0
  */
-public final class Actions {
+public final class WebElementActions {
     private static WebDriverWait webDriverWait = WebDriverManager.getInstance().getWebDriverWait();
 
     /**
      * Private constructor to comply checkStyle tool suggestions.
      */
-    private Actions() {
+    private WebElementActions() {
     }
 
     /**
@@ -55,10 +56,9 @@ public final class Actions {
      * Sends keys of an web element.
      *
      * @param webElement to send the keys.
-     * @param key        that is a Key type that want to send as a key.
      */
-    public static void sendKeys(final WebElement webElement, final Keys key) {
-        webElement.sendKeys(key);
+    public static void enter(final WebElement webElement) {
+        webElement.sendKeys(Keys.ENTER);
     }
 
     /**
@@ -71,5 +71,22 @@ public final class Actions {
         webElement.click();
         webElement.clear();
         webElement.sendKeys(key);
+    }
+
+    /**
+     * Verifies if an element is present.
+     *
+     * @param webElement that is the element presence to verify.
+     * @return true if the element is found and false if the element is not found.
+     */
+    public static boolean isElementPresent(final WebElement webElement) {
+        boolean present;
+        try {
+            webElement.isDisplayed();
+            present = true;
+        } catch (NoSuchElementException e) {
+            present = false;
+        }
+        return present;
     }
 }
