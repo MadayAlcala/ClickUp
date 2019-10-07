@@ -9,16 +9,21 @@ public class ImportStep {
     private ImportPage importPage;
 
     public ImportStep() {
-        importPage = new ImportPage();;
+        importPage = new ImportPage();
     }
 
-    @When("the user go to import and import CSV file")
+    @When("the user import CSV file")
     public void ImportFillFields() {
         importPage.importTable();
     }
 
-    @Then("the import is succesfully")
+    @Then("the import is successfully")
     public void theImportIsSuccesfully() {
         Assert.assertEquals(true,importPage.isSuccessfullyImport());
+    }
+
+    @When("the user fill the fields requirement")
+    public void theUserFillTheFieldsRequirement() {
+        importPage.importManually();
     }
 }
