@@ -16,6 +16,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
+import java.util.Map;
+
 /**
  * Allows to execute some steps for create a space.
  *
@@ -40,7 +42,7 @@ public class SpaceStep {
      *
      * @param nameSpace parameter type string.
      */
-    @When("The user creates a new space with the following name {string}")
+    @When("the user creates a new space with the following name {string}")
     public void createNewSpace(final String nameSpace) {
         applicationPage = new ApplicationPage();
         context.getSpace().setTitle(nameSpace);
@@ -52,8 +54,20 @@ public class SpaceStep {
      *
      * @param nameSpace type string.
      */
-    @Then("The space name with the name {string} appear in the panel successfully")
+    @Then("the space name with the name {string} appear in the panel successfully")
     public void ifExistName(final String nameSpace) {
         Assert.assertTrue(applicationPage.getSpacePanel().isFoundNameSpace(nameSpace));
     }
+
+    @When("the user creates a new space")
+    public void theUserCreatesANewSpace(final Map<String, String> spaceSettings) {
+        applicationPage = new ApplicationPage();
+        applicationPage.getSpacePanel().createSpaceSetting(spaceSettings);
+    }
+
+    @Then("the information should be the same on {string}")
+    public void theInformationShouldBeTheSameOn(String arg0) {
+
+    }
+
 }
