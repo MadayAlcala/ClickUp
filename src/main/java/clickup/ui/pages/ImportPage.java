@@ -7,9 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import sun.awt.X11.XKeyEvent;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class ImportPage extends BasePage {
@@ -41,9 +43,15 @@ public class ImportPage extends BasePage {
     @FindBy(css = ".cu-btn.ng-star-inserted")
     private WebElement selectSpaceButton;
 
+
     @FindBy(xpath = "//div[contains(@class,'user-list-item__name')][contains(.,'ads')]")
     private WebElement selectSpaceMenu;
 
+    @FindBy(css = ".cu-nav-sts__back")
+    private WebElement backButton;
+
+    @FindBy(xpath = "//div[contains(@class,'col-required')][contains(.,'Task name')]")
+    private WebElement taskNameTitleTable;
 
     public void importTable() {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
@@ -97,8 +105,11 @@ public class ImportPage extends BasePage {
         bannerButton.click();
 
         WebElement pendingStatus = driver_1.findElement(By.cssSelector(".cu-import-progress__data-status.importPending"));
-        isSuccessfully=pendingStatus.isDisplayed();
+//        getWait().until(ExpectedConditions.elementToBeClickable(pendingStatus));
+        isSuccessfully=pendingStatus.isEnabled();
+//        isSuccessfully=bannerButton.
         //div[contains(@class,'cu-import-progress__data-status importPending')]
+        System.out.println("---------------------------------------");
 
     }
 
@@ -106,4 +117,48 @@ public class ImportPage extends BasePage {
         return isSuccessfully;
     }
 
+    public void logout(){
+                backButton.click();
+    }
+
+
+    public void importManually(){
+        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
+        spaceBarButton2.click();
+        importExportMenuButton.click();
+        csvFileButton.click();
+        importFromCsvButton.click();
+
+        WebDriver driver_1 = getDriver().switchTo().frame(block);
+        //div[contains(@class,'col-required')][contains(.,'Task name')]
+//        WebElement dataTable = driver_1.findElement(By.xpath("//div[contains(@class,'col-required')][contains(.,'Task name')]"));
+//        dataTable.click();
+//        taskNameTitleTable.click();
+
+
+
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        robot.delay(5000);
+        robot.mouseMove(100,700);
+
+
+        robot.mousePress(InputEvent.BUTTON1_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_MASK );
+
+        StringSelection ss = new StringSelection("task1");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.delay(5000);
+   }
 }
+
