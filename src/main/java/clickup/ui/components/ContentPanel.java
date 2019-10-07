@@ -13,7 +13,7 @@ package clickup.ui.components;
 import clickup.entities.Task;
 import clickup.ui.BasePage;
 import clickup.ui.PageTransporter;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import core.utils.PropertyReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -79,7 +79,7 @@ public class ContentPanel extends BasePage {
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
     private void followCopyUrlLink() {
-        Actions.click(copyUrlLink);
+        WebElementActions.click(copyUrlLink);
     }
 
     /**
@@ -100,7 +100,7 @@ public class ContentPanel extends BasePage {
      * Closes the modal that appears after the creation of a task.
      */
     public void closeModal() {
-        Actions.click(closeButton);
+        WebElementActions.click(closeButton);
     }
 
     /**

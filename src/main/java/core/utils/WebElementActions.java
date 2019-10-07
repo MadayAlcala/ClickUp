@@ -17,18 +17,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Actions class, does actions on web elements.
+ * WebElementActions class, does actions on web elements.
  *
  * @author Maday Alcala Cuba.
  * @version 1.0
  */
-public final class Actions {
+public final class WebElementActions {
     private static WebDriverWait webDriverWait = WebDriverManager.getInstance().getWebDriverWait();
 
     /**
      * Private constructor to comply checkStyle tool suggestions.
      */
-    private Actions() {
+    private WebElementActions() {
     }
 
     /**

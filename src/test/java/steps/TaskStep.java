@@ -62,7 +62,7 @@ public class TaskStep {
      * @throws IOException .
      * @throws UnsupportedFlavorException .
      */
-    @When("The user creates a new task with the following name {string}")
+    @When("the user creates a new task with the following name {string}")
     public void createNewTask(final String taskName) throws IOException, UnsupportedFlavorException {
         applicationPage = new ApplicationPage();
         context.getTask().setName(taskName);
@@ -77,7 +77,7 @@ public class TaskStep {
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
-    @Then("The user should see the task creation success message")
+    @Then("the user should see the task creation success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
         String confirmationMessage = applicationPage.getContentPanel().getConfirmationMessage();
         applicationPage.getContentPanel().closeModal();
@@ -88,7 +88,7 @@ public class TaskStep {
     /**
      * Asserts if the a given title is listed in the body of the application page.
      */
-    @Then("The user should see the new task appear in the panel")
+    @Then("the user should see the new task appear in the panel")
     public void taskShouldBeListed() {
         String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
         //TODO assertion pending.
@@ -97,7 +97,7 @@ public class TaskStep {
     /**
      * Visits a Task page by its id.
      */
-    @When("The user goes to page of the new task")
+    @When("the user goes to page of the new task")
     public void goToNewTaskPage() {
         taskModalPage = PageTransporter.goToTaskPageById(context.getTask().getId());
     }
@@ -107,7 +107,7 @@ public class TaskStep {
      *
      * @param userType a String containing the user type that the task is going to assigned to.
      */
-    @When("The admin user assigns the task to a (.*) user")
+    @When("the admin user assigns the task to a (.*) user")
     public void amdinAssignsTaskToUser(final String userType) {
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         taskModalPage.assignTaskToUser(context.getUser().getFullName());
@@ -117,7 +117,7 @@ public class TaskStep {
     /**
      * Logs a user out of the application.
      */
-    @When("The admin user logs out")
+    @When("the admin user logs out")
     public void userLogsOut() {
         applicationPage.getSideMenu().logOut();
         new LoginPage();
@@ -128,7 +128,7 @@ public class TaskStep {
      *
      * @param userType a String containing the user type that the task is going to assigned to.
      */
-    @When("The user goes to notifications page for (.*) workplace")
+    @When("the user goes to notifications page for (.*) workplace")
     public void userSwitchWorkplace(final String userType) {
         String ownerId = context.getUserMap().get(userType).getTeamId();
         notificationsPage = PageTransporter.goToNotificationsPage(ownerId);
@@ -141,7 +141,7 @@ public class TaskStep {
      *
      * @param order a String specifying whih of the created list will receive the task.
      */
-    @When("The user moves the task to the (.*) list")
+    @When("the user moves the task to the (.*) list")
     public void dragTask(final String order) {
         //TODO Refactor: It shouldn't rely on close()
         applicationPage.getContentPanel().closeModal();
@@ -154,7 +154,7 @@ public class TaskStep {
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
-    @Then("The user should see the task movement success message")
+    @Then("the user should see the task movement success message")
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
         applicationPage = new ApplicationPage();
         String actual = applicationPage.getContentPanel().getConfirmationMessage();
@@ -166,7 +166,7 @@ public class TaskStep {
     /**
      * Searches for a newly created task inside a listing.
      */
-    @Then("The user should see the task listed")
+    @Then("the user should see the task listed")
     public void isTaskListed() {
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
@@ -180,7 +180,7 @@ public class TaskStep {
      * @throws IOException .
      * @throws DecoderException .
      */
-    @Then("The task should not have any assignees")
+    @Then("the task should not have any assignees")
     public void isTaskWithAssignee() throws GeneralSecurityException, IOException, DecoderException {
         taskApi = new TaskApi(context.getUser());
         Response response = taskApi.findTaskById(context.getTask().getId());
@@ -195,7 +195,7 @@ public class TaskStep {
      * @throws IOException .
      * @throws DecoderException .
      */
-    @Then("The user should be the asignee")
+    @Then("the user should be the asignee")
     public void isUserAssignee() throws GeneralSecurityException, IOException, DecoderException {
         taskApi = new TaskApi(context.getUser());
         Response response = taskApi.findTaskById(context.getTask().getId());

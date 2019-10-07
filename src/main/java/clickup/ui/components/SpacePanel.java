@@ -11,7 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,8 +66,8 @@ public class SpacePanel extends BasePage {
      * @param nameSpace String parameter.
      */
     public void addNewSpace(final String nameSpace) {
-        Actions.click(addNewButton);
-        Actions.sendKeys(inputNameSpaceTextBox, nameSpace);
+        WebElementActions.click(addNewButton);
+        WebElementActions.sendKeys(inputNameSpaceTextBox, nameSpace);
         getWait().until(ExpectedConditions.textToBePresentInElement(inputNameSpaceTextBox,
                 inputNameSpaceTextBox.getText()));
         for (int buttonPresses = 0; buttonPresses < BUTTONCLICK; buttonPresses++) {
@@ -104,13 +104,13 @@ public class SpacePanel extends BasePage {
      * @param spaceName that is the name of the space to delete.
      */
     public void deleteSpace(final String spaceName) {
-        Actions.click(getSpaceElementByName(spaceName));
-        Actions.click(spaceMenuBtn);
+        WebElementActions.click(getSpaceElementByName(spaceName));
+        WebElementActions.click(spaceMenuBtn);
         getWait().until(ExpectedConditions.visibilityOf(deleteBtn));
-        Actions.click(deleteBtn);
+        WebElementActions.click(deleteBtn);
         getWait().until(ExpectedConditions.visibilityOf(deleteTxtField));
-        Actions.sendKeys(deleteTxtField, "delete");
+        WebElementActions.sendKeys(deleteTxtField, "delete");
         getWait().until(ExpectedConditions.textToBePresentInElement(deleteTxtField, deleteTxtField.getText()));
-        Actions.click(confirmDeleteBtn);
+        WebElementActions.click(confirmDeleteBtn);
     }
 }

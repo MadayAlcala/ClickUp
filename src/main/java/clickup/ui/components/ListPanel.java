@@ -11,7 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -54,14 +54,14 @@ public class ListPanel extends BasePage {
      * Selects the '+' symbol to displayed their options.
      */
     private void getIconBtn() {
-        Actions.click(iconBtn);
+        WebElementActions.click(iconBtn);
     }
 
     /**
      * Selects the option 'New List' to create a new List.
      */
     private void getListBox() {
-        Actions.click(listBox);
+        WebElementActions.click(listBox);
     }
 
     /**
@@ -76,8 +76,8 @@ public class ListPanel extends BasePage {
         ));
         getIconBtn();
         getListBox();
-        Actions.sendKeys(nameTxtField, listName);
-        Actions.sendKeys(nameTxtField, Keys.ENTER);
+        WebElementActions.sendKeys(nameTxtField, listName);
+        WebElementActions.sendKeys(nameTxtField, Keys.ENTER);
         getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
         waitForHeaderElementTextEqualsCreatedListName(listName);
     }
@@ -99,7 +99,7 @@ public class ListPanel extends BasePage {
      * @return a String with the name of list created.
      */
     public String nameList(final String listName) {
-        return Actions.getText(getListElementByName(listName));
+        return WebElementActions.getText(getListElementByName(listName));
     }
 
     /**
@@ -118,7 +118,7 @@ public class ListPanel extends BasePage {
      * @param listName that is the name of the list.
      */
     private void listMenu(final String listName) {
-        Actions.click(getListMenuElementByName(listName));
+        WebElementActions.click(getListMenuElementByName(listName));
     }
 
     /**
@@ -128,9 +128,9 @@ public class ListPanel extends BasePage {
      */
     public void deleteList(final String listName) {
         listMenu(listName);
-        Actions.click(deleteBtn);
+        WebElementActions.click(deleteBtn);
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
-        Actions.click(confirmDelete);
+        WebElementActions.click(confirmDelete);
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)

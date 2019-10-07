@@ -41,8 +41,8 @@ public class ListStep {
      *
      * @param nameList that is the name of the new List.
      */
-    @When("The user creates a new list with the following name {string}")
-    public void createNewSpace(final String nameList) {
+    @When("the user creates a new list with the following name {string}")
+    public void createNewList(final String nameList) {
         applicationPage = new ApplicationPage();
         context.getList().setName(nameList);
         applicationPage.getListPanel().createList(nameList);
@@ -54,7 +54,7 @@ public class ListStep {
      * @param order to be stored in the collection within the context.
      * @param listName that is the name of the new List.
      */
-    @When(value = "The user creates a ([[first][second][third]]+) list with the following name (.*)")
+    @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
     public void createNewLists(final String order, final String listName) {
         String trimmedListName = listName.replaceAll("\"", "");
         applicationPage = new ApplicationPage();
@@ -68,7 +68,7 @@ public class ListStep {
     /**
      * Checks that the list has been created.
      */
-    @Then("The user should see the new list appear in the panel successfully")
+    @Then("the user should see the new list appear in the panel successfully")
     public void name() {
         String actual = applicationPage.getListPanel().nameList(context.getList().getName());
         String expected = context.getList().getName();
