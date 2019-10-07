@@ -115,7 +115,7 @@ public class ListPanel extends BasePage {
         getListBox();
         WebElementActions.sendKeys(listNameMakerTxtField, listName);
         WebElementActions.enter(listNameMakerTxtField);
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
         waitForHeaderElementTextEqualsCreatedListName(listName);
     }
 
@@ -170,7 +170,7 @@ public class ListPanel extends BasePage {
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
         WebElementActions.click(confirmDeleteBtn);
         getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
     }
@@ -182,7 +182,7 @@ public class ListPanel extends BasePage {
      */
     public void updateList(final String newListName) {
         getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
         displayListMenu(newListName);
@@ -190,7 +190,7 @@ public class ListPanel extends BasePage {
         listNameEditorTxtField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         listNameEditorTxtField.sendKeys(newListName);
         listNameEditorTxtField.sendKeys(Keys.ENTER);
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
     }
 
     /**
@@ -200,7 +200,7 @@ public class ListPanel extends BasePage {
      */
     public void addNewFolder(final String folderName) {
         getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
         addBtn();
@@ -208,7 +208,7 @@ public class ListPanel extends BasePage {
         WebElementActions.sendKeys(folderNameTxtBox, folderName);
         WebElementActions.enter(folderNameTxtBox);
         WebElementActions.click(getProjectElementByName(folderName));
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
     }
 
     /**
