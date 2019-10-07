@@ -86,12 +86,16 @@ public class TaskStep {
         //TODO assertion pending.
     }
 
+    /**
+     * Creates multiple tasks.
+     *
+     * @param tasksList that contains the names of the tasks to create.
+     */
     @Given("the user creates the following tasks:")
     public void theUserCreatesTheFollowingTasks(final List tasksList) {
         applicationPage = new ApplicationPage();
         String listName = context.getList().getName();
         applicationPage.getContentPanel().createListTasks(tasksList, listName);
-
     }
 
     /**
@@ -144,13 +148,11 @@ public class TaskStep {
                 .getName() + " is not listed!");
     }
 
-    @And("the user selects the (.*) view")
+    /**
+     * Changes the view to board view.
+     */
+    @And("the user selects the board view")
     public void selectBoardView() {
         applicationPage.getContentPanel().setBoardView();
-    }
-
-    @When("the guest drags the task to (.*) status")
-    public void dragTaskToCompleteStatus() {
-
     }
 }

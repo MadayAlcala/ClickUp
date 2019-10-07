@@ -11,11 +11,12 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import org.openqa.selenium.By;
-import core.utils.Actions;
 import core.utils.PropertyReader;
+import core.utils.WebElementActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -33,11 +34,11 @@ import java.util.List;
  * @version 1.0
  */
 public class ContentPanel extends BasePage {
-    private final static String contentListHeader = "//cu-list-group[contains(.,'%s')]";
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
     private static final String TASK_PREFIX = "t/";
-
+    private static final String CARD_ELEMENT = "//cu-dashboard-board-card[contains(.,'%s')]";
+    private static final String CONTENT_LIST_HEADER = "//cu-list-group[contains(.,'%s')]";
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
 
@@ -59,9 +60,6 @@ public class ContentPanel extends BasePage {
     @FindBy(css = ".cu-task-list-header-field__item:nth-child(1) .cu-task-list-header-field__title-text")
     private WebElement taskQtyLink;
 
-    @FindBy(css = "div > .cu2-views-bar__selected-view-options-text")
-    private WebElement saveAlert;
-
     @FindBy(css = ".cu-search-filter .cu-search-filter__input")
     private WebElement searchTxtField;
 
@@ -73,6 +71,15 @@ public class ContentPanel extends BasePage {
 
     @FindBy(className = "cu-views-bar-title__list-btn-label")
     private WebElement listNameBarTitleLabelTxt;
+
+    @FindBy(className = "cu-views-bar-title__label")
+    private WebElement projectNameBarTitleLabelTxt;
+
+    @FindBy(css = ".cu-panel-board:nth-child(1) > .cu-dashboard-board-card .cu-panel-board__header")
+    private WebElement toDoColumn;
+
+    @FindBy(css = ".cu-dashboard-board__column:nth-child(2) .cu-panel-board__column-drag")
+    private WebElement completeColumn;
 
     /**
      * Visits the '+ New Task' hyperlink from the menu at the top of the List group in the body section.
@@ -96,7 +103,7 @@ public class ContentPanel extends BasePage {
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
     private void followCopyUrlLink() {
-        Actions.click(copyUrlLink);
+        WebElementActions.click(copyUrlLink);
     }
 
     /**
@@ -117,7 +124,7 @@ public class ContentPanel extends BasePage {
      * Closes the modal that appears after the creation of a task.
      */
     public void closeModal() {
-        Actions.click(closeButton);
+        WebElementActions.click(closeButton);
     }
 
     /**
@@ -155,19 +162,25 @@ public class ContentPanel extends BasePage {
     }
 
     /**
-     * Returns a listMenu webElement.
+     * Returns the name of listMenu webElement.
      *
      * @param listName that is the name of the list to find.
      * @return WebElement 'listMenu'.
      */
     private WebElement contentListHeader(final String listName) {
-        return getDriver().findElement(By.xpath(String.format(contentListHeader, listName)));
+        return getDriver().findElement(By.xpath(String.format(CONTENT_LIST_HEADER, listName)));
     }
 
-    public void createListTasks(final List taskName, final String listName) {
+    /**
+     * Creates multiple tasks, according to the list that it receives.
+     *
+     * @param taskList that is the list of tasks to create.
+     * @param listName that is the name of the list to wait for create the tasks.
+     */
+    public void createListTasks(final List taskList, final String listName) {
         getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
         followNewTaskLink();
-        taskName.forEach(task -> {
+        taskList.forEach(task -> {
             createTask((String) task);
             closeModal();
         });
@@ -181,30 +194,93 @@ public class ContentPanel extends BasePage {
      */
     public void searchTask(final String taskName) {
         getWait().until(ExpectedConditions.elementToBeClickable(searchTxtField));
-        Actions.click(searchTxtField);
-        Actions.sendKeys(searchTxtField, taskName);
+        WebElementActions.click(searchTxtField);
+        WebElementActions.sendKeys(searchTxtField, taskName);
         getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
         searchTxtField.sendKeys(Keys.ENTER);
     }
 
+    /**
+     * Recovers the number of tasks found it in the content panel.
+     *
+     * @return a String with the number of tasks founded.
+     */
     public String getTasksQuantity() {
         getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
-        String tasksQty = Actions.getText(taskQtyLink);
-        return  tasksQty;
+        String tasksQty = WebElementActions.getText(taskQtyLink);
+        return tasksQty;
     }
 
-    public void setBoardView(){
+    /**
+     * Changes to board view.
+     */
+    public void setBoardView() {
+        closeModal();
         boardViewBtn.click();
     }
 
-    public String getContentListHeader(final String listName){
+    /**
+     * Recovers the name of the List on content Panel.
+     *
+     * @param listName that is the name of the list to wait.
+     * @return the name of the list on content Panel.
+     */
+    public String getContentListHeader(final String listName) {
         getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
         return listNameContentPanelLabelTxt.getText();
     }
 
-    public String getBarTitleListName(final String listName){
+    /**
+     * Recovers the name of the List on the bar title of content panel.
+     *
+     * @param listName listName that is the name of the list to wait.
+     * @return the name of the list on the bar title of content Panel.
+     */
+    public String getBarTitleListName(final String listName) {
         getWait().until(ExpectedConditions.visibilityOf(listNameBarTitleLabelTxt));
         getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
         return listNameBarTitleLabelTxt.getText();
+    }
+
+    /**
+     * Recovers the name of the Project on the bar title of content panel.
+     *
+     * @return the name of the project on the bar title of content Panel.
+     */
+    public String getBarTitleProjectName() {
+        getWait().until(ExpectedConditions.visibilityOf(projectNameBarTitleLabelTxt));
+        return projectNameBarTitleLabelTxt.getText();
+    }
+
+    /**
+     * Returns a card webElement.
+     *
+     * @param cardName that is the name of the project to find.
+     * @return WebElement 'card'.
+     */
+    private WebElement getCardElement(final String cardName) {
+        return getDriver().findElement(By.xpath(String.format(CARD_ELEMENT, cardName)));
+    }
+
+    /**
+     * Moves a task to different status in the list.
+     *
+     * @param cardName that is the name of the card to move.
+     */
+    public void moveTask(final String cardName) {
+        Actions builder = new Actions(getDriver());
+        builder.dragAndDrop(getCardElement(cardName), toDoColumn).perform();
+        builder.dragAndDrop(getCardElement(cardName), completeColumn).perform();
+        builder.build();
+    }
+
+    /**
+     * Returns true if the task is in the complete status.
+     *
+     * @param taskName that is the name of the task to find.
+     * @return a conditional agreement whether the task is found or not.
+     */
+    public boolean containsTask(final String taskName) {
+        return completeColumn.getText().contains(taskName);
     }
 }

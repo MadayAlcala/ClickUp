@@ -23,6 +23,7 @@ import cucumber.api.java.Before;
  */
 public class ListHook {
     private Context context;
+    private final int fourth = 4;
 
     /**
      * Allows to receive the variable context.
@@ -36,15 +37,18 @@ public class ListHook {
     /**
      * Deletes a list.
      */
-    @After(order = 2, value = "@deleteList")
+    @After(order = fourth, value = "@deleteList")
     public void deleteList() {
         ApplicationPage applicationPage = new ApplicationPage();
         applicationPage.getListPanel().deleteList(context.getList().getName());
     }
 
-    @Before(value = "@createList")
+    /**
+     * Creates a new list.
+     */
+    @Before(value = "@addNewList")
     public void createList() {
         ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().createList("ListTest");
+        applicationPage.getListPanel().addNewList("ListTest");
     }
 }

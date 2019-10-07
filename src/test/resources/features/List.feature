@@ -4,94 +4,45 @@ Feature: List
     Given the user goes to login page
     And the guest fills the form with email and password
 
-#  @logout @deleteList
-#  Scenario: Create new List
-#    When the user creates a new list with the following name "ListTest"
-#    Then the user should see the new list appear in the panel successfully
-#      And the user should see the name of the list on the Bar title of content panel
-#      And the user should see the name of the list on content Task
+  @logout @deleteList
+  Scenario: A user creates a new List
+    When the user creates a new list with the following name "ListTest"
+    Then the user should see the new list appear in the panel successfully
+    And the user should see the name of the list on the Bar title of content panel
+    And the user should see the name of the list on content Task
 
-#  @logout @deleteList
-#  Scenario: Update a List
-#    Given the user creates a new list with the following name "ListTest"
-#    When the user updates a list with the following name "Test"
-#    Then the user should see the new list appear in the panel successfully
-##      And the user should see the name of the list on the Bar title of content panel
-#      And the user should see the name of the list on content Task
-#
-#  @logout
-#  Scenario: Delete new List
-#    Given the user creates a new list with the following name "ListTest"
-#    When the user deletes the list
-##    Then the user should not see the list in the panel
-#
-#  @logout @deleteSpace
-#  Scenario: Search Tasks in List View without any filter
-#    Given the user creates a new space with the following name "SpaceTest"
-#    And the user creates a new list with the following name "ListTest"
-#    And the user creates the following tasks:
-#      | task gatuno           |
-#      | gato de navidad       |
-#      | Era un task de gato   |
-#      | El gato tenia un task |
-#      | task                  |
-#      | task2                 |
-#      | task89745             |
-#    When the user searches a task with "Task" keyword
-#    Then the user should see displayed "7 Tasks" at the bottom of the list
-#    Then the user should see the following tasks displayed
-#      | task gatuno           |
-#      | Era un task de gato   |
-#      | El gato tenia un task |
-#      | task                  |
-#      | task2                 |
-#      | task89745             |
-#    And the user should not see the following tasks displayed
-#      | gato de navidad       |
-#
-#  @CreateSpace
-#  Scenario: A user changes a task from a status to another
-#    Given the user creates a new space with the following name "SpaceTest"
-#      And the user creates a new list with the following name "ListTest"
-#      And the user creates a new task with the following name "TestTask"
-#      And the user selects the "board" view
-#    When the user drags the task to "Complete" status
-#    Then the user user should see the task in "Complete" status.
+  @logout @deleteList
+  Scenario: A user updates a List
+    Given the user creates a new list with the following name "ListTest"
+    When the user updates a list with the following name "Test"
+    Then the user should see the new list appear in the panel successfully
+    And the user should see the name of the list on content Task
 
-#  @CreateSpace
-#  Scenario: A user changes a list from a project to another
-#    Given the user creates a new space with the following name "SpaceTest"
-#      And the user creates a new project with the following name "First ProjectTest"
-#      And the user creates a new project with the following name "Second ProjectTest"
-#      And the user creates a new list with the following name "TestList to Move"
-#    When the user moves the list to other project
-#      And the user goes to other project
-#    Then the user should see the list in the other project.
-#
-#  @CreateSpace
-#  Scenario: A user moves a project from a space to another
-#    Given the user creates a new space with the following name "First SpaceTest"
-#      And the user creates a new space with the following name "Second SpaceTest"
-#      And the user creates a new project with the following name "ProjectTest"
-#    When the user moves the project to other space
-#      And the user goes to other space
-#    Then the user should see the project in the other space.
-#
-  @CreateSpace
-  Scenario: Copy a project with all values
-    Given the user creates a new space with the following name "SpaceTest"
-      And the user creates a new project with the following name "ProjectTest"
-      And the guest copy the project
-    Then the user should see the copy success message: "Folder copied!"
-      And the user should see the copy project displayed
+  @logout @deleteProject
+  Scenario: A user creates a new Project
+    When the user creates a new project with the following name "ProjectTest"
+    Then the user should see the new project appear in the panel successfully
+    And the user should see the name of the project on the Bar title of content panel
+    And the user should see the name of the list on content Task
 
-  @CreateSpace
-  Scenario: Copy a list with all values
-    Given the user creates a new space with the following name "SpaceTest"
-      And the user creates a new project with the following name "First ProjectTest"
-      And the user creates a new project with the following name "Second ProjectTest"
-      And the user creates a new list with the following name "TestList to Copy"
-    When the user copy the list to other project
-    Then the user should see the copy success message: "List copied!"
-    When the user goes to other project
-    Then the user should see the copy list in the other project.
+  @logout @deleteList
+  Scenario: A user searches Tasks in List View without any filter
+    Given the user creates a new list with the following name "ListTest"
+    And the user creates the following tasks:
+      | task test              |
+      | new car                |
+      | A task with attachment |
+      | The admin has a task   |
+      | task                   |
+      | task2                  |
+      | task89745              |
+    When the user searches a task with "Task" keyword
+    Then the user should see displayed "7 Tasks" at the bottom of the list
+
+  @logout @deleteList
+  Scenario: A user drags a task from a status and drop it to another
+    Given the user creates a new list with the following name "ListTest"
+    And the user creates a new task with the following name "TestTask"
+    And the user selects the board view
+    When the user drags the task to Complete status
+    Then the user user should see the task in complete status.
