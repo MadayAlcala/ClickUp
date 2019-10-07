@@ -10,34 +10,23 @@
 
 package hook;
 
-import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.After;
 
 /**
- * ListHook class.
+ * SideMenuHook class.
  *
  * @author Maday Alcala
  * @version 1.0
  */
-public class ListHook {
-    private Context context;
+public class SideMenuHook {
 
     /**
-     * Allows to receive the variable context.
-     *
-     * @param context - set the class context.
+     * Lets logout from to web page.
      */
-    public ListHook(final Context context) {
-        this.context = context;
-    }
-
-    /**
-     * Deletes a list.
-     */
-    @After(order = 2, value = "@deleteList")
-    public void deleteList() {
+    @After(order = 1, value = "@logout")
+    public void logout() {
         ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().deleteList(context.getList().getName());
+        applicationPage.getSideMenu().logOut();
     }
 }

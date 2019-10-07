@@ -1,4 +1,14 @@
-package clickup.ui.entities;
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
+package clickup.entities;
 
 import core.utils.Hasher;
 import org.apache.commons.codec.DecoderException;
@@ -13,10 +23,29 @@ import java.security.GeneralSecurityException;
  * @version 1.0
  */
 public class User {
+    private String teamId;
     private String email;
     private String password;
     private String personalToken;
     private String fullName;
+
+    /**
+     * Getter method.
+     *
+     * @return the teamId associated to a user registered at ClickUp application.
+     */
+    public String getTeamId() {
+        return teamId;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param teamId associated to a user registered at ClickUp application.
+     */
+    public void setTeamId(final String teamId) {
+        this.teamId = teamId;
+    }
 
     /**
      * Getter method.

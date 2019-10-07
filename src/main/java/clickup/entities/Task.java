@@ -8,16 +8,17 @@
  * with Jalasoft.
  */
 
-package clickup.ui.entities;
+package clickup.entities;
 
 /**
  * Task class.
  *
- * @author Maday Alcala
+ * @author Maday Alcala, Alejandro Sánchez
  * @version 1.0
  */
 public class Task {
     private String name;
+    private String id;
 
     /**
      * Getter method.
@@ -35,5 +36,23 @@ public class Task {
      */
     public void setName(final String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a the id associated to an instance of this class.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param id A String containing the id to be assigned to an instance of this class.
+     */
+    public void setId(final String id) {
+        this.id = id;
     }
 }

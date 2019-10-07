@@ -8,7 +8,7 @@
  * with Jalasoft.
  */
 
-package clickup.ui.entities;
+package clickup.entities;
 
 /**
  * Saves some variables according our requirements.
