@@ -33,12 +33,12 @@ Feature: Task
         And the user moves the task to the first list
       Then the user should see the task movement success message
         And the user should not see the task listed
-      When the user goes to the first list page
+      When the user goes to the first list
       Then the user should see the task listed
       When the user moves the task to the second list
       Then the user should not see the task listed
-      When the user goes to the second list page
-      Then the user should see the task in the other list.
+      When the user goes to the second list
+      Then the user should see the task listed
 
     @logout
     Scenario: A user attaches a file to a task

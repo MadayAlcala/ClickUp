@@ -26,6 +26,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ContentPanel Object Model.
@@ -38,6 +40,7 @@ public class ContentPanel extends BasePage {
     private static final String URL_BASE = "url";
     private static final String TASK_PREFIX = "t/";
     private static final String TASK_LIST_ANCHORS = "a.cu-task-row-main__link[href='%s']";
+    private static final String TASK_ANCHOR = "a[href='%s']";
 
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
@@ -146,5 +149,46 @@ public class ContentPanel extends BasePage {
         String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task")
                 .concat(task.getId()));
         return getDriver().findElement(By.cssSelector(String.format(TASK_LIST_ANCHORS, hyperLink)));
+    }
+
+    /**
+     * Returns a webElement associated to a hyperlink.
+     *
+     * @param hyperLink a String containing a url address.
+     * @return WebElement pointing to a hyperlink listed in the page.
+     */
+    private WebElement getAnchorElementByUrl(final String hyperLink) {
+        return getDriver().findElement(By.cssSelector(String.format(TASK_ANCHOR, hyperLink)));
+    }
+
+    /**
+     * Returns true if the task is listed in the page.
+     *
+     * @param taskId The id of a partiuclar Task.
+     * @return true if the url is listed in the page.
+     */
+    public boolean isTaskByIdPresent(final String taskId) {
+        List<WebElement> resultList = new ArrayList<WebElement>();
+        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
+        resultList = getDriver().findElements(By.cssSelector(String.format(TASK_ANCHOR, hyperLink)));
+        return (resultList.size() == 1);
+    }
+
+    /**
+     * Searches for a task by its id and retrieves its Name.
+     *
+     * @param taskId The id of a partiuclar Task.
+     * @return a String containing the name assigned to the Task.
+     */
+    public String searchTaskByIdAndGetName(final String taskId) {
+        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
+        return WebElementActions.getText(getAnchorElementByUrl(hyperLink));
+    }
+
+    /**
+     * Waits until confirmation message appears.
+     */
+    public void waitUntilMessagePops() {
+        getWait().until(ExpectedConditions.visibilityOf(creationConfirmationMessage));
     }
 }

@@ -18,6 +18,7 @@ import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
+import core.utils.WebElementActions;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
@@ -149,6 +150,20 @@ public class TaskStep {
     }
 
     /**
+     * Visits a List entity page from the side panel.
+     *
+     * @param order in which a particular List in a series of Lists was created.
+     */
+    @When("^the user goes to the ([[first][second][third]]+) list$")
+    public void userGoesToNthList(final String order) {
+        WebElementActions.click(applicationPage.getListPanel().getListElementByName(context.getListMap().get(order)
+                .getName()));
+        applicationPage = new ApplicationPage();
+        applicationPage.getListPanel().waitForHeaderElementTextEqualsCreatedListName(context.getListMap().get(order)
+                .getName());
+    }
+
+    /**
      * Confirms the message thrown by application after a Task is moved.
      *
      * @throws UnsupportedFlavorException .
@@ -167,7 +182,7 @@ public class TaskStep {
      * Searches for a newly created task inside a listing.
      */
     @Then("the user should see the task listed")
-    public void isTaskListed() {
+    public void isTaskListedInNotifications() {
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
@@ -201,5 +216,14 @@ public class TaskStep {
         Response response = taskApi.findTaskById(context.getTask().getId());
         List<Map> asigneeList = response.jsonPath().get("assignees");
         Assert.assertEquals(asigneeList.get(0).get("username"), context.getUserMap().get("guest").getFullName());
+    }
+
+    /**
+     * Returns false if the Task is not present in the page.
+     */
+    @Then("the user should not see the task listed")
+    public void userShouldNotSeeTheTaskListed() {
+        boolean siOno = applicationPage.getContentPanel().isTaskByIdPresent(context.getTask().getId());
+        Assert.assertFalse(applicationPage.getContentPanel().isTaskByIdPresent(context.getTask().getId()));
     }
 }

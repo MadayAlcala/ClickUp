@@ -77,5 +77,6 @@ public class ApplicationPage extends ApplicationBasePage {
         WebElement to = listPanel.getListElementByName(destinationList.getName());
         Actions actions = new Actions(getDriver());
         actions.clickAndHold(from).moveToElement(to).release().build().perform();
+        contentPanel.waitUntilMessagePops();
     }
 }
