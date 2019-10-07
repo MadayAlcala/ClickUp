@@ -25,7 +25,7 @@ public class Context {
     private Task task;
     private User user;
     private Map<String, User> userMap;
-
+    private Import anImport;
     /**
      * Initializes the variables.
      */
@@ -126,5 +126,14 @@ public class Context {
      */
     public void setUserMap(final Map<String, User> userMap) {
         this.userMap = userMap;
+    }
+
+
+    public Import getAnImport() {
+        return anImport;
+    }
+
+    public void setAnImport(Import anImport) {
+        this.anImport = anImport;
     }
 }
