@@ -23,6 +23,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import org.apache.commons.codec.DecoderException;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -145,7 +146,7 @@ public class TaskStep {
     @When("the user moves the task to the (.*) list")
     public void dragTask(final String order) {
         //TODO Refactor: It shouldn't rely on close()
-        applicationPage.getContentPanel().closeModal();
+        //applicationPage.getContentPanel().closeModal();
         applicationPage.dragTask(context.getTask(), context.getListMap().get(order));
     }
 
@@ -173,7 +174,8 @@ public class TaskStep {
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
         applicationPage = new ApplicationPage();
         String actual = applicationPage.getContentPanel().getConfirmationMessage();
-        String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first").getName();
+        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first").getName();
+        String expected = context.getTask().getName();
         applicationPage.getContentPanel().closeModal();
         Assert.assertEquals(actual, expected, context.getTask().getName() + " has not been moved!");
     }
@@ -183,6 +185,7 @@ public class TaskStep {
      */
     @Then("the user should see the task listed")
     public void isTaskListedInNotifications() {
+        notificationsPage = new NotificationsPage();
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
@@ -223,7 +226,12 @@ public class TaskStep {
      */
     @Then("the user should not see the task listed")
     public void userShouldNotSeeTheTaskListed() {
-        boolean siOno = applicationPage.getContentPanel().isTaskByIdPresent(context.getTask().getId());
-        Assert.assertFalse(applicationPage.getContentPanel().isTaskByIdPresent(context.getTask().getId()));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask().getId());
+        Assert.assertTrue(elementsList.isEmpty());
     }
 }

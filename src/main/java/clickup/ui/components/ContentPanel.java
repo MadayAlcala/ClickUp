@@ -167,11 +167,11 @@ public class ContentPanel extends BasePage {
      * @param taskId The id of a partiuclar Task.
      * @return true if the url is listed in the page.
      */
-    public boolean isTaskByIdPresent(final String taskId) {
+    public ArrayList<WebElement> collectWebElementsByTaskId(final String taskId) {
         List<WebElement> resultList = new ArrayList<WebElement>();
         String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
         resultList = getDriver().findElements(By.cssSelector(String.format(TASK_ANCHOR, hyperLink)));
-        return (resultList.size() == 1);
+        return (ArrayList<WebElement>) resultList;
     }
 
     /**
