@@ -72,6 +72,23 @@ public class LoginStep {
     }
 
     /**
+     * Fills email and password in the login page.
+     *
+     * @param userType    represents the type of user, i.e. user or admin.
+     * @throws GeneralSecurityException .
+     * @throws DecoderException .
+     * @throws IOException .
+     */
+    @When("the user is logged with (.*) credentials")
+    public void fillingFormAut(final String userType) throws GeneralSecurityException, DecoderException, IOException {
+        loginPage = new LoginPage();
+        context.setUser(CredentialDeserializer.getInstance().getUser(userType));
+        context.getUserMap().put(userType, context.getUser());
+        loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType)
+                .getPassword());
+    }
+
+    /**
      * Verifies login information.
      */
     @Then("Username should appear in the panel")
