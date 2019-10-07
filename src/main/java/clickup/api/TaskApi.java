@@ -34,11 +34,12 @@ public class TaskApi {
     /**
      * Constructor method.
      *
+     * @param user an instance of a User entity.
      * @throws GeneralSecurityException .
      * @throws IOException .
      * @throws DecoderException .
      */
-    public TaskApi(User user) throws GeneralSecurityException, IOException, DecoderException {
+    public TaskApi(final User user) throws GeneralSecurityException, IOException, DecoderException {
         apiClient = new ApiClient(user);
     }
 
@@ -48,7 +49,7 @@ public class TaskApi {
      * @param taskBody a flat deserialized String containing the key/value data to be provided to a POST or
      *      PATCH request.
      */
-    public void setContent(String taskBody) {
+    public void setContent(final String taskBody) {
         apiClient.buildSpec(taskBody);
     }
 
@@ -57,7 +58,7 @@ public class TaskApi {
      *
      * @param taskBody a Map structure containing the key/value data to be provided to a POST or PATCH request.
      */
-    public void setContent(Map taskBody) {
+    public void setContent(final Map taskBody) {
         apiClient.buildSpec(taskBody);
     }
 
@@ -66,7 +67,7 @@ public class TaskApi {
      *
      * @param taskBody a JSONObject containing the key/value data to be provided to a POST or PATCH request.
      */
-    public void setContent(JsonObject taskBody) {
+    public void setContent(final JsonObject taskBody) {
         apiClient.buildSpec(taskBody);
     }
 
@@ -76,7 +77,7 @@ public class TaskApi {
      * @param listId uniquely identifies the Task to be updated.
      * @return Returns a RestAssured Response as a result of a successful POST request.
      */
-    public Response postContent(String listId) {
+    public Response postContent(final String listId) {
         return apiClient.post(LIST_SUFFIX.concat("/").concat(listId).concat("/").concat(TASK_SUFFIX));
     }
 
@@ -86,7 +87,7 @@ public class TaskApi {
      * @param taskId uniquely identifies a given Task.
      * @return a RestAssured Response structure containing the values for all the keys associated to a given Task.
      */
-    public Response putContent(String taskId) {
+    public Response putContent(final String taskId) {
         return apiClient.put(TASK_SUFFIX.concat("/").concat(taskId));
     }
 
@@ -96,7 +97,7 @@ public class TaskApi {
      * @param id uniquely identifies a given Task.
      * @return a RestAssured Response structure containing the values for all the keys associated to a given Task.
      */
-    public Response findTaskById(String id) {
+    public Response findTaskById(final String id) {
         return apiClient.get(TASK_SUFFIX.concat("/").concat(id));
     }
 
@@ -106,7 +107,7 @@ public class TaskApi {
      * @param id uniquely identifies a given Task.
      * @return a RestAssured Response structure as a result of a successful DELETE request.
      */
-    public Response deleteTaskById(String id) {
+    public Response deleteTaskById(final String id) {
         return apiClient.delete(TASK_SUFFIX.concat("/").concat(id));
     }
 }

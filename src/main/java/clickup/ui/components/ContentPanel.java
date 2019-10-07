@@ -10,9 +10,12 @@
 
 package clickup.ui.components;
 
+import clickup.entities.Task;
 import clickup.ui.BasePage;
+import clickup.ui.PageTransporter;
 import core.utils.Actions;
 import core.utils.PropertyReader;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,6 +37,7 @@ public class ContentPanel extends BasePage {
     private static final String APP_CONFIG_FILE = "app.properties";
     private static final String URL_BASE = "url";
     private static final String TASK_PREFIX = "t/";
+    private static final String TASK_LIST_ANCHORS = "a.cu-task-row-main__link[href='%s']";
 
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
@@ -44,7 +48,7 @@ public class ContentPanel extends BasePage {
     @FindBy(css = "div.toast__undo.ng-tns-c0-0.ng-star-inserted")
     private WebElement creationPopUp;
 
-    @FindBy(css = "span.toast__name-link")
+    @FindBy(css = "span.toast__name-link-text")
     private WebElement creationConfirmationMessage;
 
     @FindBy(css = "div.toast__copy-button-link")
@@ -117,10 +121,9 @@ public class ContentPanel extends BasePage {
      *
      * @return a String containing the message on the pop up modal that appears after a Task is created.
      */
-    public String getCreationConfirmationMessage() {
-        getWait().until(ExpectedConditions.visibilityOf(creationPopUp));
-        String result = creationConfirmationMessage.getText();
-        return result;
+    public String getConfirmationMessage() {
+        getWait().until(ExpectedConditions.visibilityOf(creationConfirmationMessage));
+        return creationConfirmationMessage.getText();
     }
 
     /**
@@ -131,5 +134,17 @@ public class ContentPanel extends BasePage {
     public String getTaskTitleById() {
         //TODO implementation pending.
         return null;
+    }
+
+    /**
+     * Returns a webElement associated to a hyperlink.
+     *
+     * @param task a instance of a Task entity.
+     * @return WebElement pointing to a hyperlink listed in the page.
+     */
+    public WebElement getAnchorElementByTask(final Task task) {
+        String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task")
+                .concat(task.getId()));
+        return getDriver().findElement(By.cssSelector(String.format(TASK_LIST_ANCHORS, hyperLink)));
     }
 }

@@ -70,6 +70,9 @@ public class SideMenu extends BasePage {
         getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
     }
 
+    /**
+     * Waits for the visibility of the toolbar menu button.
+     */
     public void waitForPageLoading() {
         getWait().until(ExpectedConditions.visibilityOf(spaceBarButton));
     }

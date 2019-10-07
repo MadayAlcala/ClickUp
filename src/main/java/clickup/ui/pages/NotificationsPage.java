@@ -66,6 +66,9 @@ public class NotificationsPage extends ApplicationBasePage {
         return Actions.getText(getAnchorElementByUrl(hyperLink));
     }
 
+    /**
+     * Wait for the title to appear.
+     */
     public void waitForPageLoading() {
         getWait().until(ExpectedConditions.visibilityOf(headerTitle));
     }

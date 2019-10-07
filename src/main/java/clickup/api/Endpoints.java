@@ -16,7 +16,7 @@ package clickup.api;
  * @author Alejandro Sánchez Luizaga
  * @version 1.0
  */
-public class Endpoints {
+public final class Endpoints {
     public static final String SPACE_SUFFIX = "space";
     public static final String PROJECT_SUFFIX = "folder";
     public static final String LIST_SUFFIX = "list";
@@ -25,5 +25,5 @@ public class Endpoints {
     /**
      * Private constructor to comply checkStyle suggestions.
      */
-    private Endpoints() {}
+    private Endpoints() { }
 }

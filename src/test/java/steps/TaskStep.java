@@ -47,6 +47,9 @@ public class TaskStep {
      * Constructor for dependency injection.
      *
      * @param context A Context instance to be instantiated by pico-container library.
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
     public TaskStep(final Context context) throws GeneralSecurityException, IOException, DecoderException {
         this.context = context;
@@ -74,12 +77,12 @@ public class TaskStep {
      * @throws UnsupportedFlavorException .
      * @throws IOException .
      */
-    @Then("The user should see the success message")
+    @Then("The user should see the task creation success message")
     public void getModalMessage() throws UnsupportedFlavorException, IOException {
-        String confirmationMessage = applicationPage.getContentPanel().getCreationConfirmationMessage();
+        String confirmationMessage = applicationPage.getContentPanel().getConfirmationMessage();
         applicationPage.getContentPanel().closeModal();
-        Assert.assertEquals(confirmationMessage, context.getTask().getName() + " Created!",
-                "The task " + context.getTask().getName() + " has not been created!");
+        Assert.assertEquals(confirmationMessage, context.getTask().getName(),
+                "The task \"" + context.getTask().getName() + "\" has not been created!");
     }
 
     /**
@@ -134,6 +137,33 @@ public class TaskStep {
     }
 
     /**
+     * Drags a Task and Drops it over a List.
+     *
+     * @param order a String specifying whih of the created list will receive the task.
+     */
+    @When("The user moves the task to the (.*) list")
+    public void dragTask(final String order) {
+        //TODO Refactor: It shouldn't rely on close()
+        applicationPage.getContentPanel().closeModal();
+        applicationPage.dragTask(context.getTask(), context.getListMap().get(order));
+    }
+
+    /**
+     * Confirms the message thrown by application after a Task is moved.
+     *
+     * @throws UnsupportedFlavorException .
+     * @throws IOException .
+     */
+    @Then("The user should see the task movement success message")
+    public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
+        applicationPage = new ApplicationPage();
+        String actual = applicationPage.getContentPanel().getConfirmationMessage();
+        String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first").getName();
+        applicationPage.getContentPanel().closeModal();
+        Assert.assertEquals(actual, expected, context.getTask().getName() + " has not been moved!");
+    }
+
+    /**
      * Searches for a newly created task inside a listing.
      */
     @Then("The user should see the task listed")
@@ -143,6 +173,13 @@ public class TaskStep {
                 .getName() + " is not listed!");
     }
 
+    /**
+     * Checks if there are no assignees yet.
+     *
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
     @Then("The task should not have any assignees")
     public void isTaskWithAssignee() throws GeneralSecurityException, IOException, DecoderException {
         taskApi = new TaskApi(context.getUser());
@@ -151,6 +188,13 @@ public class TaskStep {
         Assert.assertTrue(asigneeList.isEmpty(), "Task " + context.getTask().getName() + " has already been assigned!");
     }
 
+    /**
+     * Compares the actual asignee with expected asignee user name.
+     *
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
     @Then("The user should be the asignee")
     public void isUserAssignee() throws GeneralSecurityException, IOException, DecoderException {
         taskApi = new TaskApi(context.getUser());

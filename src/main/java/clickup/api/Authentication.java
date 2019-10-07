@@ -31,19 +31,24 @@ public final class Authentication {
 
     /**
      * Private Constructor for utility class.
+     *
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      */
-    private Authentication(User user) {
+    private Authentication(final User user) {
     }
 
     /**
      * Builds a RequestSpecifiction to be used to interact via API with ClickUpby providing a Personal API Token.
      *
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      * @return RequestSpecification instance with the necessary personal token and base uri.
      * @throws GeneralSecurityException .
      * @throws IOException .
      * @throws DecoderException .
      */
-    public static RequestSpecification requestSpecification(User user) throws GeneralSecurityException,
+    public static RequestSpecification requestSpecification(final User user) throws GeneralSecurityException,
             IOException, DecoderException {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         String apiUrl = PropertyReader.retrieveField(API_URI);

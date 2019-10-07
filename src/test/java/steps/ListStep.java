@@ -11,6 +11,7 @@
 package steps;
 
 import clickup.entities.Context;
+import clickup.entities.List;
 import clickup.ui.pages.ApplicationPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -45,6 +46,23 @@ public class ListStep {
         applicationPage = new ApplicationPage();
         context.getList().setName(nameList);
         applicationPage.getListPanel().createList(nameList);
+    }
+
+    /**
+     * Creates new list in a space.
+     *
+     * @param order to be stored in the collection within the context.
+     * @param listName that is the name of the new List.
+     */
+    @When(value = "The user creates a ([[first][second][third]]+) list with the following name (.*)")
+    public void createNewLists(final String order, final String listName) {
+        String trimmedListName = listName.replaceAll("\"", "");
+        applicationPage = new ApplicationPage();
+        applicationPage.getListPanel().createList(trimmedListName);
+        List list = new List();
+        list.setName(trimmedListName);
+        context.setList(list);
+        context.getListMap().put(order, list);
     }
 
     /**

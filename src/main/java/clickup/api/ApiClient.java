@@ -37,11 +37,13 @@ public final class ApiClient {
     /**
      * Constructor of rest client API.
      *
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      * @throws GeneralSecurityException .
      * @throws IOException .
      * @throws DecoderException .
      */
-    public ApiClient(User user) throws GeneralSecurityException, IOException, DecoderException {
+    public ApiClient(final User user) throws GeneralSecurityException, IOException, DecoderException {
         request = Authentication.requestSpecification(user);
     }
 

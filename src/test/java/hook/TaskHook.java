@@ -12,7 +12,6 @@ package hook;
 
 import clickup.api.TaskApi;
 import clickup.entities.Context;
-import clickup.entities.User;
 import cucumber.api.java.After;
 import org.apache.commons.codec.DecoderException;
 
@@ -35,7 +34,7 @@ public class TaskHook {
      *
      * @param context an Context instance containing entities to be shared across step definitions.
      */
-    public TaskHook(Context context) {
+    public TaskHook(final Context context) {
         this.context = context;
     }
 

@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
@@ -34,7 +35,7 @@ public class ListPanel extends BasePage {
     @FindBy(xpath = "//div/div/a[@cutooltip='Delete']")
     private WebElement deleteBtn;
 
-    @FindBy(css = "img[src *= 'no-lists']")
+    @FindBy(css = ".lv-empty_img > img")
     private WebElement emptyTaskListImg;
 
     @FindBy(css = ".sidebar-section__plus-icon")
@@ -46,8 +47,8 @@ public class ListPanel extends BasePage {
     @FindBy(css = ".nav-section-maker__input")
     private WebElement nameTxtField;
 
-    @FindBy(css = "*[class *= 'item-label-body cu-task-list-header']")
-    private WebElement taskListHeader;
+    @FindBy(css = "div.cu-list-group__name > cu-editable.cu-editable")
+    private WebElement listNameHeader;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -70,14 +71,15 @@ public class ListPanel extends BasePage {
      */
     public void createList(final String listName) {
         getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
         getIconBtn();
         getListBox();
         Actions.sendKeys(nameTxtField, listName);
         Actions.sendKeys(nameTxtField, Keys.ENTER);
-        getWait().until(ExpectedConditions.visibilityOf(taskListHeader));
+        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
+        waitForHeaderElementTextEqualsCreatedListName(listName);
     }
 
     /**
@@ -86,7 +88,7 @@ public class ListPanel extends BasePage {
      * @param listName that is the name of the list to find.
      * @return WebElement 'list'.
      */
-    private WebElement getListElementByName(final String listName) {
+    public WebElement getListElementByName(final String listName) {
         return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName)));
     }
 
@@ -130,8 +132,18 @@ public class ListPanel extends BasePage {
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDelete));
         Actions.click(confirmDelete);
         getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(taskListHeader),
+                ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
+    }
+
+    /**
+     * Waits for the List Name To appear on the content panel.
+     *
+     * @param newListName a String containing the title of a list, most likely a newly created one.
+     */
+    public void waitForHeaderElementTextEqualsCreatedListName(final String newListName) {
+        ExpectedCondition<Boolean> elementTextEqualsString = arg0 -> listNameHeader.getText().equals(newListName);
+        getWait().until(elementTextEqualsString);
     }
 }
