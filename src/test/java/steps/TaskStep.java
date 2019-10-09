@@ -90,15 +90,6 @@ public class TaskStep {
     }
 
     /**
-     * Asserts if the a given title is listed in the body of the application page.
-     */
-    @Then("the user should see the new task appear in the panel")
-    public void taskShouldBeListed() {
-        String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
-        //TODO assertion pending.
-    }
-
-    /**
      * Creates multiple tasks.
      *
      * @param tasksList that contains the names of the tasks to create.
