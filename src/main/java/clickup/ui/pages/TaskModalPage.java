@@ -67,6 +67,8 @@ public class TaskModalPage extends BasePage {
 
     /**
      * Closes a given Task modal window.
+     *
+     * @return a new instance of ApplicationPage class.
      */
     public ApplicationPage close() {
         WebElementActions.click(taskCloseButton);

@@ -58,12 +58,14 @@ public class LoginStep {
      * Fills email and password in the login page.
      *
      * @param userType    represents the type of user, i.e. user or admin.
+     * @return a new instance of Application Page Page Object Model class.
      * @throws GeneralSecurityException .
      * @throws DecoderException .
      * @throws IOException .
      */
     @When("the (.*) fills the form with email and password")
-    public ApplicationPage fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
+    public ApplicationPage fillingForm(final String userType) throws GeneralSecurityException, DecoderException,
+            IOException {
         loginPage = new LoginPage();
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         context.getUserMap().put(userType, context.getUser());

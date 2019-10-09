@@ -14,13 +14,12 @@ import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import core.utils.WebElementActions;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
@@ -123,6 +122,8 @@ public class TaskStep {
 
     /**
      * Logs a user out of the application.
+     *
+     * @return a new instance of LoginPage P.O.M. class.
      */
     @When("the user logs out")
     public LoginPage userLogsOut() {
@@ -179,7 +180,8 @@ public class TaskStep {
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
         applicationPage = new ApplicationPage();
         String actual = applicationPage.getContentPanel().getConfirmationMessage();
-        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first").getName();
+        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first")
+        // .getName();
         String expected = context.getTask().getName();
         applicationPage.getContentPanel().closeModal();
         Assert.assertEquals(actual, expected, context.getTask().getName() + " has not been moved!");
@@ -236,7 +238,8 @@ public class TaskStep {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask().getId());
+        List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask()
+                .getId());
         Assert.assertTrue(elementsList.isEmpty());
     }
 
@@ -249,7 +252,8 @@ public class TaskStep {
         String expected = context.getUserMap().get("creator").getFullName().concat(System.getProperty("line.separator")
                 .concat("assigned to: You"));
         taskModalPage.close();
-        Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName() + "hasn't been assigned to you yet!");
+        Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName()
+                + "hasn't been assigned to you yet!");
     }
 
     /**
