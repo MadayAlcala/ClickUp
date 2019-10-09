@@ -14,6 +14,7 @@ import clickup.ui.BasePage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -34,6 +35,12 @@ public class TaskModalPage extends BasePage {
     @FindBy(css = ".user-list-item > .user-list-item__name")
     private List<WebElement> userSelectorLink;
 
+    @FindBy(css = ".task-history.task-history__scroll-view")
+    private WebElement historyScrollListContainer;
+
+    @FindBy(css = ".cu-task-history-item:last-of-type .task-history-item__content")
+    private WebElement lastHistoryEntryMessage;
+
     /**
      * Selects a user from a dropdown list and assigns him the Task.
      *
@@ -50,9 +57,19 @@ public class TaskModalPage extends BasePage {
     }
 
     /**
+     * Reads the last message appended to the history section of a Task.
+     * @return a String containing the last appended message to the Task's history.
+     */
+    public String readLastTaskHistory() {
+        getWait().until(ExpectedConditions.visibilityOf(historyScrollListContainer));
+        return lastHistoryEntryMessage.getText();
+    }
+
+    /**
      * Closes a given Task modal window.
      */
-    public void close() {
+    public ApplicationPage close() {
         WebElementActions.click(taskCloseButton);
+        return new ApplicationPage();
     }
 }

@@ -12,17 +12,18 @@ Feature: Task
 
   @logout @deleteTask
   Scenario: A user receives notification for a task assigned to him
-    Given the user goes to login page
-      And the admin fills the form with email and password
+    Given the user logs in as admin
     When the user creates a new task with the following name "Task To Assign"
     Then the task should not have any assignees
     When the user goes to page of the new task
-      And the admin user assigns the task to a guest user
-      And the admin user logs out
-    When the user logs as guest
+      And the user assigns the task to a guest user
+      And the user logs out
+      And the user logs in as guest
       And the user goes to notifications page for admin workplace
     Then the user should see the task listed
       And the user should be the asignee
+    When the user goes to page of the new task
+    Then the user should see the message that the task was assigned to him
 
   @logout @deleteTask
     Scenario: A user changes a task from one list to another

@@ -123,8 +123,8 @@ public class TaskStep {
      *
      * @param userType a String containing the user type that the task is going to assigned to.
      */
-    @When("the admin user assigns the task to a (.*) user")
-    public void amdinAssignsTaskToUser(final String userType) {
+    @When("the user assigns the task to a (.*) user")
+    public void ownerAssignsTaskToUser(final String userType) {
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         taskModalPage.assignTaskToUser(context.getUser().getFullName());
         taskModalPage.close();
@@ -133,10 +133,10 @@ public class TaskStep {
     /**
      * Logs a user out of the application.
      */
-    @When("the admin user logs out")
-    public void userLogsOut() {
+    @When("the user logs out")
+    public LoginPage userLogsOut() {
         applicationPage.getSideMenu().logOut();
-        new LoginPage();
+        return new LoginPage();
     }
 
     /**
@@ -247,6 +247,18 @@ public class TaskStep {
         }
         List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask().getId());
         Assert.assertTrue(elementsList.isEmpty());
+    }
+
+    /**
+     * Asserts if the last message appended to the task effectively states that a task was assigned to the current user.
+     */
+    @Then("the user should see the message that the task was assigned to him")
+    public void checkAssignationMessage() {
+        String actual = taskModalPage.readLastTaskHistory();
+        String expected = context.getUserMap().get("creator").getFullName().concat(System.getProperty("line.separator")
+                .concat("assigned to: You"));
+        taskModalPage.close();
+        Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName() + "hasn't been assigned to you yet!");
     }
 
     /**
