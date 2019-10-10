@@ -256,4 +256,40 @@ public class TaskStep {
     public void selectBoardView() {
         applicationPage.getContentPanel().setBoardView();
     }
+
+    /**
+     * Searches a task in the list view.
+     *
+     * @param key that represent the keyword for search a task.
+     */
+    @When("the user searches a task with {string} keyword")
+    public void searchTask(final String key) {
+        applicationPage.getContentPanel().searchTask(key);
+    }
+
+    /**
+     * Verifies the quantity of the tasks in a list in content panel.
+     *
+     * @param quantity that represent the quantity of tasks to find.
+     */
+    @Then("the user should see displayed {string} at the bottom of the list")
+    public void verifyTasksQuantity(final String quantity) {
+        Assert.assertEquals(applicationPage.getContentPanel().getTasksQuantity(), quantity.toUpperCase());
+    }
+
+    /**
+     * Realizes the drag and drop to complete status of a task.
+     */
+    @When("the user drags the task to Complete status")
+    public void dragTaskToCompleteStatus() {
+        applicationPage.getContentPanel().moveTask(context.getTask().getName());
+    }
+
+    /**
+     * Verifies if the task is in complete status.
+     */
+    @Then("the user user should see the task in complete status.")
+    public void verifyTaskInCompleteStatus() {
+        Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
+    }
 }

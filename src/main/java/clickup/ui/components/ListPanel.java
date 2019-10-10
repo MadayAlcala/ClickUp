@@ -10,7 +10,9 @@
 
 package clickup.ui.components;
 
+import clickup.entities.List;
 import clickup.ui.BasePage;
+import clickup.ui.pages.ListMenuModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -32,12 +34,6 @@ public class ListPanel extends BasePage {
     private static final String PROJECT_MENU_BTN = "//following-sibling::div[@class='nav-category__menu']";
     @FindBy(css = ".sidebar-section__plus-icon")
     private WebElement addBtn;
-
-    @FindBy(css = ".cu-btn_danger > .cu-btn__text")
-    private WebElement confirmDeleteBtn;
-
-    @FindBy(xpath = "//a[@cutooltip='Delete']")
-    private WebElement deleteBtn;
 
     @FindBy(css = ".lv-empty_img > img")
     private WebElement emptyTaskListImg;
@@ -154,26 +150,23 @@ public class ListPanel extends BasePage {
      *
      * @param listName that is the name of the list.
      */
-    private void displayListMenu(final String listName) {
+    public ListMenuModal displayListMenu(final String listName) {
         WebElementActions.click(getListMenuElementByName(listName));
+        return new ListMenuModal();
     }
 
-    /**
-     * Selects delete button.
-     *
-     * @param listName that is the name of the list.
-     */
-    public void deleteList(final String listName) {
-        displayListMenu(listName);
-        WebElementActions.click(deleteBtn);
-        getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
-        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
-        WebElementActions.click(confirmDeleteBtn);
-        getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(listNameHeader),
-                ExpectedConditions.visibilityOf(emptyTaskListImg)
-        ));
-    }
+//    /**
+//     * Selects delete button.
+//     *
+//     * @param listName that is the name of the list.
+//     */
+//    public void deleteList(final String listName) {
+//        displayListMenu(listName);
+//        getWait().until(ExpectedConditions.or(
+//                ExpectedConditions.visibilityOf(listNameHeader),
+//                ExpectedConditions.visibilityOf(emptyTaskListImg)
+//        ));
+//    }
 
     /**
      * Updates the name of a List.
@@ -208,7 +201,7 @@ public class ListPanel extends BasePage {
         WebElementActions.sendKeys(folderNameTxtBox, folderName);
         WebElementActions.enter(folderNameTxtBox);
         WebElementActions.click(getProjectElementByName(folderName));
-        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
+        getWait().until(ExpectedConditions.visibilityOf(getProjectElementByName(folderName)));
     }
 
     /**
@@ -266,26 +259,23 @@ public class ListPanel extends BasePage {
      *
      * @param projectName that is the name of the project.
      */
-    private void displayProjectMenu(final String projectName) {
+    public ListMenuModal displayProjectMenu(final String projectName) {
         WebElementActions.click(getProjectMenuElementByName(projectName));
+        return new ListMenuModal();
     }
 
-    /**
-     * Selects delete button.
-     *
-     * @param projectName that is the name of the project.
-     */
-    public void deleteProject(final String projectName) {
-        displayProjectMenu(projectName);
-        WebElementActions.click(deleteBtn);
-        getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
-        getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
-        WebElementActions.click(confirmDeleteBtn);
-        getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(listNameHeader),
-                ExpectedConditions.visibilityOf(emptyTaskListImg)
-        ));
-    }
+//    /**
+//     * Selects delete button.
+//     *
+//     * @param projectName that is the name of the project.
+//     */
+//    public void deleteProject(final String projectName) {
+//        displayProjectMenu(projectName);
+//        getWait().until(ExpectedConditions.or(
+//                ExpectedConditions.visibilityOf(listNameHeader),
+//                ExpectedConditions.visibilityOf(emptyTaskListImg)
+//        ));
+//    }
 
     /**
      * Waits for the List Name To appear on the content panel.

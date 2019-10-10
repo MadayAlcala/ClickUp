@@ -10,10 +10,12 @@
 
 package runner;
 
+import clickup.ui.pages.ApplicationPage;
 import core.utils.ReportGenerator;
 import core.selenium.WebDriverManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 
 /**
