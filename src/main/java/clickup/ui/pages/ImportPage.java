@@ -1,13 +1,11 @@
 package clickup.ui.pages;
 
-import clickup.entities.Context;
 import clickup.ui.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import sun.awt.X11.XKeyEvent;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -19,7 +17,7 @@ public class ImportPage extends BasePage {
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton2;
 
-    @FindBy(xpath = "//div[contains(@class,'cu-user-settings-menu__link ng-star-inserted')][contains(.,'Import/Export')]")
+    @FindBy(xpath = "//*[contains(text(), 'Import/Export')]")
     private WebElement importExportMenuButton;
 
     @FindBy(css = ".cu-integration-btn__title")
@@ -28,7 +26,7 @@ public class ImportPage extends BasePage {
     @FindBy(css = ".cu-btn_fw")
     private WebElement importFromCsvButton;
 
-    @FindBy(id= "continue")
+    @FindBy(id = "continue")
     private WebElement scrollBlock;
 
     @FindBy(css = ".flatfile-component iframe")
@@ -53,18 +51,22 @@ public class ImportPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'col-required')][contains(.,'Task name')]")
     private WebElement taskNameTitleTable;
 
+
+    @FindBy(css = ".cdk-overlay-container")
+    private WebElement containerMenuModal;
+
+
     public void importTable() {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
         spaceBarButton2.click();
         importExportMenuButton.click();
         csvFileButton.click();
         importFromCsvButton.click();
-
         WebDriver driver_1 = getDriver().switchTo().frame(block);
-
-        WebElement sentfile =driver_1.findElement(By.cssSelector(".icon-upload"));
-
+        WebElement sentfile = driver_1.findElement(By.cssSelector(".icon-upload"));
         sentfile.click();
+
+
         StringSelection ss = new StringSelection("/home/pepillo/csvtest.csv");
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
 
@@ -82,7 +84,7 @@ public class ImportPage extends BasePage {
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.delay(500);
 
-        WebElement yesButton =driver_1.findElement(By.id("headerConfirm"));
+        WebElement yesButton = driver_1.findElement(By.id("headerConfirm"));
         yesButton.click();
 
         WebElement button = driver_1.findElement(By.id("continue"));
@@ -106,23 +108,22 @@ public class ImportPage extends BasePage {
 
         WebElement pendingStatus = driver_1.findElement(By.cssSelector(".cu-import-progress__data-status.importPending"));
 //        getWait().until(ExpectedConditions.elementToBeClickable(pendingStatus));
-        isSuccessfully=pendingStatus.isEnabled();
+        isSuccessfully = pendingStatus.isEnabled();
 //        isSuccessfully=bannerButton.
         //div[contains(@class,'cu-import-progress__data-status importPending')]
         System.out.println("---------------------------------------");
-
     }
 
     public boolean isSuccessfullyImport() {
         return isSuccessfully;
     }
 
-    public void logout(){
-                backButton.click();
+    public void logout() {
+        backButton.click();
     }
 
 
-    public void importManually(){
+    public void importManually() {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
         spaceBarButton2.click();
         importExportMenuButton.click();
@@ -136,7 +137,6 @@ public class ImportPage extends BasePage {
 //        taskNameTitleTable.click();
 
 
-
         Robot robot = null;
         try {
             robot = new Robot();
@@ -144,11 +144,10 @@ public class ImportPage extends BasePage {
             e.printStackTrace();
         }
         robot.delay(5000);
-        robot.mouseMove(100,700);
-
+        robot.mouseMove(100, 700);
 
         robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.mouseRelease(InputEvent.BUTTON1_MASK );
+        robot.mouseRelease(InputEvent.BUTTON1_MASK);
 
         StringSelection ss = new StringSelection("task1");
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
@@ -159,6 +158,6 @@ public class ImportPage extends BasePage {
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.delay(5000);
-   }
+    }
 }
 
