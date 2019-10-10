@@ -1,4 +1,4 @@
-#Feature: Task
+Feature: Task
 #
 #  @logout @deleteSpace
 #  Scenario: A user creates a new task
@@ -41,9 +41,12 @@
 #      When the user goes to the second list
 #      Then the user should see the task listed
 #
-#  @logout
-#  Scenario: A user drags a task from a status and drop it to another
-#    Given the user creates a new task with the following name "TestTask"
-#    And the user selects the board view
-#    When the user drags the task to Complete status
-#    Then the user user should see the task in complete status.
+  @logout
+  Scenario: A user drags a task from a status and drop it to another
+    Given the user goes to login page
+    And the guest fills the form with email and password
+    And the user creates a new list with the following name "Prueba"
+    And the user creates a new task with the following name "TestTask"
+    And the user selects the board view
+    When the user drags the task to Complete status
+    Then the user user should see the task in complete status.

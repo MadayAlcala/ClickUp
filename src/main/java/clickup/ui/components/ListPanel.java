@@ -13,6 +13,7 @@ package clickup.ui.components;
 import clickup.entities.List;
 import clickup.ui.BasePage;
 import clickup.ui.pages.ListMenuModal;
+import clickup.ui.pages.NewProjectModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -62,26 +63,14 @@ public class ListPanel extends BasePage {
     @FindBy(css = ".toast__undo-content")
     private WebElement copyConfirmationMessage;
 
-    @FindBy(css = ".cu-form__input")
-    private WebElement folderNameTxtBox;
-
     @FindBy(className = "cu-modal__control-item cu-modal__close icon")
     private WebElement folderCloseButton;
-
-    @FindBy(xpath = "//a[contains(.,'Copy')]")
-    private WebElement copyLink;
 
     @FindBy(css = "div.toast__close-button-block")
     private WebElement closeButton;
 
     @FindBy(xpath = "//a[contains(.,'Move')]")
     private WebElement moveLink;
-
-    @FindBy(className = "cu-btn")
-    private WebElement copyFolderBtn;
-
-    @FindBy(css = ".category-list__folderless > .cu-checkbox__label")
-    private WebElement folderlessListCheckBox;
 
     /**
      * Selects the '+' symbol to displayed their options.
@@ -191,17 +180,14 @@ public class ListPanel extends BasePage {
      *
      * @param folderName that is going to be the name of the new folder.
      */
-    public void addNewFolder(final String folderName) {
+    public NewProjectModal addNewFolder(final String folderName) {
         getWait().until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOf(listNameHeader),
                 ExpectedConditions.visibilityOf(emptyTaskListImg)
         ));
         addBtn();
         WebElementActions.click(folderBox);
-        WebElementActions.sendKeys(folderNameTxtBox, folderName);
-        WebElementActions.enter(folderNameTxtBox);
-        WebElementActions.click(getProjectElementByName(folderName));
-        getWait().until(ExpectedConditions.visibilityOf(getProjectElementByName(folderName)));
+        return new NewProjectModal();
     }
 
     /**
@@ -218,8 +204,7 @@ public class ListPanel extends BasePage {
      */
     public String getCopyConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
-        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
-        String result = copyConfirmationMessage.getText();
+        String result = copyConfirmationMessage.getText();        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
         closeModal();
         return result;
     }
@@ -241,6 +226,8 @@ public class ListPanel extends BasePage {
      * @return a String with the name of project created.
      */
     public String getNameProject(final String projectName) {
+        WebElementActions.click(getProjectElementByName(projectName));
+        getWait().until(ExpectedConditions.visibilityOf(getProjectElementByName(projectName)));
         return WebElementActions.getText(getProjectElementByName(projectName));
     }
 
@@ -287,34 +274,34 @@ public class ListPanel extends BasePage {
         getWait().until(elementTextEqualsString);
     }
 
-    /**
-     * Copies a list.
-     *
-     * @param listName     that represent the list to copy.
-     * @param copyListName that represent the new name for the list to copy.
-     */
-    public void copylist(final String listName, final String copyListName) {
-        displayListMenu(listName);
-        WebElementActions.click(copyLink);
-        folderNameTxtBox.click();
-        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        folderNameTxtBox.sendKeys(copyListName);
-        folderlessListCheckBox.click();
-        WebElementActions.click(copyFolderBtn);
-    }
+//    /**
+//     * Copies a list.
+//     *
+//     * @param listName     that represent the list to copy.
+//     * @param copyListName that represent the new name for the list to copy.
+//     */
+//    public void copylist(final String listName, final String copyListName) {
+//        displayListMenu(listName);
+//        WebElementActions.click(copyLink);
+//        listBox.click();
+//        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+//        folderNameTxtBox.sendKeys(copyListName);
+//        folderNameTxtBox.click();
+//        WebElementActions.click(copyFolderBtn);
+//    }
 
-    /**
-     * Copies a project.
-     *
-     * @param projectName     that represent the project to copy.
-     * @param copyProjectName that represent the new name for the project to copy.
-     */
-    public void copyProject(final String projectName, final String copyProjectName) {
-        displayProjectMenu(projectName);
-        WebElementActions.click(copyLink);
-        folderNameTxtBox.click();
-        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        folderNameTxtBox.sendKeys(copyProjectName);
-        WebElementActions.click(copyFolderBtn);
-    }
+//    /**
+//     * Copies a project.
+//     *
+//     * @param projectName     that represent the project to copy.
+//     * @param copyProjectName that represent the new name for the project to copy.
+//     */
+//    public void copyProject(final String projectName, final String copyProjectName) {
+//        displayProjectMenu(projectName);
+//        WebElementActions.click(copyLink);
+//        folderNameTxtBox.click();
+//        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+//        folderNameTxtBox.sendKeys(copyProjectName);
+//        WebElementActions.click(copyFolderBtn);
+//    }
 }

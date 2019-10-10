@@ -2,17 +2,12 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.DeleteModal;
+import clickup.ui.pages.CopyListModal;
 import clickup.ui.pages.ListMenuModal;
-import cucumber.api.java.After;
-import cucumber.api.java.AfterStep;
+import clickup.ui.pages.NewProjectModal;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 
 /**
  * ProjectStep class.
@@ -23,7 +18,8 @@ import org.testng.annotations.AfterTest;
 public class ProjectStep {
     private ApplicationPage applicationPage;
     private ListMenuModal listMenuModal;
-    private DeleteModal deleteModal;
+    private CopyListModal copyListModal;
+    private NewProjectModal newProjectModal;
     private Context context;
 
     /**
@@ -45,7 +41,8 @@ public class ProjectStep {
         applicationPage = new ApplicationPage();
         context.getProject().setName(projectName);
         context.getList().setName("List");
-        applicationPage.getListPanel().addNewFolder(projectName);
+        newProjectModal = applicationPage.getListPanel().addNewFolder(projectName);
+        applicationPage = newProjectModal.addName(projectName);
     }
 
     /**
@@ -76,11 +73,10 @@ public class ProjectStep {
     @When("the user copies the project and gives it the name {string}")
     public void copyProject(final String copyProject) {
         String actualProjectName = context.getProject().getName();
-        applicationPage.getListPanel().copyProject(actualProjectName, copyProject);
-    }
-
-    @After
-    public void afterClass() {
-        applicationPage.getSideMenu().logOut();
+        listMenuModal = applicationPage.getListPanel().displayProjectMenu(actualProjectName);
+        copyListModal = listMenuModal.copyBtn();
+        context.getProject().setName(copyProject);
+        copyListModal.changeName(copyProject);
+        applicationPage = copyListModal.confirmCopy();
     }
 }

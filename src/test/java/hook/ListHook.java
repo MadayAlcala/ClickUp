@@ -45,9 +45,22 @@ public class ListHook {
     @After(order = fourth, value = "@deleteList")
     public void deleteList() {
         applicationPage = new ApplicationPage();
-        listMenuModal = applicationPage.getListPanel().displayListMenu(context.getProject().getName());
+        listMenuModal = applicationPage.getListPanel().displayListMenu(context.getList().getName());
         deleteModal = listMenuModal.deleteBtn();
         applicationPage = deleteModal.confirmDelete();
+    }
+
+    /**
+     * Deletes a list.
+     */
+    @After(order = fourth, value = "@deleteAllLists")
+    public void deleteAllList() {
+        while(context.getListMap().size()>0){
+            applicationPage = new ApplicationPage();
+            listMenuModal = applicationPage.getListPanel().displayListMenu(context.getProject().getName());
+            deleteModal = listMenuModal.deleteBtn();
+            applicationPage = deleteModal.confirmDelete();
+        }
     }
 
     /**

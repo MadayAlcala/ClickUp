@@ -1,6 +1,7 @@
 package hook;
 
 import clickup.entities.Context;
+import clickup.entities.Project;
 import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.DeleteModal;
 import clickup.ui.pages.ListMenuModal;
@@ -38,6 +39,19 @@ public class ProjectHook {
         listMenuModal = applicationPage.getListPanel().displayProjectMenu(context.getProject().getName());
         deleteModal = listMenuModal.deleteBtn();
         applicationPage = deleteModal.confirmDelete();
+    }
+
+    /**
+     * Deletes projects.
+     */
+    @After(order = third, value = "@deleteAllProjects")
+    public void deleteAllProjects() {
+        while (context.getProjectMap().size() > 0) {
+            applicationPage = new ApplicationPage();
+            listMenuModal = applicationPage.getListPanel().displayProjectMenu(context.getProject().getName());
+            deleteModal = listMenuModal.deleteBtn();
+            applicationPage = deleteModal.confirmDelete();
+        }
     }
 
     /**

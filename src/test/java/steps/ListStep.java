@@ -13,6 +13,7 @@ package steps;
 import clickup.entities.Context;
 import clickup.entities.List;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.CopyListModal;
 import clickup.ui.pages.DeleteModal;
 import clickup.ui.pages.ListMenuModal;
 import cucumber.api.java.After;
@@ -32,7 +33,7 @@ import org.testng.annotations.AfterTest;
 public class ListStep {
     private ApplicationPage applicationPage;
     private ListMenuModal listMenuModal;
-    private DeleteModal deleteModal;
+    private CopyListModal copyListModal;
     private Context context;
 
     /**
@@ -145,7 +146,11 @@ public class ListStep {
     @When("the user copies the list with FOLDERLESS LIST option and gives it the name {string}")
     public void copyList(final String copyList) {
         String actualListName = context.getList().getName();
+        listMenuModal = applicationPage.getListPanel().displayListMenu(actualListName);
+        copyListModal = listMenuModal.copyBtn();
         context.getList().setName(copyList);
-        applicationPage.getListPanel().copylist(actualListName, copyList);
+        copyListModal.clickfolderlessList();
+        copyListModal.changeName(copyList);
+        applicationPage = copyListModal.confirmCopy();
     }
 }
