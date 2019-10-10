@@ -19,7 +19,7 @@ public class ImportStep {
 
     @Then("the import is successfully")
     public void theImportIsSuccesfully() {
-        Assert.assertEquals(true,importPage.isSuccessfullyImport());
+        Assert.assertEquals(true, importPage.isSuccessfullyImport());
     }
 
     @When("the user fill the fields requirement")
