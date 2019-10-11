@@ -66,11 +66,12 @@ public final class LoginPage extends BasePage {
      * @param email    a String containing the email associated to a given user.
      * @param password a String containing the password associated to a given user.
      */
-    public void authenticate(final String email, final String password) {
+    public ApplicationPage authenticate(final String email, final String password) {
         getWait().until(ExpectedConditions.visibilityOf(emailField));
         getEmailField(email);
         getPasswordField(password);
         getLoginField();
+        return new ApplicationPage();
     }
 
     /**

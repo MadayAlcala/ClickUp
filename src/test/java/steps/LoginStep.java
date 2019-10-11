@@ -64,14 +64,13 @@ public class LoginStep {
      * @throws IOException .
      */
     @When("the (.*) fills the form with email and password")
-    public ApplicationPage fillingForm(final String userType) throws GeneralSecurityException, DecoderException,
+    public void fillInLoginForm(final String userType) throws GeneralSecurityException, DecoderException,
             IOException {
         loginPage = new LoginPage();
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         context.getUserMap().put(userType, context.getUser());
-        loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType)
-                .getPassword());
-        return new ApplicationPage();
+        applicationPage = loginPage.authenticate(context.getUserMap().get(userType).getEmail(),
+                context.getUserMap().get(userType).getPassword());
     }
 
     /**
@@ -96,7 +95,7 @@ public class LoginStep {
     public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
         String login = PageTransporter.getMap().get("login");
         PageTransporter.goToUrl(login);
-        applicationPage = fillingForm(userType);
+        fillInLoginForm(userType);
         applicationPage.getSideMenu().waitForPageLoading();
     }
 }

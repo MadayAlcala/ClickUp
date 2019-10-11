@@ -45,6 +45,7 @@ public class TaskStep {
     private TaskModalPage taskModalPage;
     private NotificationsPage notificationsPage;
     private TaskApi taskApi;
+    private Response response;
 
     /**
      * Constructor for dependency injection.
@@ -171,6 +172,23 @@ public class TaskStep {
     }
 
     /**
+     * Searches an existing id.
+     */
+    @When("the user makes an API request for the task")
+    public void userSearchesExistingTaskById() throws GeneralSecurityException, IOException, DecoderException {
+        taskApi = new TaskApi(context.getUser());
+        response = taskApi.findTaskById(context.getTask().getId());
+        response.prettyPrint();
+    }
+
+    @Then("the user should see that he is assigned to the new task")
+    public void isUserAssignedToTask() {
+        List<Map> assigneeList = response.jsonPath().get("assignees");
+        Assert.assertEquals(assigneeList.get(0).get("username"), context.getUserMap().get("guest").getFullName(),
+                "The task is currently assigned to " + assigneeList.toString());
+    }
+
+    /**
      * Confirms the message thrown by application after a Task is moved.
      *
      * @throws UnsupportedFlavorException .
@@ -190,9 +208,10 @@ public class TaskStep {
     /**
      * Searches for a newly created task inside a listing.
      */
-    @Then("the user should see the task listed")
+    @Then("the user should see the new task listed")
     public void isTaskListedInNotifications() {
         notificationsPage = new NotificationsPage();
+        notificationsPage.waitForPageLoading();
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
@@ -234,7 +253,7 @@ public class TaskStep {
     @Then("the user should not see the task listed")
     public void userShouldNotSeeTheTaskListed() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
