@@ -12,10 +12,7 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.List;
-import clickup.ui.pages.AddNewModal;
-import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.CopyListModal;
-import clickup.ui.pages.ListMenuModal;
+import clickup.ui.pages.*;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -31,6 +28,7 @@ public class ListStep {
     private ListMenuModal listMenuModal;
     private AddNewModal addNewModal;
     private CopyListModal copyListModal;
+    private PopUpModal popUpModal;
     private Context context;
 
     /**
@@ -56,22 +54,26 @@ public class ListStep {
         applicationPage.getListPanel().newNameList(nameList);
     }
 
-//    /**
-//     * Creates new list in a space.
-//     *
-//     * @param order to be stored in the collection within the context.
-//     * @param listName that is the name of the new List.
-//     */
-//    @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
-//    public void createNewLists(final String order, final String listName) {
-//        String trimmedListName = listName.replaceAll("\"", "");
-//        applicationPage = new ApplicationPage();
-//        applicationPage.getListPanel().addNewList(trimmedListName);
-//        List list = new List();
-//        list.setName(trimmedListName);
-//        context.setList(list);
-//        context.getListMap().put(order, list);
-//    }
+    /**
+     * Creates new list in a space.
+     *
+     * @param order to be stored in the collection within the context.
+     * @param listName that is the name of the new List.
+     */
+    @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
+    public void createNewLists(final String order, final String listName) {
+        String trimmedListName = listName.replaceAll("\"", "");
+        applicationPage = new ApplicationPage();
+        //Ahora este bloque de codigo se encarga de hacer la creacion de una lista:
+        addNewModal = applicationPage.getListPanel().addNewBtn();
+        applicationPage = addNewModal.getListBox();
+        applicationPage.getListPanel().newNameList(trimmedListName);
+        //**********
+        List list = new List();
+        list.setName(trimmedListName);
+        context.setList(list);
+        context.getListMap().put(order, list);
+    }
 
     /**
      * Checks that the list has been created.
@@ -97,26 +99,6 @@ public class ListStep {
         applicationPage.getListPanel().updateNameList(nameList);
     }
 
-//    /**
-//     * Deletes a list.
-//     */
-//    @When("the user deletes the list")
-//    public void deleteList() {
-//        applicationPage = new ApplicationPage();
-//        String listsName = context.getList().getName();
-//        applicationPage.getListPanel().deleteList(listsName);
-//    }
-
-    /**
-     * Verifies the name of the list in Content Panel.
-     */
-    @Then("the user should see the name of the list on content Task")
-    public void verifyNameListOnContentPanel() {
-        String expected = context.getList().getName();
-        String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());
-        Assert.assertEquals(expected, actual);
-    }
-
     /**
      * Verifies the name of the list on Bar Title in Content Panel.
      */
@@ -135,7 +117,7 @@ public class ListStep {
     @Then("the user should see the copy success message: {string}")
     public void successCopyMessage(final String copyMessage) {
         String expected = copyMessage;
-        String actual = applicationPage.getListPanel().getCopyConfirmationMessage();
+        String actual = popUpModal.getCopyConfirmationMessage();
         Assert.assertEquals(expected, actual, "The message was not displayed.");
     }
 

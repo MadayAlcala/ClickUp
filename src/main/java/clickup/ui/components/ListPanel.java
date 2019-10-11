@@ -48,15 +48,6 @@ public class ListPanel extends BasePage {
 
     @FindBy(css = "div.cu-list-group__name > cu-editable.cu-editable")
     private WebElement listNameHeader;
-
-    @FindBy(css = "div.toast__undo.ng-tns-c0-0.ng-star-inserted")
-    private WebElement informationPopUp;
-
-    @FindBy(css = ".toast__undo-content")
-    private WebElement copyConfirmationMessage;
-
-    @FindBy(css = "div.toast__close-button-block")
-    private WebElement closeButton;
 //
 //    /**
 //     * Selects the '+' symbol to displayed their options.
@@ -143,26 +134,6 @@ public class ListPanel extends BasePage {
         WebElementActions.click(addBtn);
 //        WebElementActions.click(folderBox);
         return new AddNewModal();
-    }
-
-    /**
-     * Closes the modal that appears after the copy of a project.
-     */
-    private void closeModal() {
-        WebElementActions.click(closeButton);
-    }
-
-    /**
-     * Returns the message on the pop up modal that appears after a List or folder is copied.
-     *
-     * @return a String containing the message on the pop up modal that appears after a some actions is realized.
-     */
-    public String getCopyConfirmationMessage() {
-        getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
-        String result = copyConfirmationMessage.getText();
-        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
-        closeModal();
-        return result;
     }
 
     /**

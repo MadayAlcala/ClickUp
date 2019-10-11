@@ -292,4 +292,14 @@ public class TaskStep {
     public void verifyTaskInCompleteStatus() {
         Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
     }
+
+    /**
+     * Verifies the name of the list in Content Panel.
+     */
+    @Then("the user should see the name of the list on content Task")
+    public void verifyNameListOnContentPanel() {
+        String expected = context.getList().getName();
+        String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());
+        Assert.assertEquals(expected, actual);
+    }
 }
