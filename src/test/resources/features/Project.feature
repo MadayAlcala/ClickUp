@@ -14,8 +14,8 @@ Feature: Project
   Scenario: A user copy a project with all values option
     Given the user creates a new project with the following name "ProjectTest"
     When the user copies the project and gives it the name "New Project"
-    Then the user should see the copy success message: "Copying Folder..."
-      And the user should see the copy success message: "Folder copied!"
+#    Then the user should see the copy success message: "Copying Folder..."
+#      And the user should see the copy success message: "Folder copied!"
       And the user should see the new project appear in the panel successfully
       And the user should see the name of the list on content Task
       And the user should see the name of the project on the Bar title of content panel

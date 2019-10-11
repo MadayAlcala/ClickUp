@@ -10,6 +10,9 @@ public class NewProjectModal extends BasePage {
     @FindBy(css = ".cu-form__input")
     private WebElement folderNameTxtBox;
 
+    @FindBy(className = "cu-modal__control-item cu-modal__close icon")
+    private WebElement folderCloseButton;
+
     public ApplicationPage addName(String projectName) {
         WebElementActions.click(folderNameTxtBox);
         WebElementActions.sendKeys(folderNameTxtBox, projectName);

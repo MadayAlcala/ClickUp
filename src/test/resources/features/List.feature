@@ -35,8 +35,8 @@ Feature: List
   Scenario: Copy a list with all values and folderless list options
     Given the user creates a new list with the following name "TestList"
     When the user copies the list with FOLDERLESS LIST option and gives it the name "New List"
-    Then the user should see the copy success message: "Copying List..."
-      And the user should see the copy success message: "List copied!"
+#    Then the user should see the copy success message: "Copying List..."
+#      And the user should see the copy success message: "List copied!"
       And the user should see the new list appear in the panel successfully
       And the user should see the name of the list on the Bar title of content panel
       And the user should see the name of the list on content Task

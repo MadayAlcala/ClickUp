@@ -10,16 +10,14 @@ public class CopyListModal extends BasePage {
     @FindBy(css = ".cu-form__input")
     private WebElement folderNameTxtBox;
 
-    @FindBy(className = "cu-btn")
+    @FindBy(css = ".category-copy__button-block > .cu-btn")
     private WebElement copyFolderBtn;
 
     @FindBy(css = ".category-list__folderless > .cu-checkbox__label")
     private WebElement folderlessListCheckBox;
 
     public void changeName(String copyListName){
-        folderNameTxtBox.click();
-        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        folderNameTxtBox.sendKeys(copyListName);
+        WebElementActions.sendKeysWithDeleteText(folderNameTxtBox, copyListName);
     }
 
     public void clickfolderlessList(){
@@ -27,7 +25,7 @@ public class CopyListModal extends BasePage {
     }
 
     public ApplicationPage confirmCopy(){
-        copyFolderBtn.click();
+        WebElementActions.click(copyFolderBtn);
         return new ApplicationPage();
     }
 }

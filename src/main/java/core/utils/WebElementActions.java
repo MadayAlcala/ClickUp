@@ -89,4 +89,10 @@ public final class WebElementActions {
         }
         return present;
     }
+
+    public static void sendKeysWithDeleteText(final WebElement webElement, String key) {
+        webElement.click();
+        webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        webElement.sendKeys(key);
+    }
 }

@@ -1,10 +1,7 @@
 package steps;
 
 import clickup.entities.Context;
-import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.CopyListModal;
-import clickup.ui.pages.ListMenuModal;
-import clickup.ui.pages.NewProjectModal;
+import clickup.ui.pages.*;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -20,6 +17,7 @@ public class ProjectStep {
     private ListMenuModal listMenuModal;
     private CopyListModal copyListModal;
     private NewProjectModal newProjectModal;
+    private AddNewModal addNewModal;
     private Context context;
 
     /**
@@ -41,7 +39,8 @@ public class ProjectStep {
         applicationPage = new ApplicationPage();
         context.getProject().setName(projectName);
         context.getList().setName("List");
-        newProjectModal = applicationPage.getListPanel().addNewFolder(projectName);
+        addNewModal = applicationPage.getListPanel().addNewBtn();
+        newProjectModal = addNewModal.getProjectBox();
         applicationPage = newProjectModal.addName(projectName);
     }
 

@@ -12,17 +12,13 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.List;
+import clickup.ui.pages.AddNewModal;
 import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.CopyListModal;
-import clickup.ui.pages.DeleteModal;
 import clickup.ui.pages.ListMenuModal;
-import cucumber.api.java.After;
-import cucumber.api.java.AfterStep;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 
 /**
  * ListStep class.
@@ -33,6 +29,7 @@ import org.testng.annotations.AfterTest;
 public class ListStep {
     private ApplicationPage applicationPage;
     private ListMenuModal listMenuModal;
+    private AddNewModal addNewModal;
     private CopyListModal copyListModal;
     private Context context;
 
@@ -54,25 +51,27 @@ public class ListStep {
     public void createNewList(final String nameList) {
         applicationPage = new ApplicationPage();
         context.getList().setName(nameList);
-        applicationPage.getListPanel().addNewList(nameList);
+        addNewModal = applicationPage.getListPanel().addNewBtn();
+        applicationPage = addNewModal.getListBox();
+        applicationPage.getListPanel().newNameList(nameList);
     }
 
-    /**
-     * Creates new list in a space.
-     *
-     * @param order to be stored in the collection within the context.
-     * @param listName that is the name of the new List.
-     */
-    @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
-    public void createNewLists(final String order, final String listName) {
-        String trimmedListName = listName.replaceAll("\"", "");
-        applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().addNewList(trimmedListName);
-        List list = new List();
-        list.setName(trimmedListName);
-        context.setList(list);
-        context.getListMap().put(order, list);
-    }
+//    /**
+//     * Creates new list in a space.
+//     *
+//     * @param order to be stored in the collection within the context.
+//     * @param listName that is the name of the new List.
+//     */
+//    @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
+//    public void createNewLists(final String order, final String listName) {
+//        String trimmedListName = listName.replaceAll("\"", "");
+//        applicationPage = new ApplicationPage();
+//        applicationPage.getListPanel().addNewList(trimmedListName);
+//        List list = new List();
+//        list.setName(trimmedListName);
+//        context.setList(list);
+//        context.getListMap().put(order, list);
+//    }
 
     /**
      * Checks that the list has been created.
@@ -92,8 +91,10 @@ public class ListStep {
     @When("the user updates a list with the following name {string}")
     public void updateList(final String nameList) {
         applicationPage = new ApplicationPage();
+        listMenuModal = applicationPage.getListPanel().displayListMenu(context.getList().getName());
+        applicationPage = listMenuModal.renameBtn();
         context.getList().setName(nameList);
-        applicationPage.getListPanel().updateList(nameList);
+        applicationPage.getListPanel().updateNameList(nameList);
     }
 
 //    /**

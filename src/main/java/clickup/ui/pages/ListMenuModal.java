@@ -4,22 +4,32 @@ import clickup.ui.BasePage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ListMenuModal extends BasePage {
-    @FindBy(xpath = "//a[@cutooltip='Delete']")
+    @FindBy(css = "[cutooltip='Delete']")
     private WebElement deleteBtn;
 
-    @FindBy(className = "nav-menu-item__icon nav-menu-item__icon_copy icon")
+    @FindBy(css = " [cutooltip='Rename']")
+    private WebElement renameBtn;
+
+    @FindBy(css = "[icon='copy']")
     private WebElement copyLink;
 
+    @FindBy(xpath = "[icon='move']")
+    private WebElement moveLink;
+
     public DeleteModal deleteBtn(){
-        deleteBtn.click();
+        WebElementActions.click(deleteBtn);
         return new DeleteModal();
     }
 
     public CopyListModal copyBtn(){
-        copyLink.click();
+        WebElementActions.click(copyLink);
         return new CopyListModal();
+    }
+
+    public ApplicationPage renameBtn(){
+        WebElementActions.click(renameBtn);
+        return new ApplicationPage();
     }
 }

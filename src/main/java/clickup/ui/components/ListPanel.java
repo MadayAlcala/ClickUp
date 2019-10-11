@@ -12,6 +12,7 @@ package clickup.ui.components;
 
 import clickup.entities.List;
 import clickup.ui.BasePage;
+import clickup.ui.pages.AddNewModal;
 import clickup.ui.pages.ListMenuModal;
 import clickup.ui.pages.NewProjectModal;
 import core.utils.WebElementActions;
@@ -39,15 +40,6 @@ public class ListPanel extends BasePage {
     @FindBy(css = ".lv-empty_img > img")
     private WebElement emptyTaskListImg;
 
-    @FindBy(xpath = " //a[@cutooltip='Rename']")
-    private WebElement renameBtn;
-
-    @FindBy(css = " .cu-dropdown-list-item__icon_new-folder")
-    private WebElement folderBox;
-
-    @FindBy(css = ".cu-dropdown-list-item__icon_new-list")
-    private WebElement listBox;
-
     @FindBy(css = ".nav-section-maker__input")
     private WebElement listNameMakerTxtField;
 
@@ -63,45 +55,29 @@ public class ListPanel extends BasePage {
     @FindBy(css = ".toast__undo-content")
     private WebElement copyConfirmationMessage;
 
-    @FindBy(className = "cu-modal__control-item cu-modal__close icon")
-    private WebElement folderCloseButton;
-
     @FindBy(css = "div.toast__close-button-block")
     private WebElement closeButton;
-
-    @FindBy(xpath = "//a[contains(.,'Move')]")
-    private WebElement moveLink;
-
-    /**
-     * Selects the '+' symbol to displayed their options.
-     */
-    private void addBtn() {
-        WebElementActions.click(addBtn);
-    }
-
-    /**
-     * Selects the option 'New List' to create a new List.
-     */
-    private void getListBox() {
-        WebElementActions.click(listBox);
-    }
+//
+//    /**
+//     * Selects the '+' symbol to displayed their options.
+//     */
+//    private void addBtn() {
+//        WebElementActions.click(addBtn);
+//    }
 
     /**
      * Creates a new list.
      *
      * @param listName that is the name of the new List.
      */
-    public void addNewList(final String listName) {
-        getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(listNameHeader),
-                ExpectedConditions.visibilityOf(emptyTaskListImg)
-        ));
-        addBtn();
-        getListBox();
+    public void newNameList(final String listName) {
+//        getWait().until(ExpectedConditions.or(
+//                ExpectedConditions.visibilityOf(listNameHeader),
+//                ExpectedConditions.visibilityOf(emptyTaskListImg)
+//        ));
         WebElementActions.sendKeys(listNameMakerTxtField, listName);
         WebElementActions.enter(listNameMakerTxtField);
         getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
-        waitForHeaderElementTextEqualsCreatedListName(listName);
     }
 
     /**
@@ -144,56 +120,35 @@ public class ListPanel extends BasePage {
         return new ListMenuModal();
     }
 
-//    /**
-//     * Selects delete button.
-//     *
-//     * @param listName that is the name of the list.
-//     */
-//    public void deleteList(final String listName) {
-//        displayListMenu(listName);
-//        getWait().until(ExpectedConditions.or(
-//                ExpectedConditions.visibilityOf(listNameHeader),
-//                ExpectedConditions.visibilityOf(emptyTaskListImg)
-//        ));
-//    }
-
     /**
      * Updates the name of a List.
      *
      * @param newListName that is the new name for the list.
      */
-    public void updateList(final String newListName) {
-        getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(listNameHeader),
-                ExpectedConditions.visibilityOf(emptyTaskListImg)
-        ));
-        displayListMenu(newListName);
-        WebElementActions.click(renameBtn);
-        listNameEditorTxtField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        listNameEditorTxtField.sendKeys(newListName);
-        listNameEditorTxtField.sendKeys(Keys.ENTER);
+    public void updateNameList(final String newListName) {
+        WebElementActions.sendKeysWithDeleteText(listNameEditorTxtField, newListName);
+        WebElementActions.enter(listNameEditorTxtField);
         getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
     }
 
     /**
      * Creates a new folder.
      *
-     * @param folderName that is going to be the name of the new folder.
      */
-    public NewProjectModal addNewFolder(final String folderName) {
-        getWait().until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(listNameHeader),
-                ExpectedConditions.visibilityOf(emptyTaskListImg)
-        ));
-        addBtn();
-        WebElementActions.click(folderBox);
-        return new NewProjectModal();
+    public AddNewModal addNewBtn() {
+//        getWait().until(ExpectedConditions.or(
+//                ExpectedConditions.visibilityOf(listNameHeader),
+//                ExpectedConditions.visibilityOf(emptyTaskListImg)
+//        ));
+        WebElementActions.click(addBtn);
+//        WebElementActions.click(folderBox);
+        return new AddNewModal();
     }
 
     /**
      * Closes the modal that appears after the copy of a project.
      */
-    public void closeModal() {
+    private void closeModal() {
         WebElementActions.click(closeButton);
     }
 
@@ -204,7 +159,8 @@ public class ListPanel extends BasePage {
      */
     public String getCopyConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
-        String result = copyConfirmationMessage.getText();        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
+        String result = copyConfirmationMessage.getText();
+        getWait().until(ExpectedConditions.elementToBeClickable(closeButton));
         closeModal();
         return result;
     }
@@ -251,19 +207,6 @@ public class ListPanel extends BasePage {
         return new ListMenuModal();
     }
 
-//    /**
-//     * Selects delete button.
-//     *
-//     * @param projectName that is the name of the project.
-//     */
-//    public void deleteProject(final String projectName) {
-//        displayProjectMenu(projectName);
-//        getWait().until(ExpectedConditions.or(
-//                ExpectedConditions.visibilityOf(listNameHeader),
-//                ExpectedConditions.visibilityOf(emptyTaskListImg)
-//        ));
-//    }
-
     /**
      * Waits for the List Name To appear on the content panel.
      *
@@ -273,35 +216,4 @@ public class ListPanel extends BasePage {
         ExpectedCondition<Boolean> elementTextEqualsString = arg0 -> listNameHeader.getText().equals(newListName);
         getWait().until(elementTextEqualsString);
     }
-
-//    /**
-//     * Copies a list.
-//     *
-//     * @param listName     that represent the list to copy.
-//     * @param copyListName that represent the new name for the list to copy.
-//     */
-//    public void copylist(final String listName, final String copyListName) {
-//        displayListMenu(listName);
-//        WebElementActions.click(copyLink);
-//        listBox.click();
-//        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-//        folderNameTxtBox.sendKeys(copyListName);
-//        folderNameTxtBox.click();
-//        WebElementActions.click(copyFolderBtn);
-//    }
-
-//    /**
-//     * Copies a project.
-//     *
-//     * @param projectName     that represent the project to copy.
-//     * @param copyProjectName that represent the new name for the project to copy.
-//     */
-//    public void copyProject(final String projectName, final String copyProjectName) {
-//        displayProjectMenu(projectName);
-//        WebElementActions.click(copyLink);
-//        folderNameTxtBox.click();
-//        folderNameTxtBox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-//        folderNameTxtBox.sendKeys(copyProjectName);
-//        WebElementActions.click(copyFolderBtn);
-//    }
 }

@@ -62,13 +62,4 @@ public class ListHook {
             applicationPage = deleteModal.confirmDelete();
         }
     }
-
-    /**
-     * Creates a new list.
-     */
-    @Before(value = "@addNewList")
-    public void createList() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().addNewList("ListTest");
-    }
 }

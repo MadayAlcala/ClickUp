@@ -53,13 +53,4 @@ public class ProjectHook {
             applicationPage = deleteModal.confirmDelete();
         }
     }
-
-    /**
-     * Creates a new project.
-     */
-    @Before(value = "@addNewProject")
-    public void createList() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().addNewFolder("ProjectTest");
-    }
 }
