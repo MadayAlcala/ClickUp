@@ -251,14 +251,6 @@ public class TaskStep {
     }
 
     /**
-     * Changes the view to board view.
-     */
-    @When("the user selects the board view")
-    public void selectBoardView() {
-        applicationPage.getContentPanel().setBoardView();
-    }
-
-    /**
      * Searches a task in the list view.
      *
      * @param key that represent the keyword for search a task.
@@ -283,6 +275,7 @@ public class TaskStep {
      */
     @When("the user drags the task to Complete status")
     public void dragTaskToCompleteStatus() {
+        applicationPage.getContentPanel().setBoardView();
         applicationPage.getContentPanel().moveTask(context.getTask().getName());
     }
 
