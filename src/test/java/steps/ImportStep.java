@@ -12,18 +12,23 @@ public class ImportStep {
         importPage = new ImportPage();
     }
 
-    @When("the user import CSV file")
-    public void ImportFillFields() {
-        importPage.importTable();
+    @When("the user imports CSV file {string}")
+    public void ImportFillFields(String fileImport) {
+        importPage.importTable(fileImport);
     }
 
-    @Then("the import is successfully")
+    @Then("the import should show that it was done successfully")
     public void theImportIsSuccesfully() {
         Assert.assertEquals(true, importPage.isSuccessfullyImport());
     }
 
-    @When("the user fill the fields requirement")
-    public void theUserFillTheFieldsRequirement() {
-        importPage.importManually();
+    @When("deletetask")
+    public void deletetask() {
+        importPage.deleImportedTask();
+    }
+
+    @Then("the task import should be created in a space list")
+    public void theTaskImportShouldBeCreatedInASpaceList() {
+
     }
 }
