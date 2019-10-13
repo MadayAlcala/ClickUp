@@ -91,7 +91,7 @@ public class ContentPanel extends BasePage {
      * Visits the '+ New Task' hyperlink from the menu at the top of the List group in the body section.
      */
     private void followNewTaskLink() {
-        newTaskLink.click();
+        WebElementActions.click(newTaskLink);
     }
 
     /**
@@ -154,16 +154,6 @@ public class ContentPanel extends BasePage {
     public String getConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(creationConfirmationMessage));
         return creationConfirmationMessage.getText();
-    }
-
-    /**
-     * Returns a string containing the name ot task specified by id.
-     *
-     * @return a string containing the name ot task specified by id
-     */
-    public String getTaskTitleById() {
-        //TODO implementation pending.
-        return null;
     }
 
     /**

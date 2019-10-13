@@ -10,6 +10,7 @@
 
 package clickup.ui;
 
+import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.selenium.WebDriverManager;
@@ -83,6 +84,19 @@ public final class PageTransporter {
     public static NotificationsPage goToNotificationsPage(final String ownerId) {
         webDriver.navigate().to(getBaseUrl().concat(ownerId).concat("/").concat(map.get("notifications")));
         return new NotificationsPage();
+    }
+
+    /**
+     * Visits the Page of an existing Space within that belongs to a owner.
+     *
+     * @param teamId a String containing the id of a given team (workplace).
+     * @param spaceId a String containing the id of the space located at the
+     *                workplace that belongs to user identified by it id.
+     * @return an instance of NotificationsPage Page Object Model Class.
+     */
+    public static ApplicationPage goToSpacePageById(final String teamId, final String spaceId) {
+        webDriver.navigate().to(getBaseUrl().concat(teamId).concat("/").concat("v/l/s/").concat(spaceId));
+        return new ApplicationPage();
     }
 
     /**

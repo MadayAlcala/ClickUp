@@ -10,17 +10,17 @@
 
 package steps;
 
+import clickup.api.SpaceApi;
 import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import core.utils.WebElementActions;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
@@ -31,6 +31,7 @@ import org.testng.Assert;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,8 @@ public class TaskStep {
     private TaskModalPage taskModalPage;
     private NotificationsPage notificationsPage;
     private TaskApi taskApi;
+    private SpaceApi spaceApi;
+    private Response response;
 
     /**
      * Constructor for dependency injection.
@@ -90,15 +93,6 @@ public class TaskStep {
     }
 
     /**
-     * Asserts if the a given title is listed in the body of the application page.
-     */
-    @Then("the user should see the new task appear in the panel")
-    public void taskShouldBeListed() {
-        String taskTitle = applicationPage.getContentPanel().getTaskTitleById();
-        //TODO assertion pending.
-    }
-
-    /**
      * Creates multiple tasks.
      *
      * @param tasksList that contains the names of the tasks to create.
@@ -108,6 +102,29 @@ public class TaskStep {
         applicationPage = new ApplicationPage();
         String listName = context.getList().getName();
         applicationPage.getContentPanel().createListTasks(tasksList, listName);
+    }
+
+    /**
+     * Creates a space inside a workplace (Team).
+     *
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
+    @Given("the user is at an existing space")
+    public void createExistingSpace() throws GeneralSecurityException, IOException, DecoderException {
+        spaceApi = new SpaceApi(context.getUser());
+        Map<String, String> content = new HashMap<>();
+        content.put("name", "Precondition Space");
+        content.put("multiple_assignees", "true");
+        spaceApi.setContent(content);
+        Response response = spaceApi.postContent(context.getUser().getTeamId());
+        String newSpaceTitle = response.jsonPath().get("name");
+        String newSpaceId = response.jsonPath().get("id");
+        context.getSpace().setTitle(newSpaceTitle);
+        context.getSpace().setId(newSpaceId);
+        ApplicationPage applicationPage = PageTransporter.goToSpacePageById(context.getUser().getTeamId(),
+                context.getSpace().getId());
     }
 
     /**
@@ -123,8 +140,8 @@ public class TaskStep {
      *
      * @param userType a String containing the user type that the task is going to assigned to.
      */
-    @When("the admin user assigns the task to a (.*) user")
-    public void amdinAssignsTaskToUser(final String userType) {
+    @When("the user assigns the task to a (.*) user")
+    public void ownerAssignsTaskToUser(final String userType) {
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         taskModalPage.assignTaskToUser(context.getUser().getFullName());
         taskModalPage.close();
@@ -132,11 +149,13 @@ public class TaskStep {
 
     /**
      * Logs a user out of the application.
+     *
+     * @return a new instance of LoginPage P.O.M. class.
      */
-    @When("the admin user logs out")
-    public void userLogsOut() {
+    @When("the user logs out")
+    public LoginPage userLogsOut() {
         applicationPage.getSideMenu().logOut();
-        new LoginPage();
+        return new LoginPage();
     }
 
     /**
@@ -179,6 +198,42 @@ public class TaskStep {
     }
 
     /**
+     * Searches an existing id.
+
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
+    @When("the user makes an API request for the task")
+    public void userSearchesExistingTaskById() throws GeneralSecurityException, IOException, DecoderException {
+        taskApi = new TaskApi(context.getUser());
+        response = taskApi.findTaskById(context.getTask().getId());
+        response.prettyPrint();
+    }
+
+    /**
+     * Associates a file to the Context Task.
+     *
+     * @param fileName a String containing the name of the file to be uploaded and attaches to a Task.
+     */
+    @When("the user attaches the file {string} from the computer to the new task")
+    public void userAttachesFile(final String fileName) {
+        context.getTask().setAttachmentFile(fileName);
+        taskModalPage.attachFile(fileName);
+        System.out.println("Hold on!");
+    }
+
+    /**
+     * Asserts via API if the response contains the expected assignee.
+     */
+    @Then("the user should see that he is assigned to the new task")
+    public void isUserAssignedToTask() {
+        List<Map> assigneeList = response.jsonPath().get("assignees");
+        Assert.assertEquals(assigneeList.get(0).get("username"), context.getUserMap().get("guest").getFullName(),
+                "The task is currently assigned to " + assigneeList.toString());
+    }
+
+    /**
      * Confirms the message thrown by application after a Task is moved.
      *
      * @throws UnsupportedFlavorException .
@@ -188,18 +243,21 @@ public class TaskStep {
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
         applicationPage = new ApplicationPage();
         String actual = applicationPage.getContentPanel().getConfirmationMessage();
-        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first").getName();
+        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first")
+        // .getName();
         String expected = context.getTask().getName();
         applicationPage.getContentPanel().closeModal();
+        applicationPage = new ApplicationPage();
         Assert.assertEquals(actual, expected, context.getTask().getName() + " has not been moved!");
     }
 
     /**
      * Searches for a newly created task inside a listing.
      */
-    @Then("the user should see the task listed")
+    @Then("the user should see the new task listed in notifications")
     public void isTaskListedInNotifications() {
         notificationsPage = new NotificationsPage();
+        notificationsPage.waitForPageLoading();
         String listedTaskName = notificationsPage.searchTaskByIdAndGetName(context.getTask().getId());
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
@@ -241,12 +299,49 @@ public class TaskStep {
     @Then("the user should not see the task listed")
     public void userShouldNotSeeTheTaskListed() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
-        List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask().getId());
+        List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask()
+                .getId());
         Assert.assertTrue(elementsList.isEmpty());
+    }
+
+    /**
+     * Asserts if the last message appended to the task effectively states that a task was assigned to the current user.
+     */
+    @Then("the user should see the message that the task was assigned to him")
+    public void checkAssignationMessage() {
+        String actual = taskModalPage.readLastTaskHistory();
+        String expected = context.getUserMap().get("creator").getFullName().concat(System.getProperty("line.separator")
+                .concat("assigned to: You"));
+        taskModalPage.close();
+        Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName()
+                + "hasn't been assigned to you yet!");
+    }
+
+    /**
+     * Searches for a newly created task inside a listing.
+     */
+    @Then("the user should see the new task listed$")
+    public void isTaskListed() {
+        applicationPage = new ApplicationPage();
+        String listedTaskName = applicationPage.getContentPanel().searchTaskByIdAndGetName(context.getTask().getId());
+        //applicationPage.getContentPanel().waitForPopUpToGo();
+        Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
+                .getName() + " is not listed!");
+    }
+
+    /**
+     * Asserts if a uploaded file is listed in the attachment section of a Task Modal Page.
+     */
+    @Then("the user should see the file in the attachments section")
+    public void userSeeAttachment() {
+        String actual = taskModalPage.getAttachmentFileName();
+        String expected = context.getTask().getAttachmentFile();
+        taskModalPage.close();
+        Assert.assertEquals(actual, expected, "File upload failed!");
     }
 
     /**
