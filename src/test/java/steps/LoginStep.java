@@ -64,7 +64,8 @@ public class LoginStep {
      * @throws IOException              .
      */
     @When("the (.*) fills the form with email and password")
-    public void fillingForm(final String userType) throws GeneralSecurityException, DecoderException, IOException {
+    public void fillInLoginForm(final String userType) throws GeneralSecurityException, DecoderException,
+            IOException {
         loginPage = new LoginPage();
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         context.getUserMap().put(userType, context.getUser());
@@ -92,11 +93,11 @@ public class LoginStep {
      * @throws IOException              .
      * @throws DecoderException         .
      */
-    @When("the user logs as (.*)")
+    @When("the user logs in as (.*)")
     public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {
-        fillingForm(userType);
-        // TODO Refactor
-        applicationPage = new ApplicationPage();
+        String login = PageTransporter.getMap().get("login");
+        PageTransporter.goToUrl(login);
+        fillInLoginForm(userType);
         applicationPage.getSideMenu().waitForPageLoading();
     }
 }

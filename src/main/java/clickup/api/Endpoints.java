@@ -17,6 +17,7 @@ package clickup.api;
  * @version 1.0
  */
 public final class Endpoints {
+    public static final String TEAM_SUFFIX = "team";
     public static final String SPACE_SUFFIX = "space";
     public static final String PROJECT_SUFFIX = "folder";
     public static final String LIST_SUFFIX = "list";
