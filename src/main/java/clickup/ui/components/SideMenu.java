@@ -11,10 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import clickup.ui.PageTransporter;
-import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.HomeModal;
-import clickup.ui.pages.LoginPage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +29,8 @@ public class SideMenu extends BasePage {
 
     /**
      * Clicks on the account avatar.
+     *
+     * @return a HomeModal instance.
      */
     public HomeModal displayUserMenu() {
         getWait().until(ExpectedConditions.visibilityOf(spaceBarButton));

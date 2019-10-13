@@ -11,8 +11,8 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import clickup.ui.pages.AddNewModal;
-import clickup.ui.pages.ListMenuModal;
+import clickup.ui.pages.ListPanelModal.AddNewModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -58,13 +58,12 @@ public class ListPanel extends BasePage {
      * @param listName that is the name of the new List.
      */
     public void newNameList(final String listName) {
-//        getWait().until(ExpectedConditions.or(
-//                ExpectedConditions.visibilityOf(listNameHeader),
-//                ExpectedConditions.visibilityOf(emptyTaskListImg)
-//        ));
         WebElementActions.sendKeys(listNameMakerTxtField, listName);
         WebElementActions.enter(listNameMakerTxtField);
-        getWait().until(ExpectedConditions.visibilityOf(listNameHeader));
+        getWait().until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOf(listNameHeader),
+                ExpectedConditions.visibilityOf(emptyTaskListImg)
+        ));
     }
 
     /**
@@ -102,6 +101,7 @@ public class ListPanel extends BasePage {
      * Selects the list' menu.
      *
      * @param listName that is the name of the list.
+     * @return a ListMenuModal instance.
      */
     public ListMenuModal displayListMenu(final String listName) {
         WebElementActions.click(getListMenuElementByName(listName));
@@ -121,6 +121,8 @@ public class ListPanel extends BasePage {
 
     /**
      * Creates a new folder.
+     *
+     * @return a ListPanelModal instance.
      */
     public AddNewModal addNewBtn() {
         WebElementActions.click(addBtn);
@@ -164,6 +166,7 @@ public class ListPanel extends BasePage {
      * Selects the list' menu.
      *
      * @param projectName that is the name of the project.
+     * @return a ListMenuModal instance.
      */
     public ListMenuModal displayProjectMenu(final String projectName) {
         WebElementActions.click(getProjectMenuElementByName(projectName));

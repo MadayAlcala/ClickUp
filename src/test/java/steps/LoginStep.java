@@ -68,8 +68,8 @@ public class LoginStep {
         loginPage = new LoginPage();
         context.setUser(CredentialDeserializer.getInstance().getUser(userType));
         context.getUserMap().put(userType, context.getUser());
-        applicationPage = loginPage.authenticate(context.getUserMap().get(userType).getEmail(), context.getUserMap().get(userType)
-                .getPassword());
+        applicationPage = loginPage.authenticate(context.getUserMap().get(userType).getEmail(),
+                context.getUserMap().get(userType).getPassword());
     }
 
     /**

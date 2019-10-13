@@ -2,7 +2,12 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.Project;
-import clickup.ui.pages.*;
+import clickup.ui.pages.ListPanelModal.AddNewModal;
+import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.CopyListModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
+import clickup.ui.pages.ListPanelModal.NewProjectModal;
+import clickup.ui.pages.PopUpModal;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;

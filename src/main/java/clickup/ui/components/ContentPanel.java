@@ -13,8 +13,8 @@ package clickup.ui.components;
 import clickup.entities.Task;
 import clickup.ui.BasePage;
 import clickup.ui.PageTransporter;
-import core.utils.WebElementActions;
 import core.utils.PropertyReader;
+import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -22,7 +22,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -42,7 +42,7 @@ public class ContentPanel extends BasePage {
     private static final String TASK_PREFIX = "t/";
     private static final String TASK_LIST_ANCHORS = "a.cu-task-row-main__link[href='%s']";
     private static final String TASK_ANCHOR = "a[href='%s']";
-    private static final String CARD_ELEMENT = "//cu-dashboard-board-card[contains(.,'%s')]";
+    private static final String CARD_ELEMENT = "//div[@class='cu-panel-board__title-container'][contains(.,'%s')]";
     private static final String CONTENT_LIST_HEADER = "//cu-list-group[contains(.,'%s')]";
 
     @FindBy(css = "*[class *= 'list-group__add']")
@@ -63,13 +63,13 @@ public class ContentPanel extends BasePage {
     @FindBy(css = "div.toast__close-button-block")
     private WebElement closeButton;
 
-    @FindBy(css = ".cu-task-list-header-field__item:nth-child(1) .cu-task-list-header-field__title-text")
+    @FindBy(xpath = "//cu-task-list-header-field[contains(.,'task')]")
     private WebElement taskQtyLink;
 
     @FindBy(css = ".cu-search-filter .cu-search-filter__input")
     private WebElement searchTxtField;
 
-    @FindBy(css = "cu-data-view-item:nth-child(2) > a.cu-data-view-item__link.cu-data-view-item__link_icon")
+    @FindBy(xpath = "//cu-data-view-item/a[contains(@href,'/v/b/')]")
     private WebElement boardViewBtn;
 
     @FindBy(css = "div.cu-list-group__name")
@@ -81,10 +81,10 @@ public class ContentPanel extends BasePage {
     @FindBy(className = "cu-views-bar-title__label")
     private WebElement projectNameBarTitleLabelTxt;
 
-    @FindBy(css = ".cu-panel-board:nth-child(1) > .cu-dashboard-board-card .cu-panel-board__header")
+    @FindBy(css = "div.cu-panel-board__column-drag[data-status='to do']")
     private WebElement toDoColumn;
 
-    @FindBy(css = ".cu-dashboard-board__column:nth-child(2) .cu-panel-board__column-drag")
+    @FindBy(css = "div.cu-panel-board__column-drag[data-status='complete']")
     private WebElement completeColumn;
 
     /**
@@ -284,11 +284,10 @@ public class ContentPanel extends BasePage {
      * @param listName that is the name of the list to wait.
      * @return the name of the list on content Panel.
      */
-    public String getContentListHeader(final String listName) {
-//        Thread.sleep(5000);
+    public String getContentListHeader(final String listName) throws InterruptedException {
+        Thread.sleep(5000);
         getWait().until(ExpectedConditions.textToBePresentInElement(listNameContentPanelLabelTxt, listName));
         return listNameContentPanelLabelTxt.getText();
-
     }
 
     /**
@@ -348,6 +347,7 @@ public class ContentPanel extends BasePage {
      * @return a conditional agreement whether the task is found or not.
      */
     public boolean containsTask(final String taskName) {
+        getWait().until(ExpectedConditions.textToBePresentInElement(completeColumn, completeColumn.getText()));
         return completeColumn.getText().contains(taskName);
     }
 }

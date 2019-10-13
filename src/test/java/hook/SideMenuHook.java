@@ -10,10 +10,8 @@
 
 package hook;
 
-import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.HomeModal;
-import clickup.ui.pages.LoginPage;
 import cucumber.api.java.After;
 
 /**
@@ -31,7 +29,7 @@ public class SideMenuHook {
     public void logout() {
         ApplicationPage applicationPage = new ApplicationPage();
         HomeModal homeModal;
-        homeModal =applicationPage.getSideMenu().displayUserMenu();
+        homeModal = applicationPage.getSideMenu().displayUserMenu();
         homeModal.logOut();
     }
 }

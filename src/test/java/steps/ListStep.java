@@ -12,7 +12,11 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.List;
-import clickup.ui.pages.*;
+import clickup.ui.pages.ListPanelModal.AddNewModal;
+import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.CopyListModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
+import clickup.ui.pages.PopUpModal;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -150,7 +154,7 @@ public class ListStep {
      * Verifies the name of the list in Content Panel.
      */
     @Then("the user should see the name of the list on content Task")
-    public void verifyNameListOnContentPanel() {
+    public void verifyNameListOnContentPanel() throws InterruptedException {
         applicationPage = new ApplicationPage();
         String expected = context.getList().getName();
         String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());

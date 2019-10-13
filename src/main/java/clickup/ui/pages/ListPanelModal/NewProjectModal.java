@@ -1,6 +1,7 @@
-package clickup.ui.pages;
+package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
+import clickup.ui.pages.ApplicationPage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,7 +25,7 @@ public class NewProjectModal extends BasePage {
      * @param projectName a string with the name for the folder.
      * @return an ApplicationPage instance.
      */
-    public ApplicationPage addName(String projectName) {
+    public ApplicationPage addName(final String projectName) {
         WebElementActions.click(folderNameTxtBox);
         WebElementActions.sendKeys(folderNameTxtBox, projectName);
         WebElementActions.enter(folderNameTxtBox);

@@ -1,6 +1,7 @@
-package clickup.ui.pages;
+package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
+import clickup.ui.pages.ApplicationPage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +22,7 @@ public class DeleteModal extends BasePage {
      *
      * @return a new ApplicationPage instance.
      */
-    public ApplicationPage confirmDelete(){
+    public ApplicationPage confirmDelete() {
         getWait().until(ExpectedConditions.visibilityOf(confirmDeleteBtn));
         getWait().until(ExpectedConditions.elementToBeClickable(confirmDeleteBtn));
         WebElementActions.click(confirmDeleteBtn);

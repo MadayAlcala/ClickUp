@@ -1,6 +1,9 @@
-package clickup.ui.pages;
+package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
+import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.CopyListModal;
+import clickup.ui.pages.ListPanelModal.DeleteModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +24,7 @@ public class ListMenuModal extends BasePage {
     @FindBy(css = "[icon='copy']")
     private WebElement copyLink;
 
-    @FindBy(xpath = "[icon='move']")
+    @FindBy(css = "[icon='move']")
     private WebElement moveLink;
 
     /**

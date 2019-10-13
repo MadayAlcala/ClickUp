@@ -40,4 +40,4 @@ Feature: List
       And the user should see the copy success message: "List copied!"
       And the user should see the new list appear in the panel successfully
       And the user should see the name of the list on the Bar title of content panel
-#      And the user should see the name of the list on content Task
+      And the user should see the name of the list on content Task

@@ -6,6 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+/**
+ * PopUpModal class.
+ *
+ * @author Maday Alcala
+ * @version 1.0
+ */
 public class PopUpModal extends BasePage {
     @FindBy(css = "div.toast__undo.ng-tns-c0-0.ng-star-inserted")
     private WebElement informationPopUp;
@@ -18,6 +24,8 @@ public class PopUpModal extends BasePage {
 
     /**
      * Closes the modal that appears after the copy of a project.
+     *
+     * @return an ApplicationPage instance.
      */
     private ApplicationPage closeModal() {
         getWait().until(ExpectedConditions.elementToBeClickable(closeButton));

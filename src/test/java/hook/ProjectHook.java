@@ -1,13 +1,10 @@
 package hook;
 
 import clickup.entities.Context;
-import clickup.entities.List;
-import clickup.entities.Project;
 import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.DeleteModal;
-import clickup.ui.pages.ListMenuModal;
+import clickup.ui.pages.ListPanelModal.DeleteModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * ProjectHook class.
@@ -47,7 +44,7 @@ public class ProjectHook {
      */
     @After(order = third, value = "@deleteAllProjects")
     public void deleteAllProjects() {
-        applicationPage= new ApplicationPage();
+        applicationPage = new ApplicationPage();
         context.getProjectMap().values().forEach(project -> {
             listMenuModal = applicationPage.getListPanel().displayProjectMenu(project.getName());
             deleteModal = listMenuModal.deleteBtn();

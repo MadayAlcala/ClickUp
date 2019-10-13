@@ -70,6 +70,7 @@ public final class LoginPage extends BasePage {
      *
      * @param email    a String containing the email associated to a given user.
      * @param password a String containing the password associated to a given user.
+     * @return an ApplicationPage instance.
      */
     public ApplicationPage authenticate(final String email, final String password) {
         getWait().until(ExpectedConditions.visibilityOf(emailField));

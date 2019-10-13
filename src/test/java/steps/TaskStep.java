@@ -13,11 +13,13 @@ package steps;
 import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
-import clickup.ui.pages.*;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
+import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.HomeModal;
+import clickup.ui.pages.NotificationsPage;
+import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import core.utils.WebElementActions;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
@@ -49,8 +51,8 @@ public class TaskStep {
      *
      * @param context A Context instance to be instantiated by pico-container library.
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     public TaskStep(final Context context) throws GeneralSecurityException, IOException, DecoderException {
         this.context = context;
@@ -134,7 +136,7 @@ public class TaskStep {
     public void userLogsOut() {
         ApplicationPage applicationPage = new ApplicationPage();
         HomeModal homeModal;
-        homeModal =applicationPage.getSideMenu().displayUserMenu();
+        homeModal = applicationPage.getSideMenu().displayUserMenu();
         homeModal.logOut();
     }
 
@@ -181,7 +183,7 @@ public class TaskStep {
      * Confirms the message thrown by application after a Task is moved.
      *
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     @Then("the user should see the task movement success message")
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
@@ -208,8 +210,8 @@ public class TaskStep {
      * Checks if there are no assignees yet.
      *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @Then("the task should not have any assignees")
     public void isTaskWithAssignee() throws GeneralSecurityException, IOException, DecoderException {
@@ -223,8 +225,8 @@ public class TaskStep {
      * Compares the actual asignee with expected asignee user name.
      *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @Then("the user should be the asignee")
     public void isUserAssignee() throws GeneralSecurityException, IOException, DecoderException {
@@ -272,7 +274,7 @@ public class TaskStep {
      * @param quantity that represent the quantity of tasks to find.
      */
     @Then("the user should see displayed {string} at the bottom of the list")
-    public void verifyTasksQuantity(final String quantity) throws InterruptedException{
+    public void verifyTasksQuantity(final String quantity) throws InterruptedException {
         Assert.assertEquals(applicationPage.getContentPanel().getTasksQuantity(), quantity.toUpperCase());
     }
 

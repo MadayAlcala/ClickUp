@@ -1,6 +1,7 @@
-package clickup.ui.pages;
+package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
+import clickup.ui.pages.PopUpModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,9 +28,9 @@ public class CopyListModal extends BasePage {
     /**
      * Changes the name of the list or folder.
      *
-     * @param copyListName
+     * @param copyListName that is the new name for the list.
      */
-    public void changeName(String copyListName) {
+    public void changeName(final String copyListName) {
         WebElementActions.click(folderNameTxtBox);
         WebElementActions.sendKeysWithDeleteText(folderNameTxtBox, copyListName);
     }
@@ -52,7 +53,7 @@ public class CopyListModal extends BasePage {
     }
 
     /**
-     * Clicks on 'Copy Everyting button'
+     * Clicks on 'Copy Everyting button'.
      */
     public void copyEverything() {
         WebElementActions.click(copyEverythingRadioBtn);

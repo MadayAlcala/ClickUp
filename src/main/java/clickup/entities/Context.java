@@ -186,7 +186,7 @@ public class Context {
      *
      * @param projectMap a userMap to be copied onto this class' instance.
      */
-    public void setProjectMap(Map<String, Project> projectMap) {
+    public void setProjectMap(final Map<String, Project> projectMap) {
         this.projectMap = projectMap;
     }
 }

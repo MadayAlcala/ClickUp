@@ -12,10 +12,9 @@ package hook;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.DeleteModal;
-import clickup.ui.pages.ListMenuModal;
+import clickup.ui.pages.ListPanelModal.DeleteModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * ListHook class.
@@ -55,7 +54,7 @@ public class ListHook {
      */
     @After(order = fourth, value = "@deleteAllLists")
     public void deleteAllList() {
-        applicationPage= new ApplicationPage();
+        applicationPage = new ApplicationPage();
         context.getListMap().values().forEach(list -> {
             listMenuModal = applicationPage.getListPanel().displayListMenu(list.getName());
             deleteModal = listMenuModal.deleteBtn();
