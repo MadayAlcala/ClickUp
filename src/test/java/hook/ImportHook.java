@@ -6,11 +6,9 @@ import cucumber.api.java.After;
 
 public class ImportHook {
 
-    @After("@logoutImport")
-    public void logoutImport(){
+    @After("@deleteImport")
+    public void deleteImport(){
         ImportPage importPage=new ImportPage();
-        importPage.logout();
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getSideMenu().logOut();
+        importPage.deleImportedTask();
     }
 }
