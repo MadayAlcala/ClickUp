@@ -301,7 +301,7 @@ public class TaskStep {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
         List<WebElement> elementsList = applicationPage.getContentPanel().collectWebElementsByTaskId(context.getTask()
                 .getId());
