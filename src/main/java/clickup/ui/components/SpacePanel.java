@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class SpacePanel extends BasePage {
     private static final int BUTTONCLICK = 7;
-    private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
+    private static final String SPACE_ELEMENT = "//a[@class='cu2-project-list-bar-item__link']//span[./text()='%s']";
 
     @FindBy(css = ".cu2-project-list-bar__add .cu2-project-list-bar__add-icon")
     private WebElement addNewButton;
@@ -75,7 +75,7 @@ public class SpacePanel extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Kanban')]")
     private WebElement kanbanButton;
 
-    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Content')]")
+    @FindBy(xpath = "//div[contains(@class,'statu//a[@class='cu2-project-list-bar-item__link']//span[./text()='Test']s-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Content')]")
     private WebElement contentButton;
 
     @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Marketing')]")
@@ -105,6 +105,9 @@ public class SpacePanel extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Remap Subtask Due Dates')]")
     private WebElement dueDatesButton;
 
+    @FindBy(xpath = "//a[@class='cu2-project-list-bar-item__link']//span[./text()='Test']")
+    private WebElement sdfasdfn;
+
     /**
      * Creates a new space.
      *
@@ -112,6 +115,7 @@ public class SpacePanel extends BasePage {
      */
     public void addNewSpace(final String nameSpace) {
         WebElementActions.click(addNewButton);
+        getWait().until(ExpectedConditions.elementToBeClickable(inputNameSpaceTextBox));
         WebElementActions.sendKeys(inputNameSpaceTextBox, nameSpace);
         getWait().until(ExpectedConditions.textToBePresentInElement(inputNameSpaceTextBox,
                 inputNameSpaceTextBox.getText()));
@@ -149,7 +153,8 @@ public class SpacePanel extends BasePage {
      * @param spaceName that is the name of the space to delete.
      */
     public void deleteSpace(final String spaceName) {
-        WebElementActions.click(getSpaceElementByName(spaceName));
+        Actions act=new Actions(getDriver());
+        act.moveToElement(getSpaceElementByName(spaceName)).click().build().perform();
         WebElementActions.click(spaceMenuBtn);
         getWait().until(ExpectedConditions.elementToBeClickable(deleteBtn));
         WebElementActions.click(deleteBtn);
@@ -203,3 +208,4 @@ public class SpacePanel extends BasePage {
 
     }
 }
+
