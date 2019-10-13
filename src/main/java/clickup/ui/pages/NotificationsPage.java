@@ -11,9 +11,11 @@
 package clickup.ui.pages;
 
 import clickup.ui.PageTransporter;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ import java.util.List;
  */
 public class NotificationsPage extends ApplicationBasePage {
     private static final String TASK_ANCHOR = "a[href='%s']";
+
+    @FindBy(css = ".cu-notifications__header")
+    private WebElement headerTitle;
 
     /**
      * Returns a webElement associated to a hyperlink.
@@ -58,6 +63,13 @@ public class NotificationsPage extends ApplicationBasePage {
      */
     public String searchTaskByIdAndGetName(final String taskId) {
         String hyperLink = PageTransporter.getBaseUrl().concat(PageTransporter.getMap().get("task").concat(taskId));
-        return Actions.getText(getAnchorElementByUrl(hyperLink));
+        return WebElementActions.getText(getAnchorElementByUrl(hyperLink));
+    }
+
+    /**
+     * Wait for the title to appear.
+     */
+    public void waitForPageLoading() {
+        getWait().until(ExpectedConditions.visibilityOf(headerTitle));
     }
 }

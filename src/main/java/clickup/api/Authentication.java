@@ -11,7 +11,6 @@
 package clickup.api;
 
 import clickup.entities.User;
-import core.utils.CredentialDeserializer;
 import core.utils.PropertyReader;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
@@ -32,24 +31,27 @@ public final class Authentication {
 
     /**
      * Private Constructor for utility class.
+     *
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      */
-    private Authentication() {
+    private Authentication(final User user) {
     }
 
     /**
      * Builds a RequestSpecifiction to be used to interact via API with ClickUpby providing a Personal API Token.
      *
-     * @param userType a String defining how priviliged a user is.
+     * @param user an instance of a User entity who is going to perform the request to the API interface
+     *            using his/her personal API token.
      * @return RequestSpecification instance with the necessary personal token and base uri.
      * @throws GeneralSecurityException .
      * @throws IOException .
      * @throws DecoderException .
      */
-    public static RequestSpecification requestSpecification(final String userType) throws GeneralSecurityException,
+    public static RequestSpecification requestSpecification(final User user) throws GeneralSecurityException,
             IOException, DecoderException {
         PropertyReader.loadFile(APP_CONFIG_FILE);
         String apiUrl = PropertyReader.retrieveField(API_URI);
-        User user = CredentialDeserializer.getInstance().getUser(userType);
         return new RequestSpecBuilder()
                 .setBaseUri(apiUrl)
                 .addHeader("Authorization", user.getPersonalToken())

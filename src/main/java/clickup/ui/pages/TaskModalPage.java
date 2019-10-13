@@ -11,7 +11,7 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -40,7 +40,7 @@ public class TaskModalPage extends BasePage {
      * @param userFullName a String containing the Full Name associated to a given user's account.
      */
     public void assignTaskToUser(final String userFullName) {
-        Actions.click(addUserDropdownButton);
+        WebElementActions.click(addUserDropdownButton);
         for (WebElement element : userSelectorLink) {
             if (element.getText().equals(userFullName)) {
                 element.click();
@@ -53,6 +53,6 @@ public class TaskModalPage extends BasePage {
      * Closes a given Task modal window.
      */
     public void close() {
-        Actions.click(taskCloseButton);
+        WebElementActions.click(taskCloseButton);
     }
 }

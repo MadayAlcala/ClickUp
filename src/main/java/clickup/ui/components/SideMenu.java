@@ -12,7 +12,7 @@ package clickup.ui.components;
 
 import clickup.ui.BasePage;
 import clickup.ui.pages.LoginPage;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,14 +37,14 @@ public class SideMenu extends BasePage {
      * Clicks on the account avatar.
      */
     private void displayUserMenu() {
-        Actions.click(spaceBarButton);
+        WebElementActions.click(spaceBarButton);
     }
 
     /**
      * Clicks on the account avatar.
      */
     private void logOutBtn() {
-        Actions.click(logOutButton);
+        WebElementActions.click(logOutButton);
     }
 
     /**
@@ -54,7 +54,7 @@ public class SideMenu extends BasePage {
      */
     public String getTitleName() {
         displayUserMenu();
-        String titleName = Actions.getText(titleNameTxt);
+        String titleName = WebElementActions.getText(titleNameTxt);
         displayUserMenu();
         return titleName;
     }
@@ -64,9 +64,16 @@ public class SideMenu extends BasePage {
      */
     public void logOut() {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
-        Actions.click(spaceBarButton);
-        Actions.click(logOutButton);
+        WebElementActions.click(spaceBarButton);
+        WebElementActions.click(logOutButton);
         LoginPage loginPage = new LoginPage();
         getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
+    }
+
+    /**
+     * Waits for the visibility of the toolbar menu button.
+     */
+    public void waitForPageLoading() {
+        getWait().until(ExpectedConditions.visibilityOf(spaceBarButton));
     }
 }

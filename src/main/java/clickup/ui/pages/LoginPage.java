@@ -11,7 +11,7 @@
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.utils.Actions;
+import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,7 +41,7 @@ public final class LoginPage extends BasePage {
      * @param email that is a valid email.
      */
     private void getEmailField(final String email) {
-        Actions.sendKeys(emailField, email);
+        WebElementActions.sendKeys(emailField, email);
     }
 
     /**
@@ -50,14 +50,14 @@ public final class LoginPage extends BasePage {
      * @param password that is a valid password.
      */
     private void getPasswordField(final String password) {
-        Actions.sendKeys(passwordField, password);
+        WebElementActions.sendKeys(passwordField, password);
     }
 
     /**
      * Clicks in the login button.
      */
     private void getLoginField() {
-        Actions.click(logInBtn);
+        WebElementActions.click(logInBtn);
     }
 
     /**

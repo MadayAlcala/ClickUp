@@ -10,9 +10,13 @@
 
 package clickup.ui.pages;
 
+import clickup.entities.List;
+import clickup.entities.Task;
 import clickup.ui.components.ContentPanel;
 import clickup.ui.components.ListPanel;
 import clickup.ui.components.SpacePanel;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * ApplicationPage class.
@@ -60,5 +64,19 @@ public class ApplicationPage extends ApplicationBasePage {
      */
     public ContentPanel getContentPanel() {
         return contentPanel;
+    }
+
+    /**
+     * Drags & Drops task from ContentPanel to ListPanel.
+     *
+     * @param task an instance of a Task entity.
+     * @param destinationList an instance of a List entity.
+     */
+    public void dragTask(final Task task, final List destinationList) {
+        WebElement from = contentPanel.getAnchorElementByTask(task);
+        WebElement to = listPanel.getListElementByName(destinationList.getName());
+        Actions actions = new Actions(getDriver());
+        actions.clickAndHold(from).moveToElement(to).release().build().perform();
+        contentPanel.waitUntilMessagePops();
     }
 }
