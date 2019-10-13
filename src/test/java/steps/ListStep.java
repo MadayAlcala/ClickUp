@@ -12,11 +12,11 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.List;
-import clickup.ui.pages.ListPanelModal.AddNewModal;
+import clickup.ui.pages.AlertModal;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.AddNewModal;
 import clickup.ui.pages.ListPanelModal.CopyListModal;
 import clickup.ui.pages.ListPanelModal.ListMenuModal;
-import clickup.ui.pages.PopUpModal;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -32,7 +32,7 @@ public class ListStep {
     private ListMenuModal listMenuModal;
     private AddNewModal addNewModal;
     private CopyListModal copyListModal;
-    private PopUpModal popUpModal;
+    private AlertModal alertModal;
     private Context context;
     private List list;
 
@@ -65,7 +65,7 @@ public class ListStep {
     /**
      * Creates new list in a space.
      *
-     * @param order to be stored in the collection within the context.
+     * @param order    to be stored in the collection within the context.
      * @param listName that is the name of the new List.
      */
     @When("the user creates a ([[first][second][third]]+) list with the following name (.*)")
@@ -134,7 +134,7 @@ public class ListStep {
         context.getListMap().put(copyList, list);
         copyListModal.clickfolderlessList();
         copyListModal.changeName(copyList);
-        popUpModal = copyListModal.confirmCopy();
+        alertModal = copyListModal.confirmCopy();
     }
 
     /**
@@ -144,9 +144,9 @@ public class ListStep {
      */
     @Then("the user should see the copy success message: {string}")
     public void successCopyMessage(final String copyMessage) {
-        popUpModal = new PopUpModal();
+        alertModal = new AlertModal();
         String expected = copyMessage;
-        String actual = popUpModal.getCopyConfirmationMessage();
+        String actual = alertModal.getCopyConfirmationMessage();
         Assert.assertEquals(expected, actual, "The message was not displayed.");
     }
 
@@ -154,7 +154,7 @@ public class ListStep {
      * Verifies the name of the list in Content Panel.
      */
     @Then("the user should see the name of the list on content Task")
-    public void verifyNameListOnContentPanel() throws InterruptedException {
+    public void verifyNameListOnContentPanel() {
         applicationPage = new ApplicationPage();
         String expected = context.getList().getName();
         String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());

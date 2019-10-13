@@ -1,7 +1,7 @@
 package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
-import clickup.ui.pages.PopUpModal;
+import clickup.ui.pages.AlertModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,9 +47,9 @@ public class CopyListModal extends BasePage {
      *
      * @return a PopUp modal with the success message.
      */
-    public PopUpModal confirmCopy() {
+    public AlertModal confirmCopy() {
         WebElementActions.click(copyFolderBtn);
-        return new PopUpModal();
+        return new AlertModal();
     }
 
     /**

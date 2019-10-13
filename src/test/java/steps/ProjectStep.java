@@ -2,12 +2,12 @@ package steps;
 
 import clickup.entities.Context;
 import clickup.entities.Project;
-import clickup.ui.pages.ListPanelModal.AddNewModal;
+import clickup.ui.pages.AlertModal;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.AddNewModal;
 import clickup.ui.pages.ListPanelModal.CopyListModal;
 import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import clickup.ui.pages.ListPanelModal.NewProjectModal;
-import clickup.ui.pages.PopUpModal;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
@@ -24,7 +24,7 @@ public class ProjectStep {
     private CopyListModal copyListModal;
     private NewProjectModal newProjectModal;
     private AddNewModal addNewModal;
-    private PopUpModal popUpModal;
+    private AlertModal alertModal;
     private Context context;
     private Project project;
 
@@ -92,6 +92,6 @@ public class ProjectStep {
         context.getProjectMap().put(copyProject, project);
         copyListModal.copyEverything();
         copyListModal.changeName(copyProject);
-        popUpModal = copyListModal.confirmCopy();
+        alertModal = copyListModal.confirmCopy();
     }
 }

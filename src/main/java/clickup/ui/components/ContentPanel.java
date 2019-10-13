@@ -22,7 +22,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.awt.*;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -44,6 +44,7 @@ public class ContentPanel extends BasePage {
     private static final String TASK_ANCHOR = "a[href='%s']";
     private static final String CARD_ELEMENT = "//div[@class='cu-panel-board__title-container'][contains(.,'%s')]";
     private static final String CONTENT_LIST_HEADER = "//cu-list-group[contains(.,'%s')]";
+    private static final int SLEEP_DURATION = 5000;
 
     @FindBy(css = "*[class *= 'list-group__add']")
     private WebElement newTaskLink;
@@ -252,12 +253,12 @@ public class ContentPanel extends BasePage {
      * Recovers the number of tasks found it in the content panel.
      *
      * @return a String with the number of tasks founded.
+     * @throws InterruptedException for the sleep.
      */
     public String getTasksQuantity() throws InterruptedException {
         getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
-        Thread.sleep(5000);
-        String tasksQty = WebElementActions.getText(taskQtyLink);
-        return tasksQty;
+        Thread.sleep(SLEEP_DURATION);
+        return WebElementActions.getText(taskQtyLink);
     }
 
     /**
@@ -274,8 +275,7 @@ public class ContentPanel extends BasePage {
      * @param listName that is the name of the list to wait.
      * @return the name of the list on content Panel.
      */
-    public String getContentListHeader(final String listName) throws InterruptedException {
-        Thread.sleep(5000);
+    public String getContentListHeader(final String listName) {
         getWait().until(ExpectedConditions.textToBePresentInElement(listNameContentPanelLabelTxt, listName));
         return listNameContentPanelLabelTxt.getText();
     }

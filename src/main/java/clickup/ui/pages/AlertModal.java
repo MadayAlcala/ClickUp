@@ -46,6 +46,9 @@ public class AlertModal extends BasePage {
     @FindBy(css = "div.toast__close-button-block")
     private WebElement closeButton;
 
+    @FindBy(css = ".toast__undo-content")
+    private WebElement copyConfirmationMessage;
+
     /**
      * Presses the 'Copy URL' hyperlink in the creation confirmation modal.
      */
@@ -98,5 +101,17 @@ public class AlertModal extends BasePage {
     public String getConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(creationConfirmationMessage));
         return creationConfirmationMessage.getText();
+    }
+
+    /**
+     * Returns the message on the pop up modal that appears after a List or folder is copied.
+     *
+     * @return a String containing the message on the pop up modal that appears after a some actions is realized.
+     */
+    public String getCopyConfirmationMessage() {
+        getWait().until(ExpectedConditions.visibilityOf(creationPopUp));
+        String result = copyConfirmationMessage.getText();
+        closeModal();
+        return result;
     }
 }

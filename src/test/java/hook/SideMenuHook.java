@@ -10,6 +10,7 @@
 
 package hook;
 
+import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
 import clickup.ui.pages.HomeModal;
 import clickup.ui.pages.LoginPage;
@@ -28,6 +29,7 @@ public class SideMenuHook {
      */
     @After(order = 1, value = "@logout")
     public void logout() {
+        PageTransporter.goToUrl("login");
         ApplicationPage applicationPage = new ApplicationPage();
         LoginPage loginPage;
         HomeModal homeModal;

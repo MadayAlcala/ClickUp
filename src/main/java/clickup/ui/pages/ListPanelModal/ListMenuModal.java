@@ -2,8 +2,6 @@ package clickup.ui.pages.ListPanelModal;
 
 import clickup.ui.BasePage;
 import clickup.ui.pages.ApplicationPage;
-import clickup.ui.pages.ListPanelModal.CopyListModal;
-import clickup.ui.pages.ListPanelModal.DeleteModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

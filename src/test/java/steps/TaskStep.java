@@ -46,10 +46,13 @@ public class TaskStep {
     private Context context;
     private ApplicationPage applicationPage;
     private TaskModalPage taskModalPage;
+    private HomeModal homeModal;
+    private LoginPage loginPage;
     private NotificationsPage notificationsPage;
     private TaskApi taskApi;
     private SpaceApi spaceApi;
     private Response response;
+    private static final int SLEEP_DURATION = 5000;
 
     /**
      * Constructor for dependency injection.
@@ -151,14 +154,12 @@ public class TaskStep {
     /**
      * Logs a user out of the application.
      *
-     * @return a new instance of LoginPage P.O.M. class.
      */
     @When("the user logs out")
     public void userLogsOut() {
         ApplicationPage applicationPage = new ApplicationPage();
-        HomeModal homeModal;
         homeModal = applicationPage.getSideMenu().displayUserMenu();
-        homeModal.logOut();
+        loginPage = homeModal.logOut();
     }
 
     /**
@@ -302,7 +303,7 @@ public class TaskStep {
     @Then("the user should not see the task listed")
     public void userShouldNotSeeTheTaskListed() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(SLEEP_DURATION);
         } catch (InterruptedException e) {
 
         }
@@ -362,6 +363,7 @@ public class TaskStep {
      * Changes the view to board view.
      *
      * @param quantity that represent the quantity of tasks to find.
+     * @throws InterruptedException for the sleep.
      */
     @Then("the user should see displayed {string} at the bottom of the list")
     public void verifyTasksQuantity(final String quantity) throws InterruptedException {
@@ -380,7 +382,7 @@ public class TaskStep {
     /**
      * Verifies if the task is in complete status.
      */
-    @Then("the user user should see the task in complete status.")
+    @Then("the user user should see the task in complete status")
     public void verifyTaskInCompleteStatus() {
         Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
     }

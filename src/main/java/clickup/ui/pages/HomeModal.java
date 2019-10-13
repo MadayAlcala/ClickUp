@@ -2,7 +2,6 @@ package clickup.ui.pages;
 
 import clickup.ui.BasePage;
 import clickup.ui.PageTransporter;
-import core.utils.Log;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -37,6 +36,8 @@ public class HomeModal extends BasePage {
 
     /**
      * Lets log out from the main page.
+     *
+     * @return a LoginPage instance.
      */
     public LoginPage logOut() {
         WebElementActions.click(logOutButton);
