@@ -14,6 +14,7 @@ import clickup.ui.BasePage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -164,9 +165,9 @@ public class SpacePanel extends BasePage {
             System.out.println("el value -> " + value);
         });
         System.out.println(inputContentSpaceSettings.get("Name"));
-        Actions.click(addNewButton);
-        Actions.sendKeys(inputNameSpaceTextBox, inputContentSpaceSettings.get("Name"));
-        getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
+//        Actions.click(addNewButton);
+//        Actions.sendKeys(inputNameSpaceTextBox, inputContentSpaceSettings.get("Name"));
+//        getWait().until(ExpectedConditions.elementToBeClickable(nextButton));
         nextButton.click();
         //color
         nextButton.click();
