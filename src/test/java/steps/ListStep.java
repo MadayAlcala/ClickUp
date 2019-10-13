@@ -30,6 +30,7 @@ public class ListStep {
     private CopyListModal copyListModal;
     private PopUpModal popUpModal;
     private Context context;
+    private List list;
 
     /**
      * Class constructor.
@@ -48,7 +49,10 @@ public class ListStep {
     @When("the user creates a new list with the following name {string}")
     public void createNewList(final String nameList) {
         applicationPage = new ApplicationPage();
-        context.getList().setName(nameList);
+        list = new List();
+        list.setName(nameList);
+        context.setList(list);
+        context.getListMap().put(nameList, list);
         addNewModal = applicationPage.getListPanel().addNewBtn();
         applicationPage = addNewModal.getListBox();
         applicationPage.getListPanel().newNameList(nameList);
@@ -110,30 +114,46 @@ public class ListStep {
     }
 
     /**
-     * Verifies the success message that appear when a copy is made.
-     *
-     * @param copyMessage is the Message to confirm.
-     */
-    @Then("the user should see the copy success message: {string}")
-    public void successCopyMessage(final String copyMessage) {
-        String expected = copyMessage;
-        String actual = popUpModal.getCopyConfirmationMessage();
-        Assert.assertEquals(expected, actual, "The message was not displayed.");
-    }
-
-    /**
      * Copies a list.
      *
      * @param copyList that represent the name for the project to copy.
      */
     @When("the user copies the list with FOLDERLESS LIST option and gives it the name {string}")
     public void copyList(final String copyList) {
+        applicationPage = new ApplicationPage();
         String actualListName = context.getList().getName();
         listMenuModal = applicationPage.getListPanel().displayListMenu(actualListName);
         copyListModal = listMenuModal.copyBtn();
-        context.getList().setName(copyList);
+        list = new List();
+        list.setName(copyList);
+        context.setList(list);
+        context.getListMap().put(copyList, list);
         copyListModal.clickfolderlessList();
         copyListModal.changeName(copyList);
-        applicationPage = copyListModal.confirmCopy();
+        popUpModal = copyListModal.confirmCopy();
+    }
+
+    /**
+     * Verifies the success message that appear when a copy is made.
+     *
+     * @param copyMessage is the Message to confirm.
+     */
+    @Then("the user should see the copy success message: {string}")
+    public void successCopyMessage(final String copyMessage) {
+        popUpModal = new PopUpModal();
+        String expected = copyMessage;
+        String actual = popUpModal.getCopyConfirmationMessage();
+        Assert.assertEquals(expected, actual, "The message was not displayed.");
+    }
+
+    /**
+     * Verifies the name of the list in Content Panel.
+     */
+    @Then("the user should see the name of the list on content Task")
+    public void verifyNameListOnContentPanel() {
+        applicationPage = new ApplicationPage();
+        String expected = context.getList().getName();
+        String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());
+        Assert.assertEquals(expected, actual);
     }
 }

@@ -33,6 +33,7 @@ public class PopUpModal extends BasePage {
     public String getCopyConfirmationMessage() {
         getWait().until(ExpectedConditions.visibilityOf(informationPopUp));
         String result = copyConfirmationMessage.getText();
+        closeModal();
         return result;
     }
 }

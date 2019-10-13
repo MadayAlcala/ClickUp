@@ -5,6 +5,12 @@ import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * ListMenuModal class.
+ *
+ * @author Maday Alcala
+ * @version 1.0
+ */
 public class ListMenuModal extends BasePage {
     @FindBy(css = "[cutooltip='Delete']")
     private WebElement deleteBtn;
@@ -18,17 +24,32 @@ public class ListMenuModal extends BasePage {
     @FindBy(xpath = "[icon='move']")
     private WebElement moveLink;
 
-    public DeleteModal deleteBtn(){
+    /**
+     * Clicks on 'delete' button.
+     *
+     * @return a DeleteModal instance.
+     */
+    public DeleteModal deleteBtn() {
         WebElementActions.click(deleteBtn);
         return new DeleteModal();
     }
 
-    public CopyListModal copyBtn(){
+    /**
+     * Clicks on 'copy' button.
+     *
+     * @return a CopyListModal instance.
+     */
+    public CopyListModal copyBtn() {
         WebElementActions.click(copyLink);
         return new CopyListModal();
     }
 
-    public ApplicationPage renameBtn(){
+    /**
+     * Clicks on 'rename' button.
+     *
+     * @return an ApplicationPage instance.
+     */
+    public ApplicationPage renameBtn() {
         WebElementActions.click(renameBtn);
         return new ApplicationPage();
     }

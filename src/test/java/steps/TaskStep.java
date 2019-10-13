@@ -13,12 +13,9 @@ package steps;
 import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
-import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import clickup.ui.pages.LoginPage;
-import clickup.ui.pages.NotificationsPage;
-import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import core.utils.WebElementActions;
 import cucumber.api.java.en.Then;
@@ -135,8 +132,10 @@ public class TaskStep {
      */
     @When("the admin user logs out")
     public void userLogsOut() {
-        applicationPage.getSideMenu().logOut();
-        new LoginPage();
+        ApplicationPage applicationPage = new ApplicationPage();
+        HomeModal homeModal;
+        homeModal =applicationPage.getSideMenu().displayUserMenu();
+        homeModal.logOut();
     }
 
     /**
@@ -273,7 +272,7 @@ public class TaskStep {
      * @param quantity that represent the quantity of tasks to find.
      */
     @Then("the user should see displayed {string} at the bottom of the list")
-    public void verifyTasksQuantity(final String quantity) {
+    public void verifyTasksQuantity(final String quantity) throws InterruptedException{
         Assert.assertEquals(applicationPage.getContentPanel().getTasksQuantity(), quantity.toUpperCase());
     }
 
@@ -291,15 +290,5 @@ public class TaskStep {
     @Then("the user user should see the task in complete status.")
     public void verifyTaskInCompleteStatus() {
         Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
-    }
-
-    /**
-     * Verifies the name of the list in Content Panel.
-     */
-    @Then("the user should see the name of the list on content Task")
-    public void verifyNameListOnContentPanel() {
-        String expected = context.getList().getName();
-        String actual = applicationPage.getContentPanel().getContentListHeader(context.getList().getName());
-        Assert.assertEquals(expected, actual);
     }
 }

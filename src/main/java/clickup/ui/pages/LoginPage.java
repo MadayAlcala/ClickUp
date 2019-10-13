@@ -13,6 +13,7 @@ package clickup.ui.pages;
 import clickup.ui.BasePage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -24,15 +25,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public final class LoginPage extends BasePage {
     @FindBy(id = "email-input")
+    @CacheLookup
     private WebElement emailField;
 
     @FindBy(css = ".log-in-button-text")
+    @CacheLookup
     private WebElement logInBtn;
 
     @FindBy(id = "password-input")
+    @CacheLookup
     private WebElement passwordField;
 
     @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title > .cu-user-settings-menu__title-name")
+    @CacheLookup
     private WebElement titleNameTxt;
 
     /**
@@ -66,11 +71,12 @@ public final class LoginPage extends BasePage {
      * @param email    a String containing the email associated to a given user.
      * @param password a String containing the password associated to a given user.
      */
-    public void authenticate(final String email, final String password) {
+    public ApplicationPage authenticate(final String email, final String password) {
         getWait().until(ExpectedConditions.visibilityOf(emailField));
         getEmailField(email);
         getPasswordField(password);
         getLoginField();
+        return new ApplicationPage();
     }
 
     /**

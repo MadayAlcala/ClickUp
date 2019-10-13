@@ -10,15 +10,13 @@
 
 package clickup.ui.components;
 
-import clickup.entities.List;
 import clickup.ui.BasePage;
 import clickup.ui.pages.AddNewModal;
 import clickup.ui.pages.ListMenuModal;
-import clickup.ui.pages.NewProjectModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,29 +33,27 @@ public class ListPanel extends BasePage {
     private static final String LIST_MENU_BTN = "//following-sibling::div[@class='nav-section__menu']";
     private static final String PROJECT_MENU_BTN = "//following-sibling::div[@class='nav-category__menu']";
     @FindBy(css = ".sidebar-section__plus-icon")
+    @CacheLookup
     private WebElement addBtn;
 
     @FindBy(css = ".lv-empty_img > img")
+    @CacheLookup
     private WebElement emptyTaskListImg;
 
     @FindBy(css = ".nav-section-maker__input")
+    @CacheLookup
     private WebElement listNameMakerTxtField;
 
     @FindBy(css = ".nav-editor__input")
+    @CacheLookup
     private WebElement listNameEditorTxtField;
 
     @FindBy(css = "div.cu-list-group__name > cu-editable.cu-editable")
+    @CacheLookup
     private WebElement listNameHeader;
-//
-//    /**
-//     * Selects the '+' symbol to displayed their options.
-//     */
-//    private void addBtn() {
-//        WebElementActions.click(addBtn);
-//    }
 
     /**
-     * Creates a new list.
+     * Selects the '+' symbol to displayed their options.
      *
      * @param listName that is the name of the new List.
      */
@@ -98,6 +94,7 @@ public class ListPanel extends BasePage {
      * @return WebElement 'displayListMenu'.
      */
     private WebElement getListMenuElementByName(final String listName) {
+        WebElementActions.click(getListElementByName(listName));
         return getDriver().findElement(By.xpath(String.format(LIST_BTN, listName).concat(LIST_MENU_BTN)));
     }
 
@@ -124,15 +121,9 @@ public class ListPanel extends BasePage {
 
     /**
      * Creates a new folder.
-     *
      */
     public AddNewModal addNewBtn() {
-//        getWait().until(ExpectedConditions.or(
-//                ExpectedConditions.visibilityOf(listNameHeader),
-//                ExpectedConditions.visibilityOf(emptyTaskListImg)
-//        ));
         WebElementActions.click(addBtn);
-//        WebElementActions.click(folderBox);
         return new AddNewModal();
     }
 
@@ -165,6 +156,7 @@ public class ListPanel extends BasePage {
      * @return WebElement 'projectName'.
      */
     private WebElement getProjectMenuElementByName(final String projectName) {
+        WebElementActions.click(getProjectElementByName(projectName));
         return getDriver().findElement(By.xpath(String.format(PROJECT_BTN, projectName).concat(PROJECT_MENU_BTN)));
     }
 

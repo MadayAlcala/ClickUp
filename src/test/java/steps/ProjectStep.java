@@ -1,6 +1,7 @@
 package steps;
 
 import clickup.entities.Context;
+import clickup.entities.Project;
 import clickup.ui.pages.*;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,7 +19,9 @@ public class ProjectStep {
     private CopyListModal copyListModal;
     private NewProjectModal newProjectModal;
     private AddNewModal addNewModal;
+    private PopUpModal popUpModal;
     private Context context;
+    private Project project;
 
     /**
      * Class constructor.
@@ -37,7 +40,10 @@ public class ProjectStep {
     @When("the user creates a new project with the following name {string}")
     public void addNewProject(final String projectName) {
         applicationPage = new ApplicationPage();
-        context.getProject().setName(projectName);
+        project = new Project();
+        project.setName(projectName);
+        context.setProject(project);
+        context.getProjectMap().put(projectName, project);
         context.getList().setName("List");
         addNewModal = applicationPage.getListPanel().addNewBtn();
         newProjectModal = addNewModal.getProjectBox();
@@ -71,11 +77,16 @@ public class ProjectStep {
      */
     @When("the user copies the project and gives it the name {string}")
     public void copyProject(final String copyProject) {
+        applicationPage = new ApplicationPage();
         String actualProjectName = context.getProject().getName();
         listMenuModal = applicationPage.getListPanel().displayProjectMenu(actualProjectName);
         copyListModal = listMenuModal.copyBtn();
-        context.getProject().setName(copyProject);
+        project = new Project();
+        project.setName(copyProject);
+        context.setProject(project);
+        context.getProjectMap().put(copyProject, project);
+        copyListModal.copyEverything();
         copyListModal.changeName(copyProject);
-        applicationPage = copyListModal.confirmCopy();
+        popUpModal = copyListModal.confirmCopy();
     }
 }

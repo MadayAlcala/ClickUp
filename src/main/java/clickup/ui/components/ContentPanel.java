@@ -263,8 +263,9 @@ public class ContentPanel extends BasePage {
      *
      * @return a String with the number of tasks founded.
      */
-    public String getTasksQuantity() {
+    public String getTasksQuantity() throws InterruptedException {
         getWait().until(ExpectedConditions.textToBePresentInElement(searchTxtField, searchTxtField.getText()));
+        Thread.sleep(5000);
         String tasksQty = WebElementActions.getText(taskQtyLink);
         return tasksQty;
     }
@@ -284,8 +285,10 @@ public class ContentPanel extends BasePage {
      * @return the name of the list on content Panel.
      */
     public String getContentListHeader(final String listName) {
-        getWait().until(ExpectedConditions.visibilityOf(contentListHeader(listName)));
+//        Thread.sleep(5000);
+        getWait().until(ExpectedConditions.textToBePresentInElement(listNameContentPanelLabelTxt, listName));
         return listNameContentPanelLabelTxt.getText();
+
     }
 
     /**
