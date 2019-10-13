@@ -10,6 +10,7 @@
 
 package steps;
 
+import clickup.api.SpaceApi;
 import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
@@ -30,6 +31,7 @@ import org.testng.Assert;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,7 @@ public class TaskStep {
     private TaskModalPage taskModalPage;
     private NotificationsPage notificationsPage;
     private TaskApi taskApi;
+    private SpaceApi spaceApi;
     private Response response;
 
     /**
@@ -99,6 +102,29 @@ public class TaskStep {
         applicationPage = new ApplicationPage();
         String listName = context.getList().getName();
         applicationPage.getContentPanel().createListTasks(tasksList, listName);
+    }
+
+    /**
+     * Creates a space inside a workplace (Team).
+     *
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
+     */
+    @Given("the user is at an existing space")
+    public void createExistingSpace() throws GeneralSecurityException, IOException, DecoderException {
+        spaceApi = new SpaceApi(context.getUser());
+        Map<String, String> content = new HashMap<>();
+        content.put("name", "Precondition Space");
+        content.put("multiple_assignees", "true");
+        spaceApi.setContent(content);
+        Response response = spaceApi.postContent(context.getUser().getTeamId());
+        String newSpaceTitle = response.jsonPath().get("name");
+        String newSpaceId = response.jsonPath().get("id");
+        context.getSpace().setTitle(newSpaceTitle);
+        context.getSpace().setId(newSpaceId);
+        ApplicationPage applicationPage = PageTransporter.goToSpacePageById(context.getUser().getTeamId(),
+                context.getSpace().getId());
     }
 
     /**
@@ -173,6 +199,10 @@ public class TaskStep {
 
     /**
      * Searches an existing id.
+
+     * @throws GeneralSecurityException .
+     * @throws IOException .
+     * @throws DecoderException .
      */
     @When("the user makes an API request for the task")
     public void userSearchesExistingTaskById() throws GeneralSecurityException, IOException, DecoderException {
@@ -181,6 +211,21 @@ public class TaskStep {
         response.prettyPrint();
     }
 
+    /**
+     * Associates a file to the Context Task.
+     *
+     * @param fileName a String containing the name of the file to be uploaded and attaches to a Task.
+     */
+    @When("the user attaches the file {string} from the computer to the new task")
+    public void userAttachesFile(final String fileName) {
+        context.getTask().setAttachmentFile(fileName);
+        taskModalPage.attachFile(fileName);
+        System.out.println("Hold on!");
+    }
+
+    /**
+     * Asserts via API if the response contains the expected assignee.
+     */
     @Then("the user should see that he is assigned to the new task")
     public void isUserAssignedToTask() {
         List<Map> assigneeList = response.jsonPath().get("assignees");
@@ -202,13 +247,14 @@ public class TaskStep {
         // .getName();
         String expected = context.getTask().getName();
         applicationPage.getContentPanel().closeModal();
+        applicationPage = new ApplicationPage();
         Assert.assertEquals(actual, expected, context.getTask().getName() + " has not been moved!");
     }
 
     /**
      * Searches for a newly created task inside a listing.
      */
-    @Then("the user should see the new task listed")
+    @Then("the user should see the new task listed in notifications")
     public void isTaskListedInNotifications() {
         notificationsPage = new NotificationsPage();
         notificationsPage.waitForPageLoading();
@@ -273,6 +319,29 @@ public class TaskStep {
         taskModalPage.close();
         Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName()
                 + "hasn't been assigned to you yet!");
+    }
+
+    /**
+     * Searches for a newly created task inside a listing.
+     */
+    @Then("the user should see the new task listed$")
+    public void isTaskListed() {
+        applicationPage = new ApplicationPage();
+        String listedTaskName = applicationPage.getContentPanel().searchTaskByIdAndGetName(context.getTask().getId());
+        //applicationPage.getContentPanel().waitForPopUpToGo();
+        Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
+                .getName() + " is not listed!");
+    }
+
+    /**
+     * Asserts if a uploaded file is listed in the attachment section of a Task Modal Page.
+     */
+    @Then("the user should see the file in the attachments section")
+    public void userSeeAttachment() {
+        String actual = taskModalPage.getAttachmentFileName();
+        String expected = context.getTask().getAttachmentFile();
+        taskModalPage.close();
+        Assert.assertEquals(actual, expected, "File upload failed!");
     }
 
     /**

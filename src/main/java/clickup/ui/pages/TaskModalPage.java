@@ -12,6 +12,7 @@ package clickup.ui.pages;
 
 import clickup.ui.BasePage;
 import core.utils.WebElementActions;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,6 +42,12 @@ public class TaskModalPage extends BasePage {
     @FindBy(css = ".cu-task-history-item:last-of-type .task-history-item__content")
     private WebElement lastHistoryEntryMessage;
 
+    @FindBy(css = "input.task-uploader__input")
+    private WebElement taskUploader;
+
+    @FindBy(css = ".attachment-tile__title-text")
+    private WebElement attachmentFileNameText;
+
     /**
      * Selects a user from a dropdown list and assigns him the Task.
      *
@@ -63,6 +70,28 @@ public class TaskModalPage extends BasePage {
     public String readLastTaskHistory() {
         getWait().until(ExpectedConditions.visibilityOf(historyScrollListContainer));
         return lastHistoryEntryMessage.getText();
+    }
+
+    /**
+     * Uploads a file to the Modal of a Task.
+     *
+     * @param filePath a String containing the absolute path of the file to be uploaded.
+     */
+    public void attachFile(final String filePath) {
+        ((JavascriptExecutor) getDriver())
+                .executeScript("arguments[0].setAttribute('style', 'visibility:visible;');", taskUploader);
+        String absoluteFilePath = System.getProperty("user.dir").concat(System.getProperty("file.separator"))
+                .concat(filePath);
+        taskUploader.sendKeys(absoluteFilePath);
+    }
+
+    /**
+     * Returns the name (from the Task modal page) of a file attached to a Task.
+     *
+     * @return a String containing the name of the attached file.
+     */
+    public String getAttachmentFileName() {
+        return attachmentFileNameText.getText().replaceAll("\n", "");
     }
 
     /**

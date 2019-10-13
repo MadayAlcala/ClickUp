@@ -19,6 +19,7 @@ package clickup.entities;
 public class Task {
     private String name;
     private String id;
+    private String attachmentFile;
 
     /**
      * Getter method.
@@ -54,5 +55,23 @@ public class Task {
      */
     public void setId(final String id) {
         this.id = id;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a String containing the name of the attached file of a Task.
+     */
+    public String getAttachmentFile() {
+        return attachmentFile;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param attachmentFile a String containing the name of a file to be attached to a Task.
+     */
+    public void setAttachmentFile(final String attachmentFile) {
+        this.attachmentFile = attachmentFile;
     }
 }

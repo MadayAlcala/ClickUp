@@ -18,6 +18,7 @@ package clickup.entities;
  */
 public class Space {
     private String title;
+    private String id;
 
     /**
      * Gets the title for space name.
@@ -35,5 +36,23 @@ public class Space {
      */
     public void setTitle(final String title) {
         this.title = title;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return the id of a Space.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param id a String containing the id of a Space, most likely a newly created one.
+     */
+    public void setId(final String id) {
+        this.id = id;
     }
 }

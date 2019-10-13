@@ -58,7 +58,6 @@ public class LoginStep {
      * Fills email and password in the login page.
      *
      * @param userType    represents the type of user, i.e. user or admin.
-     * @return a new instance of Application Page Page Object Model class.
      * @throws GeneralSecurityException .
      * @throws DecoderException .
      * @throws IOException .
