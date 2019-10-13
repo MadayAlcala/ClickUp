@@ -169,6 +169,9 @@ public class SpacePanel extends BasePage {
             System.out.println("el Key -> " + key);
             System.out.println("el value -> " + value);
         });
+
+
+
         System.out.println(inputContentSpaceSettings.get("Name"));
 //        Actions.click(addNewButton);
 //        Actions.sendKeys(inputNameSpaceTextBox, inputContentSpaceSettings.get("Name"));
