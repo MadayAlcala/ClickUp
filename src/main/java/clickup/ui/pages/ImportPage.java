@@ -61,6 +61,12 @@ public class ImportPage extends BasePage {
     @FindBy(xpath = "//*[contains(text(), 'Delete tasks')]")
     private WebElement deleteTaskButton;
 
+    @FindBy(xpath = "//*[contains(text(), 'ads')]")
+    private WebElement spaceAds;
+
+    @FindBy(xpath = "//*[contains(text(), 'pepito')]")
+    private WebElement task1;
+
     public void importTable(String fileImport) {
         getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
         spaceBarButton2.click();
@@ -105,6 +111,11 @@ public class ImportPage extends BasePage {
         deleteTaskButton.click();
         backButton.click();
     }
+
+    public boolean isCreateTask(){
+        spaceAds.click();
+        boolean asdf;
+        asdf = task1.isDisplayed();
+        return asdf;
+    }
 }
-
-
