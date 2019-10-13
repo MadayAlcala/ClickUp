@@ -115,6 +115,7 @@ public class ImportPage extends BasePage {
     public boolean isCreateTask(){
         spaceAds.click();
         boolean asdf;
+        getWait().until(ExpectedConditions.elementToBeClickable(task1));
         asdf = task1.isDisplayed();
         return asdf;
     }
