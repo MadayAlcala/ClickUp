@@ -10,8 +10,8 @@
 
 package runner;
 
-import core.utils.ReportGenerator;
 import core.selenium.WebDriverManager;
+import core.utils.ReportGenerator;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterTest;

@@ -11,7 +11,7 @@
 package clickup.ui.components;
 
 import clickup.ui.BasePage;
-import clickup.ui.pages.LoginPage;
+import clickup.ui.pages.HomeModal;
 import core.utils.WebElementActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,50 +24,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * @version 1.0
  */
 public class SideMenu extends BasePage {
-    @FindBy(css = "[class='cu-user-settings-menu__link cu-user-settings-menu__link_logout']")
-    private WebElement logOutButton;
-
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton;
 
-    @FindBy(css = ".cu-user-settings-menu__column > .cu-user-settings-menu__title .cu-user-settings-menu__title-name")
-    private WebElement titleNameTxt;
-
     /**
      * Clicks on the account avatar.
-     */
-    private void displayUserMenu() {
-        WebElementActions.click(spaceBarButton);
-    }
-
-    /**
-     * Clicks on the account avatar.
-     */
-    private void logOutBtn() {
-        WebElementActions.click(logOutButton);
-    }
-
-    /**
-     * Gets the account title name.
      *
-     * @return a String with the title name.
+     * @return a HomeModal instance.
      */
-    public String getTitleName() {
-        displayUserMenu();
-        String titleName = WebElementActions.getText(titleNameTxt);
-        displayUserMenu();
-        return titleName;
-    }
-
-    /**
-     * Lets log out from the main page.
-     */
-    public void logOut() {
-        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton));
+    public HomeModal displayUserMenu() {
+        getWait().until(ExpectedConditions.visibilityOf(spaceBarButton));
         WebElementActions.click(spaceBarButton);
-        WebElementActions.click(logOutButton);
-        LoginPage loginPage = new LoginPage();
-        getWait().until(ExpectedConditions.visibilityOf(loginPage.getEmailWebElement()));
+        return new HomeModal();
     }
 
     /**

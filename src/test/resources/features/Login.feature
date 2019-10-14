@@ -1,6 +1,6 @@
 Feature: Login
 
-  @logout
+  @logout @Maday
   Scenario: Login as registered user
     Given the user goes to login page
     When the guest fills the form with email and password

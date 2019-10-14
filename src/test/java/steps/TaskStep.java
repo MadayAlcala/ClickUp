@@ -15,6 +15,7 @@ import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.HomeModal;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
 import clickup.ui.pages.TaskModalPage;
@@ -45,18 +46,21 @@ public class TaskStep {
     private Context context;
     private ApplicationPage applicationPage;
     private TaskModalPage taskModalPage;
+    private HomeModal homeModal;
+    private LoginPage loginPage;
     private NotificationsPage notificationsPage;
     private TaskApi taskApi;
     private SpaceApi spaceApi;
     private Response response;
+    private static final int SLEEP_DURATION = 5000;
 
     /**
      * Constructor for dependency injection.
      *
      * @param context A Context instance to be instantiated by pico-container library.
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     public TaskStep(final Context context) throws GeneralSecurityException, IOException, DecoderException {
         this.context = context;
@@ -108,8 +112,8 @@ public class TaskStep {
      * Creates a space inside a workplace (Team).
      *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @Given("the user is at an existing space")
     public void createExistingSpace() throws GeneralSecurityException, IOException, DecoderException {
@@ -150,12 +154,12 @@ public class TaskStep {
     /**
      * Logs a user out of the application.
      *
-     * @return a new instance of LoginPage P.O.M. class.
      */
     @When("the user logs out")
-    public LoginPage userLogsOut() {
-        applicationPage.getSideMenu().logOut();
-        return new LoginPage();
+    public void userLogsOut() {
+        ApplicationPage applicationPage = new ApplicationPage();
+        homeModal = applicationPage.getSideMenu().displayUserMenu();
+        loginPage = homeModal.logOut();
     }
 
     /**
@@ -199,10 +203,10 @@ public class TaskStep {
 
     /**
      * Searches an existing id.
-
+     *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @When("the user makes an API request for the task")
     public void userSearchesExistingTaskById() throws GeneralSecurityException, IOException, DecoderException {
@@ -237,7 +241,7 @@ public class TaskStep {
      * Confirms the message thrown by application after a Task is moved.
      *
      * @throws UnsupportedFlavorException .
-     * @throws IOException .
+     * @throws IOException                .
      */
     @Then("the user should see the task movement success message")
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
@@ -267,8 +271,8 @@ public class TaskStep {
      * Checks if there are no assignees yet.
      *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @Then("the task should not have any assignees")
     public void isTaskWithAssignee() throws GeneralSecurityException, IOException, DecoderException {
@@ -282,8 +286,8 @@ public class TaskStep {
      * Compares the actual asignee with expected asignee user name.
      *
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @Then("the user should be the asignee")
     public void isUserAssignee() throws GeneralSecurityException, IOException, DecoderException {
@@ -299,7 +303,7 @@ public class TaskStep {
     @Then("the user should not see the task listed")
     public void userShouldNotSeeTheTaskListed() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(SLEEP_DURATION);
         } catch (InterruptedException e) {
 
         }
@@ -309,13 +313,22 @@ public class TaskStep {
     }
 
     /**
+     * Searches a task in the list view.
+     *
+     * @param key that represent the keyword for search a task.
+     */
+    @When("the user searches a task with {string} keyword")
+    public void searchTask(final String key) {
+        applicationPage.getContentPanel().searchTask(key);
+    }
+
+    /**
      * Asserts if the last message appended to the task effectively states that a task was assigned to the current user.
      */
     @Then("the user should see the message that the task was assigned to him")
     public void checkAssignationMessage() {
-        String actual = taskModalPage.readLastTaskHistory();
-        String expected = context.getUserMap().get("creator").getFullName().concat(System.getProperty("line.separator")
-                .concat("assigned to: You"));
+        String actual = taskModalPage.readLastTaskHistory().replaceAll("\n", " ");
+        String expected = context.getUserMap().get("creator").getFullName().concat(" ").concat("assigned to: You");
         taskModalPage.close();
         Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName()
                 + "hasn't been assigned to you yet!");
@@ -345,10 +358,30 @@ public class TaskStep {
     }
 
     /**
-     * Changes the view to board view.
+     * Verifies the quantity of the tasks in a list in content panel.
+     *
+     * @param quantity that represent the quantity of tasks to find.
+     * @throws InterruptedException for the sleep.
      */
-    @When("the user selects the board view")
-    public void selectBoardView() {
+    @Then("the user should see displayed {string} at the bottom of the list")
+    public void verifyTasksQuantity(final String quantity) throws InterruptedException {
+        Assert.assertEquals(applicationPage.getContentPanel().getTasksQuantity(), quantity.toUpperCase());
+    }
+
+    /**
+     * Realizes the drag and drop to complete status of a task.
+     */
+    @When("the user drags the task to Complete status")
+    public void dragTaskToCompleteStatus() {
         applicationPage.getContentPanel().setBoardView();
+        applicationPage.getContentPanel().moveTask(context.getTask().getName());
+    }
+
+    /**
+     * Verifies if the task is in complete status.
+     */
+    @Then("the user user should see the task in complete status")
+    public void verifyTaskInCompleteStatus() {
+        Assert.assertTrue(applicationPage.getContentPanel().containsTask(context.getTask().getName()));
     }
 }

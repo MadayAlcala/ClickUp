@@ -13,6 +13,7 @@ package steps;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.HomeModal;
 import clickup.ui.pages.LoginPage;
 import core.utils.CredentialDeserializer;
 import cucumber.api.java.en.Given;
@@ -57,10 +58,10 @@ public class LoginStep {
     /**
      * Fills email and password in the login page.
      *
-     * @param userType    represents the type of user, i.e. user or admin.
+     * @param userType represents the type of user, i.e. user or admin.
      * @throws GeneralSecurityException .
-     * @throws DecoderException .
-     * @throws IOException .
+     * @throws DecoderException         .
+     * @throws IOException              .
      */
     @When("the (.*) fills the form with email and password")
     public void fillInLoginForm(final String userType) throws GeneralSecurityException, DecoderException,
@@ -77,9 +78,11 @@ public class LoginStep {
      */
     @Then("Username should appear in the panel")
     public void usernameShouldAppear() {
-        applicationPage = new ApplicationPage();
-        Assert.assertEquals(applicationPage.getSideMenu().getTitleName(), context.getUser().getFullName(),
-                context.getUser().getFullName() + "was unable to log into the system!");
+        HomeModal homeModal;
+        homeModal = applicationPage.getSideMenu().displayUserMenu();
+        String actual = context.getUser().getFullName();
+        String expected = homeModal.getTitleName();
+        Assert.assertEquals(expected, actual, context.getUser().getFullName() + "was unable to log into the system!");
     }
 
     /**
@@ -87,8 +90,8 @@ public class LoginStep {
      *
      * @param userType a String containing the user type that the task is going to assigned to.
      * @throws GeneralSecurityException .
-     * @throws IOException .
-     * @throws DecoderException .
+     * @throws IOException              .
+     * @throws DecoderException         .
      */
     @When("the user logs in as (.*)")
     public void userLogsIn(final String userType) throws GeneralSecurityException, IOException, DecoderException {

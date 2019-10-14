@@ -49,11 +49,9 @@ public class SpaceStep {
 
     /**
      * Compares if name space was create.
-     *
-     * @param nameSpace type string.
      */
-    @Then("the space name with the name {string} appear in the panel successfully")
-    public void ifExistName(final String nameSpace) {
-        Assert.assertTrue(applicationPage.getSpacePanel().isFoundNameSpace(nameSpace));
+    @Then("the space name appear in the panel successfully")
+    public void ifExistName() {
+        Assert.assertTrue(applicationPage.getSpacePanel().isFoundNameSpace(context.getSpace().getTitle()));
     }
 }

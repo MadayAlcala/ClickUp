@@ -25,7 +25,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class SpacePanel extends BasePage {
     private static final int BUTTONCLICK = 7;
-    private static final String SPACE_ELEMENT = "//a[contains(.,'%s')]";
+    private static final String SPACE_ELEMENT = "//cu2-project-list-bar-item[contains(.,'%s')]";
 
     @FindBy(css = ".cu2-project-list-bar__add .cu2-project-list-bar__add-icon")
     private WebElement addNewButton;
@@ -57,7 +57,7 @@ public class SpacePanel extends BasePage {
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton;
 
-    @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
+    @FindBy(css = ".cu-dropdown__toggle .nav-menu__toggle")
     private WebElement spaceMenuBtn;
 
     /**
