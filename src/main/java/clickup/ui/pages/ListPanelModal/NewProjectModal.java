@@ -32,4 +32,3 @@ public class NewProjectModal extends BasePage {
         return new ApplicationPage();
     }
 }
-

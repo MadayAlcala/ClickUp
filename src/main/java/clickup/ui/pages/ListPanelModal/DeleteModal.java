@@ -18,7 +18,7 @@ public class DeleteModal extends BasePage {
     private WebElement confirmDeleteBtn;
 
     /**
-     * Click on 'delete' button to confirm the delete.
+     * Clicks on 'delete' button to confirm the delete.
      *
      * @return a new ApplicationPage instance.
      */
