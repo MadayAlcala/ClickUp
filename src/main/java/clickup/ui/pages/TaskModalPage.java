@@ -17,7 +17,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Task Modal Page Object Model.
@@ -47,6 +49,25 @@ public class TaskModalPage extends BasePage {
 
     @FindBy(css = ".attachment-tile__title-text")
     private WebElement attachmentFileNameText;
+
+    @FindBy(css = "div.cu-user-group.cu-user-group_due-date.due-date_view-task.ng-star-inserted svg")
+    private WebElement dateSelectorButton;
+
+    @FindBy(css = ".cu-editor-content .ql-editor.ql-blank")
+    private WebElement descriptionTextField;
+
+
+    @FindBy(css = ".cu-editor-content .ql-editor > div")
+    private WebElement filledDescriptionTextField;
+
+    @FindBy(css = ".cu-priorities-view__icon-select.cu-priorities-view__icon-select-large svg")
+    private WebElement prioritySelector;
+
+    @FindBy(css = ".priorities-list__item-name")
+    private List<WebElement> priorityOptions;
+
+    @FindBy(css = ".due-date__row.due-date_view-task.ng-star-inserted .due-date__info-value-display > span")
+    private List<WebElement> datesText;
 
     /**
      * Selects a user from a dropdown list and assigns him the Task.
@@ -102,5 +123,79 @@ public class TaskModalPage extends BasePage {
     public ApplicationPage close() {
         WebElementActions.click(taskCloseButton);
         return new ApplicationPage();
+    }
+
+    /**
+     * Transitions from a Date Modal to a Task Modal.
+     *
+     * @return a new instance of Task Modal POM.
+     */
+    public DateModalPage goToDateModalPage() {
+        WebElementActions.click(dateSelectorButton);
+        return new DateModalPage();
+    }
+
+    /**
+     * Retrieves the description field of a Task Modal Page.
+     *
+     * @return the description of the current Task Modal page.
+     */
+    public String getDescriptionField() {
+        return WebElementActions.getText(filledDescriptionTextField);
+    }
+
+    /**
+     * Fills the description field of a Task Modal Page.
+     *
+     * @param description a String containing the description for a Task.
+     */
+    public void setDescriptionField(final String description) {
+        WebElementActions.sendKeys(descriptionTextField, description);
+    }
+
+    /**
+     * Selects the priority for a Task.
+     *
+     * @param priority a String containing the priority to be set for a given Task.
+     */
+    public void setTaskPriority(final String priority) {
+        WebElementActions.click(prioritySelector);
+        for (WebElement element : priorityOptions) {
+            if (element.getText().equals(priority)) {
+                element.click();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Retrieves the current programmed start date of the task from the task page.
+     *
+     * @return the current programmed start date of the task from the task page.
+     */
+    private String getScheduledStartDate() {
+        return WebElementActions.getText(datesText.get(0));
+    }
+
+    /**
+     * Retrieves the current programmed due date of the task from the task page.
+     *
+     * @return the current programmed due date of the task from the task page.
+     */
+    private String getScheduledDueDate() {
+        return WebElementActions.getText(datesText.get(1));
+    }
+
+    /**
+     * Returns a Map containing the set of keys declared as part of the configuration to be checked against.
+     *
+     * @return a Map containing the set of keys declared as part of the configuration to be checked against.
+     */
+    public Map getCurrentTaskConfiguration() {
+        Map map = new HashMap<String, String>();
+        map.put("Description", getDescriptionField());
+        map.put("Start Date", getScheduledStartDate());
+        map.put("Due Date", getScheduledDueDate());
+        return map;
     }
 }

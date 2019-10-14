@@ -1,17 +1,23 @@
-@Alejandro
 Feature: Task
 
-  @logout @deleteSpace
+  @logout @deleteSpace @Alejandro
   Scenario: A user creates a new task
-    Given the user goes to login page
-      And the guest fills the form with email and password
-    When the user creates a new space with the following name "TestSpace"
-      And the user creates a new list with the following name "TestList"
-      And the user creates a new task with the following name "TestTask"
+    Given the user logs in as guest
+    When the user creates a new space with the following name "New Space"
+      And the user creates a new list with the following name "New List"
+      And the user creates a new task with the following name "New Task"
     Then the user should see the task creation success message
       And the user should see the new task listed
+    When the user goes to page of the new task
+      And the user fills in the following fields
+        | Description | Task Description |
+        | Priority    | Urgent           |
+        | Start Date  | Today            |
+        | Due Date    | Tomorrow         |
+      And the user goes to page of the new task
+    Then the user should see the provided information
 
-  @logout @deleteTask
+  @logout @deleteTask @Alejandro
   Scenario: A user receives notification for a task assigned to him
     Given the user logs in as admin
     When the user creates a new task with the following name "Task To Assign"
@@ -26,7 +32,7 @@ Feature: Task
     When the user makes an API request for the task
     Then the user should see that he is assigned to the new task
 
-  @logout @deleteSpace
+  @logout @deleteSpace @Alejandro
   Scenario: A user changes a task from one list to another
     Given the user logs in as guest
       And the user is at an existing space
@@ -43,7 +49,7 @@ Feature: Task
     When the user goes to the second list
     Then the user should see the new task listed
 
-  @logout @deleteTask
+  @logout @deleteTask @Alejandro
   Scenario: A user attaches a file to a task
     Given the user logs in as guest
       And the user creates a new task with the following name "Task without Attachment"

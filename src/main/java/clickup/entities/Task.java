@@ -10,6 +10,9 @@
 
 package clickup.entities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Task class.
  *
@@ -20,6 +23,10 @@ public class Task {
     private String name;
     private String id;
     private String attachmentFile;
+    private String description;
+    private String priority;
+    private String startDate;
+    private String dueDate;
 
     /**
      * Getter method.
@@ -73,5 +80,90 @@ public class Task {
      */
     public void setAttachmentFile(final String attachmentFile) {
         this.attachmentFile = attachmentFile;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a String containing the description of a Task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param description a String containing the description of a Task.
+     */
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a String containing the priority of a Task.
+     */
+    public String getPriority() {
+        return priority;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param priority a String containing the priority of a Task.
+     */
+    public void setPriority(final String priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a String containing the start date of a Task.
+     */
+    public String getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param startDate a String containing the start date of a Task.
+     */
+    public void setStartDate(final String startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return a String containing the due date of a Task.
+     */
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param dueDate a String containing the due date of a Task.
+     */
+    public void setDueDate(final String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    /**
+     * Returns a Map containing the set of keys declared as part of the configuration to be checked against.
+     *
+     * @return a Map containing the set of keys declared as part of the configuration to be checked against.
+     */
+    public Map getCurrentTaskConfiguration() {
+        Map resultMap = new HashMap<String, String>();
+        resultMap.put("Description", getDescription());
+        resultMap.put("Start Date", getStartDate());
+        resultMap.put("Due Date", getDueDate());
+        return resultMap;
     }
 }
