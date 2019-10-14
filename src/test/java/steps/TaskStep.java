@@ -323,8 +323,6 @@ public class TaskStep {
     }
 
     /**
-     * Verifies the quantity of the tasks in a list in content panel.
-     * <p>
      * Asserts if the last message appended to the task effectively states that a task was assigned to the current user.
      */
     @Then("the user should see the message that the task was assigned to him")
@@ -360,7 +358,7 @@ public class TaskStep {
     }
 
     /**
-     * Changes the view to board view.
+     * Verifies the quantity of the tasks in a list in content panel.
      *
      * @param quantity that represent the quantity of tasks to find.
      * @throws InterruptedException for the sleep.
