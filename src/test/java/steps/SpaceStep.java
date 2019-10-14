@@ -56,14 +56,4 @@ public class SpaceStep {
     public void ifExistName() {
         Assert.assertTrue(applicationPage.getSpacePanel().isFoundNameSpace(context.getSpace().getTitle()));
     }
-
-    /**
-     * Lets create a new space.
-     * @param spaceSettings variable.
-     */
-    @When("the user creates a new space")
-    public void theUserCreatesANewSpace(final Map<String, String> spaceSettings) {
-        applicationPage = new ApplicationPage();
-        applicationPage.getSpacePanel().createSpaceSetting(spaceSettings);
-    }
 }
