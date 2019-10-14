@@ -1,6 +1,5 @@
-Feature: Create new space
-
-  @logout @deleteSpace
+Feature: Space
+  @logout @deleteSpace @Jesus
   Scenario: A user creates a new space
     Given the user goes to login page
     And the guest fills the form with email and password

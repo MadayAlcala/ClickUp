@@ -16,6 +16,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.testng.Assert;
 
+import java.util.Map;
+
 /**
  * Allows to execute some steps for create a space.
  *
@@ -48,7 +50,7 @@ public class SpaceStep {
     }
 
     /**
-     * Compares if name space was create.
+     * Lets compares if name space was create.
      */
     @Then("the space name appear in the panel successfully")
     public void ifExistName() {

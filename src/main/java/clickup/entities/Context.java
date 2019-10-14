@@ -28,6 +28,7 @@ public class Context {
     private Map<String, List> listMap;
     private Map<String, User> userMap;
     private Map<String, Project> projectMap;
+    private Import anImport;
 
     /**
      * Initializes the variables.
@@ -186,7 +187,16 @@ public class Context {
      *
      * @param projectMap a userMap to be copied onto this class' instance.
      */
+
     public void setProjectMap(final Map<String, Project> projectMap) {
         this.projectMap = projectMap;
+    }
+
+    public Import getAnImport() {
+        return anImport;
+    }
+
+    public void setAnImport(Import anImport) {
+        this.anImport = anImport;
     }
 }

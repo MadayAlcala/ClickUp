@@ -14,8 +14,11 @@ import clickup.ui.BasePage;
 import core.utils.WebElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.Map;
 
 /**
  * Saves some element to the page clickUp.
@@ -25,7 +28,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class SpacePanel extends BasePage {
     private static final int BUTTONCLICK = 7;
-    private static final String SPACE_ELEMENT = "//cu2-project-list-bar-item[contains(.,'%s')]";
+    private static final String SPACE_ELEMENT = "//a[@class='cu2-project-list-bar-item__link']//span[./text()='%s']";
 
     @FindBy(css = ".cu2-project-list-bar__add .cu2-project-list-bar__add-icon")
     private WebElement addNewButton;
@@ -60,6 +63,51 @@ public class SpacePanel extends BasePage {
     @FindBy(css = ".cu-dropdown__toggle .nav-menu__toggle")
     private WebElement spaceMenuBtn;
 
+    @FindBy(xpath = "//div[contains(@class,'cu-create-project-modal__switch-privacy-title')][contains(.,'Admin Workplace')]")
+    private WebElement spaceForAdmin;
+
+    @FindBy(xpath = "//div[contains(@class,'cu-create-project-modal__switch-privacy-title')][contains(.,'Private')]")
+    private WebElement spaceForPrivate;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name active setup-step-project__preset-status-list-item-text')][contains(.,'Custom')]")
+    private WebElement customButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Kanban')]")
+    private WebElement kanbanButton;
+
+    @FindBy(xpath = "//div[contains(@class,'statu//a[@class='cu2-project-list-bar-item__link']//span[./text()='Test']s-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Content')]")
+    private WebElement contentButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Marketing')]")
+    private WebElement marketingButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Scrum')]")
+    private WebElement scrumButton;
+
+    @FindBy(xpath = "//div[contains(@class,'status-template__name setup-step-project__preset-status-list-item-text')][contains(.,'Normal')]")
+    private WebElement normalButton;
+
+
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Multiple')]")
+    private WebElement multipleButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Time Tracking')]")
+    private WebElement timeTrackingButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Priority')]")
+    private WebElement priorityButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Tags')]")
+    private WebElement tagButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Time Estimates')]")
+    private WebElement timeEstimatesButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Custom fields')]")
+    private WebElement custonFieldsButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Dependency Warning')]")
+    private WebElement dependencyWarningButton;
+    @FindBy(xpath = "//div[contains(@class,'cu-sts__addon-title')][contains(.,'Remap Subtask Due Dates')]")
+    private WebElement dueDatesButton;
+
+    @FindBy(xpath = "//a[@class='cu2-project-list-bar-item__link']//span[./text()='Test']")
+    private WebElement sdfasdfn;
+
     /**
      * Creates a new space.
      *
@@ -67,6 +115,7 @@ public class SpacePanel extends BasePage {
      */
     public void addNewSpace(final String nameSpace) {
         WebElementActions.click(addNewButton);
+        getWait().until(ExpectedConditions.elementToBeClickable(inputNameSpaceTextBox));
         WebElementActions.sendKeys(inputNameSpaceTextBox, nameSpace);
         getWait().until(ExpectedConditions.textToBePresentInElement(inputNameSpaceTextBox,
                 inputNameSpaceTextBox.getText()));
@@ -104,7 +153,8 @@ public class SpacePanel extends BasePage {
      * @param spaceName that is the name of the space to delete.
      */
     public void deleteSpace(final String spaceName) {
-        WebElementActions.click(getSpaceElementByName(spaceName));
+        Actions act=new Actions(getDriver());
+        act.moveToElement(getSpaceElementByName(spaceName)).click().build().perform();
         WebElementActions.click(spaceMenuBtn);
         getWait().until(ExpectedConditions.elementToBeClickable(deleteBtn));
         WebElementActions.click(deleteBtn);
