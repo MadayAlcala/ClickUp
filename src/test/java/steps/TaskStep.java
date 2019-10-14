@@ -15,10 +15,11 @@ import clickup.api.TaskApi;
 import clickup.entities.Context;
 import clickup.ui.PageTransporter;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.TaskModalPage;
+import clickup.ui.pages.DateModalPage;
 import clickup.ui.pages.HomeModal;
 import clickup.ui.pages.LoginPage;
 import clickup.ui.pages.NotificationsPage;
-import clickup.ui.pages.TaskModalPage;
 import core.utils.CredentialDeserializer;
 import core.utils.WebElementActions;
 import cucumber.api.java.en.Given;
@@ -46,6 +47,7 @@ public class TaskStep {
     private Context context;
     private ApplicationPage applicationPage;
     private TaskModalPage taskModalPage;
+    private DateModalPage dateModalPage;
     private HomeModal homeModal;
     private LoginPage loginPage;
     private NotificationsPage notificationsPage;
@@ -228,6 +230,25 @@ public class TaskStep {
     }
 
     /**
+     * Fills in relevant fields in Task Modal Page.
+     *
+     * @param taskData a Map containing user-specified fields.
+     */
+    @When("the user fills in the following fields")
+    public void userProvidesTaskInitialData(final Map<String, String> taskData) {
+        context.getTask().setDescription(taskData.get("Description"));
+        context.getTask().setPriority(taskData.get("Priority"));
+        context.getTask().setStartDate(taskData.get("Start Date"));
+        context.getTask().setDueDate(taskData.get("Due Date"));
+        taskModalPage.setDescriptionField(taskData.get("Description"));
+        taskModalPage.setTaskPriority(taskData.get("Priority"));
+        dateModalPage = taskModalPage.goToDateModalPage();
+        dateModalPage.pickStartDate(taskData.get("Start Date"));
+        dateModalPage.pickDueDate(taskData.get("Due Date"));
+        taskModalPage = dateModalPage.close();
+    }
+
+    /**
      * Asserts via API if the response contains the expected assignee.
      */
     @Then("the user should see that he is assigned to the new task")
@@ -331,7 +352,7 @@ public class TaskStep {
         String expected = context.getUserMap().get("creator").getFullName().concat(" ").concat("assigned to: You");
         taskModalPage.close();
         Assert.assertEquals(actual, expected, "Task \"" + context.getTask().getName()
-                + "hasn't been assigned to you yet!");
+                + "\" hasn't been assigned to you yet!");
     }
 
     /**
@@ -375,6 +396,17 @@ public class TaskStep {
     public void dragTaskToCompleteStatus() {
         applicationPage.getContentPanel().setBoardView();
         applicationPage.getContentPanel().moveTask(context.getTask().getName());
+    }
+
+    /**
+     * Assserts the information provided against what is actually set on the Task Modal Page.
+     */
+    @Then("the user should see the provided information")
+    public void verifyTaskData() {
+        Map expected = context.getTask().getCurrentTaskConfiguration();
+        Map actual = taskModalPage.getCurrentTaskConfiguration();
+        applicationPage = taskModalPage.close();
+        Assert.assertEquals(actual, expected);
     }
 
     /**
