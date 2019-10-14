@@ -11,7 +11,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class ImportPage extends BasePage {
     private Context context;
@@ -82,6 +84,18 @@ public class ImportPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(@class,'cu-btn')][contains(text(), 'Start Import')]")
     private WebElement startImportButton;
+
+    @FindBy(xpath = "//td[contains(@class,'htNoWrap')]")
+    private WebElement dataTableCellFisrt;
+
+    @FindBy(id = "final-close-include")
+    private WebElement yesDialogButton;
+
+    @FindBy(id = "intercom-frame")
+    private WebElement intercomFrame;
+
+    @FindBy(xpath = "//button[contains(@class,'button primary')][contains(text(), 'Complete')]")
+    private WebElement buttonComplete;
 
     /**
      * Constructor.
@@ -160,4 +174,63 @@ public class ImportPage extends BasePage {
         asdf = task1.isDisplayed();
         return asdf;
     }
+
+    public void manualImport(List<String> informationList){
+        getWait().until(ExpectedConditions.elementToBeClickable(spaceBarButton2));
+        spaceBarButton2.click();
+        importExportMenuButton.click();
+        csvFileButton.click();
+        importFromCsvButton.click();
+        getDriver().switchTo().frame(3);
+        //prueba manual
+        System.out.println(informationList.get(0));
+        StringSelection stringSelection = new StringSelection(informationList.get(0)+"\n"+informationList.get(1)+"\n"+informationList.get(2));
+
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+        Robot robot2 = null;
+
+        try {
+            robot2 = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+
+        robot2.delay(1000);
+        dataTableCellFisrt.click();
+
+        robot2.keyPress(KeyEvent.VK_CONTROL);
+        robot2.keyPress(KeyEvent.VK_V);
+        robot2.keyRelease(KeyEvent.VK_V);
+        robot2.keyRelease(KeyEvent.VK_CONTROL);
+        continueButton.click();
+        robot2.delay(1000);
+        buttonComplete.click();
+        yesDialogButton.click();
+
+        getDriver().switchTo().defaultContent();
+
+        selectSpaceButton.click();
+
+        robot2.delay(500);
+        getDriver().findElement(By.xpath(String.format(SPACE_MENU,context.getSpace().getTitle()))).click();
+        robot2.delay(50);
+        robot2.keyPress(KeyEvent.VK_END);
+        robot2.keyRelease(KeyEvent.VK_END);
+        robot2.delay(50);
+        continueButtonImport.click();
+        continueButtonImport2.click();
+        robot2.delay(50);
+        robot2.keyPress(KeyEvent.VK_END);
+        robot2.keyRelease(KeyEvent.VK_END);
+        robot2.delay(50);
+        startImportButton.click();
+        pastImportButton.click();
+        imputProgressButton.click();
+        isSuccessfully = imputProgressButton.isEnabled();
+        backButton.click();
+
+
+    }
+
 }
