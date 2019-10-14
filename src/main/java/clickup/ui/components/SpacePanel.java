@@ -60,7 +60,7 @@ public class SpacePanel extends BasePage {
     @FindBy(css = ".cu-avatar-container")
     private WebElement spaceBarButton;
 
-    @FindBy(css = ".sidebar-section__name > cu-project-menu > div > div")
+    @FindBy(css = ".cu-dropdown__toggle .nav-menu__toggle")
     private WebElement spaceMenuBtn;
 
     @FindBy(xpath = "//div[contains(@class,'cu-create-project-modal__switch-privacy-title')][contains(.,'Admin Workplace')]")

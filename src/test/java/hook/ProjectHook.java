@@ -2,8 +2,9 @@ package hook;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.DeleteModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * ProjectHook class.
@@ -13,6 +14,9 @@ import cucumber.api.java.Before;
  */
 public class ProjectHook {
     private Context context;
+    private ApplicationPage applicationPage;
+    private ListMenuModal listMenuModal;
+    private DeleteModal deleteModal;
     private final int third = 3;
 
     /**
@@ -29,16 +33,22 @@ public class ProjectHook {
      */
     @After(order = third, value = "@deleteProject")
     public void deleteProject() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().deleteProject(context.getProject().getName());
+        applicationPage = new ApplicationPage();
+        listMenuModal = applicationPage.getListPanel().displayProjectMenu(context.getProject().getName());
+        deleteModal = listMenuModal.deleteBtn();
+        applicationPage = deleteModal.confirmDelete();
     }
 
     /**
-     * Creates a new project.
+     * Deletes projects.
      */
-    @Before(value = "@addNewProject")
-    public void createList() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().addNewFolder("ProjectTest");
+    @After(order = third, value = "@deleteAllProjects")
+    public void deleteAllProjects() {
+        applicationPage = new ApplicationPage();
+        context.getProjectMap().values().forEach(project -> {
+            listMenuModal = applicationPage.getListPanel().displayProjectMenu(project.getName());
+            deleteModal = listMenuModal.deleteBtn();
+            applicationPage = deleteModal.confirmDelete();
+        });
     }
 }

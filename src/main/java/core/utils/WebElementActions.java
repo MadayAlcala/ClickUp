@@ -89,4 +89,16 @@ public final class WebElementActions {
         }
         return present;
     }
+
+    /**
+     * Deletes text of a text field and writes a new text.
+     *
+     * @param webElement to send the keys.
+     * @param key that is a String type that want to send as a key.
+     */
+    public static void sendKeysWithDeleteText(final WebElement webElement, final String key) {
+        webElement.click();
+        webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        webElement.sendKeys(key);
+    }
 }

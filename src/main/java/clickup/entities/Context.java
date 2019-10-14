@@ -27,7 +27,9 @@ public class Context {
     private Project project;
     private Map<String, List> listMap;
     private Map<String, User> userMap;
+    private Map<String, Project> projectMap;
     private Import anImport;
+
     /**
      * Initializes the variables.
      */
@@ -38,6 +40,7 @@ public class Context {
         this.project = new Project();
         this.listMap = new HashMap<>();
         this.userMap = new HashMap<>();
+        this.projectMap = new HashMap<>();
     }
 
     /**
@@ -169,6 +172,25 @@ public class Context {
         this.userMap = userMap;
     }
 
+    /**
+     * Getter method.
+     * Retrieves the user map that this context shares across step definitions.
+     *
+     * @return a the map containing multiple instances of the entities shared by this class.
+     */
+    public Map<String, Project> getProjectMap() {
+        return projectMap;
+    }
+
+    /**
+     * Setter method.
+     *
+     * @param projectMap a userMap to be copied onto this class' instance.
+     */
+
+    public void setProjectMap(final Map<String, Project> projectMap) {
+        this.projectMap = projectMap;
+    }
 
     public Import getAnImport() {
         return anImport;

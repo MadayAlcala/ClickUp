@@ -12,8 +12,9 @@ package hook;
 
 import clickup.entities.Context;
 import clickup.ui.pages.ApplicationPage;
+import clickup.ui.pages.ListPanelModal.DeleteModal;
+import clickup.ui.pages.ListPanelModal.ListMenuModal;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * ListHook class.
@@ -23,6 +24,9 @@ import cucumber.api.java.Before;
  */
 public class ListHook {
     private Context context;
+    private ApplicationPage applicationPage;
+    private ListMenuModal listMenuModal;
+    private DeleteModal deleteModal;
     private final int fourth = 4;
 
     /**
@@ -39,16 +43,22 @@ public class ListHook {
      */
     @After(order = fourth, value = "@deleteList")
     public void deleteList() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().deleteList(context.getList().getName());
+        applicationPage = new ApplicationPage();
+        listMenuModal = applicationPage.getListPanel().displayListMenu(context.getList().getName());
+        deleteModal = listMenuModal.deleteBtn();
+        applicationPage = deleteModal.confirmDelete();
     }
 
     /**
-     * Creates a new list.
+     * Deletes a list.
      */
-    @Before(value = "@addNewList")
-    public void createList() {
-        ApplicationPage applicationPage = new ApplicationPage();
-        applicationPage.getListPanel().addNewList("ListTest");
+    @After(order = fourth, value = "@deleteAllLists")
+    public void deleteAllList() {
+        applicationPage = new ApplicationPage();
+        context.getListMap().values().forEach(list -> {
+            listMenuModal = applicationPage.getListPanel().displayListMenu(list.getName());
+            deleteModal = listMenuModal.deleteBtn();
+            applicationPage = deleteModal.confirmDelete();
+        });
     }
 }
