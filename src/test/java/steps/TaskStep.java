@@ -173,7 +173,6 @@ public class TaskStep {
     public void userSwitchWorkplace(final String userType) {
         String ownerId = context.getUserMap().get(userType).getTeamId();
         notificationsPage = PageTransporter.goToNotificationsPage(ownerId);
-        // TODO Refactor
         notificationsPage.waitForPageLoading();
     }
 
@@ -184,8 +183,6 @@ public class TaskStep {
      */
     @When("the user moves the task to the (.*) list")
     public void dragTask(final String order) {
-        //TODO Refactor: It shouldn't rely on close()
-        //applicationPage.getContentPanel().closeModal();
         applicationPage.dragTask(context.getTask(), context.getListMap().get(order));
     }
 
@@ -268,8 +265,6 @@ public class TaskStep {
     public void getMovementModalMessage() throws UnsupportedFlavorException, IOException {
         applicationPage = new ApplicationPage();
         String actual = applicationPage.getContentPanel().getConfirmationMessage();
-        //String expected = "Moved " + context.getTask().getName() + " to " + context.getListMap().get("first")
-        // .getName();
         String expected = context.getTask().getName();
         applicationPage.getContentPanel().closeModal();
         applicationPage = new ApplicationPage();
@@ -362,7 +357,6 @@ public class TaskStep {
     public void isTaskListed() {
         applicationPage = new ApplicationPage();
         String listedTaskName = applicationPage.getContentPanel().searchTaskByIdAndGetName(context.getTask().getId());
-        //applicationPage.getContentPanel().waitForPopUpToGo();
         Assert.assertEquals(listedTaskName, context.getTask().getName(), context.getTask()
                 .getName() + " is not listed!");
     }
