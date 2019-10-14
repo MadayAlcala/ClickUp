@@ -6,7 +6,6 @@ Feature: Import
     And the user creates a new space with the following name "Test"
     When the user imports CSV file "csvtest.csv"
     Then the import should show that it was done successfully
-    And the task import should be created in a space list
 
   @logout @deleteImport @deleteSpace @Jesus @Acceptance
   Scenario: Import file CSV manually
@@ -18,7 +17,6 @@ Feature: Import
       |TestTask2	This a description2	userclickup@gmail.com	Open	List1		Low   |
       |TestTask3	This a description3	admiclickup@gmail.com	Closed	List1		Urgent|
     Then the import should show that it was done successfully
-    And the task import should be created in a space list
 
   @logout @Jesus @Negative
   Scenario: Import file CSV manually export with out data

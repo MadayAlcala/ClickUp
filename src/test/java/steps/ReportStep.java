@@ -29,6 +29,6 @@ public class ReportStep {
     public void theTaskShouldBeDisplayedAsCompleted() {
         ReportingPage reportingPage = new ReportingPage();
         reportingPage.verifyTaskDone();
-        Assert.assertEquals(reportingPage.isDoneTaskAdmin() & reportingPage.isDoneTaskUserTest(), true);
+        Assert.assertEquals( reportingPage.isDoneTaskUserTest(), true);
     }
 }
