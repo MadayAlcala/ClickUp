@@ -1,7 +1,16 @@
+/*
+ * Copyright (c) 2019 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jalasoft.
+ */
+
 package clickup.ui.pages;
 
 import clickup.ui.BasePage;
-import core.utils.Log;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -9,6 +18,12 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
+/**
+ * Import modal.
+ *
+ * @author Jesus Menacho
+ * @version 1.0
+ */
 public class ImportModalPage extends BasePage {
     @FindBy(css = ".icon-upload")
     private WebElement uploadButton;
@@ -22,6 +37,15 @@ public class ImportModalPage extends BasePage {
     @FindBy(id = "final-close-include")
     private WebElement yesDialogButton;
 
+    @FindBy(xpath = "//button[contains(@class,'button primary')][contains(text(), 'Complete')]")
+    private WebElement buttonComplete;
+
+    /**
+     * Lets upload a file.
+     *
+     * @param fileImport variable.
+     * @throws AWTException control the exception.
+     */
     public void uploadFile(String fileImport) throws AWTException {
         uploadButton.click();
         StringSelection stringSelection = new StringSelection(fileImport);
@@ -35,7 +59,7 @@ public class ImportModalPage extends BasePage {
         robot.keyRelease(KeyEvent.VK_ENTER);
         yesButton.click();
         continueButton.click();
-        continueButton.click();
+        buttonComplete.click();
         yesDialogButton.click();
     }
 }

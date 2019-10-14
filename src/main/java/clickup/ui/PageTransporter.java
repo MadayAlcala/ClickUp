@@ -37,6 +37,7 @@ public final class PageTransporter {
         map.put("space", "https://app.clickup.com/3004860/v/l/s/3007916");
         map.put("task", "t/");
         map.put("notifications", "notifications");
+        map.put("reporting", "3004860/reporting");
     }
 
     /**
@@ -89,7 +90,7 @@ public final class PageTransporter {
     /**
      * Visits the Page of an existing Space within that belongs to a owner.
      *
-     * @param teamId a String containing the id of a given team (workplace).
+     * @param teamId  a String containing the id of a given team (workplace).
      * @param spaceId a String containing the id of the space located at the
      *                workplace that belongs to user identified by it id.
      * @return an instance of NotificationsPage Page Object Model Class.
