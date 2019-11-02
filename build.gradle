@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'AT-10 GUI Automation'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.5'
+    implementation 'io.rest-assured:rest-assured:4.0.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    compile("io.github.bonigarcia:webdrivermanager:3.6.2")
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '4.2.0'
+    compile group: 'io.cucumber', name: 'cucumber-testng', version: '4.2.0'
+    compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.2.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '4.6.0'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.26'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+    compile group: 'commons-io', name: 'commons-io', version: '2.0.1'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+    implementation 'io.rest-assured:rest-assured:4.0.0'
+}
+
+// Cucumber Configuration Task.
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--plugin', 'html:target/cucumber', '--plugin', 'json:target/cucumber.json', '--glue', 'steps', 'src/test/resources']
+        }
+    }
+}
+
+checkstyle {
+    toolVersion = '8.1'
+}
+
+test {
+    useTestNG()
+    systemProperty "BROWSER", BROWSER
+}
